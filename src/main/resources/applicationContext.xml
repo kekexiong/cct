@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context 
+     	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+     	http://www.springframework.org/schema/util
+     	http://www.springframework.org/schema/util/spring-util-4.0.xsd
+     	http://www.springframework.org/schema/task
+     	http://www.springframework.org/schema/task/spring-task-4.0.xsd
+        http://www.springframework.org/schema/aop
+	 	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	 	http://www.springframework.org/schema/tx
+	 	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<util:properties id="propertiesReader" location="classpath:config.properties" />
+
+	<context:property-placeholder location="classpath*:config.properties" />
+	<context:component-scan base-package="com.zqg.cct" />
+	<context:annotation-config />
+	<!-- 写库 -->
+	<bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="${jdbc.initialSize}" />
+		<property name="maxActive" value="${jdbc.maxActive}" />
+		<property name="maxWait" value="${jdbc.maxWait}" />
+		<property name="validationQuery" value="${jdbc.validationQuery}" />
+	</bean>
+    <!-- 基本配置 begin -->
+	<util:properties id="trsProps" location="classpath*:config.properties" />
+	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSourceSpied" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="SINGLE_LINE" />
+				<property name="sqlPrefix" value="SQL::" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath*:mapper/*Mapper.xml" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.zqg.cct.mapper" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="send*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="advisePointcut"
+			expression="execution(* com.zqg.cct.service..*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="advisePointcut" />
+	</aop:config>
+
+	<!-- <import resource="spring-mybatis.xml" /> -->
+</beans>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE mapper 
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zqg.cct.mapper.TableMapper">
+	<select id="getTableItem"  resultType="com.zqg.cct.domain.TableItem">
+		select t1.COLUMN_ID as "columnId",
+		       t1.COLUMN_NAME    as "columnName",
+		       t1.DATA_TYPE      as "dataType",
+		       t2.COMMENTS       as "comments",
+		       t1.DATA_LENGTH    as "dataLength",
+		       t1.NULLABLE       as "nullable",
+		       t1.DATA_PRECISION as "dataPrecision",
+		       t1.DATA_SCALE     as "dataScale"
+		  from all_tab_columns t1, user_col_comments t2
+		 where t1.table_name = 'T_SES_ERROR_LOG'
+		   and t2.TABLE_NAME = 'T_SES_ERROR_LOG'
+		   and t1.COLUMN_NAME = t2.COLUMN_NAME
+		 order by t1.COLUMN_ID asc
+	</select>
+</mapper>
