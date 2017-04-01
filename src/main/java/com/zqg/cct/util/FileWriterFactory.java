@@ -92,9 +92,20 @@ public class FileWriterFactory {
 			packageName = packageName.replace(".", "/");
 			//String url = FileWriterFactory.class.getResource("/").getPath() +"/" + packageName + "/" + fileName;
 			String url = table.getBasePath()+"/src/main/java/"  + packageName + "/" + fileName;
+			//文件夹路径 add by wenjifeng 20170401
+			String urlPag = table.getBasePath()+"/src/main/java/"  + packageName;
 			if(MAPPER_XML==type){
 				url= table.getBasePath()+"/src/main/resources/"  + packageName + "/" + fileName;
+				//文件夹路径 add by wenjifeng 20170401
+				urlPag = table.getBasePath()+"/src/main/resources/"  + packageName;
 			}
+			
+			//自动创建文件夹 add by wenjifeng 20170401
+			File filePag = new File(urlPag);
+			if(!filePag.exists()){
+				filePag.mkdirs();//创建文件夹
+			}
+			
 			File file = new File(url);
 			// 文件存在删除
 			if(file.exists()){
