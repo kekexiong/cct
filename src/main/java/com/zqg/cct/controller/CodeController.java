@@ -74,6 +74,12 @@ public class CodeController {
 			@RequestParam(value = "className", required = false,  defaultValue = "") String className,
 			@RequestParam(value = "tableName", required = false,  defaultValue = "") String tableName,
 			@RequestParam(value = "tableComments", required = false,  defaultValue = "") String tableComments,
+			@RequestParam(value = "dbUser", required = false,  defaultValue = "") String dbUser,
+			@RequestParam(value = "classAuthor", required = false,  defaultValue = "") String classAuthor,
+			@RequestParam(value = "isQuery", required = false,  defaultValue = "") String isQuery,
+			@RequestParam(value = "isAdd", required = false,  defaultValue = "") String isAdd,
+			@RequestParam(value = "isDetele", required = false,  defaultValue = "") String isDetele,
+			@RequestParam(value = "isUpdate", required = false,  defaultValue = "") String isUpdate,
 			HttpServletRequest request, HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
@@ -81,21 +87,24 @@ public class CodeController {
 		String listString =request.getParameter("list");
 		List<TableItem> list=JSON.parseArray(listString, TableItem.class);
 		TableDomain table = new TableDomain();
-		table.setTableName("t_ses_error_log");
+		table.setTableName(tableName);
 		table.setDomainPackage("com.zqg.cct.domain");
 		table.setMapperPackage("com.zqg.cct.mapper");
 		table.setServicePackage("com.zqg.cct.service");
 		table.setControllerPackage("com.zqg.cct.controller");
 		table.setJspPackage("com.zqg.cct.controller");
 		table.setMapperXmlPackage("mapper");
-		table.setDbUser("SES");
+		table.setDbUser(dbUser);
 		table.setBasePath("D:/workspaceZD/cct");
-		table.setClassAuthor("zhao_qg");
-		table.setBusinessName("TN付款规则");
+		table.setClassAuthor(classAuthor);
+		table.setBusinessName(serviceName);
 		table.setClassTime(StrUtil.stringDateTime(new Date()));
-		table.setReviewAuthor("zhao_qg");
+		table.setReviewAuthor(classAuthor);
 		table.setReviewDate(StrUtil.stringDate(new Date()));
-		table.setIsUpdate("true");
+		table.setIsUpdate(isUpdate);
+		table.setIsAdd(isAdd);
+		table.setIsDetele(isDetele);
+		table.setIsQuery(isQuery);
 		tableService.process(list, table);
 		return JSON.toJSONString(tableService.getTableItem(null));
 	}

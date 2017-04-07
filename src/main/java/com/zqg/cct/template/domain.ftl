@@ -14,9 +14,16 @@ import org.apache.commons.lang.builder.ToStringStyle;
 public class ${classNameD} {
 	<#list tableCarrays as tableCarray>
 	/**
-	 * ${tableCarray.comments}
+	 * <#if tableCarray.comments??>${tableCarray.comments}</#if>
 	 */
-	public ${tableCarray.dataType} ${tableCarray.columnNameX};
+	<#if (tableCarray.queryType)?? && tableCarray.queryType == "01" && tableCarray.queryRule == "02">
+		public ${tableCarray.dataType} ${tableCarray.columnNameX}beginDt;
+		public ${tableCarray.dataType} ${tableCarray.columnNameX}endDt;
+		public ${tableCarray.dataType} ${tableCarray.columnNameX};
+		<#else>
+		public ${tableCarray.dataType} ${tableCarray.columnNameX};
+	</#if>
+	
 	</#list>
 	
 	public ${classNameD}() {
@@ -25,17 +32,43 @@ public class ${classNameD} {
 	
 	<#list tableCarrays as tableCarray>
 	/**
-	 * get ${tableCarray.comments}
+	 * get <#if tableCarray.comments??>${tableCarray.comments}</#if>
 	 */
-	public ${tableCarray.dataType} get${tableCarray.columnNameD}() {
-		return ${tableCarray.columnNameX};
-	}
+	<#if (tableCarray.queryType)?? && tableCarray.queryType == "01" && tableCarray.queryRule == "02">
+		public ${tableCarray.dataType} get${tableCarray.columnNameD}beginDt() {
+			return ${tableCarray.columnNameX}beginDt;
+		}
+		public ${tableCarray.dataType} get${tableCarray.columnNameD}endDt() {
+			return ${tableCarray.columnNameX}endDt;
+		}
+		public ${tableCarray.dataType} get${tableCarray.columnNameD}() {
+			return ${tableCarray.columnNameX};
+		}
+	<#else>
+		public ${tableCarray.dataType} get${tableCarray.columnNameD}() {
+			return ${tableCarray.columnNameX};
+		}
+	</#if>
+	
 	/**
-	 * set ${tableCarray.comments}
+	 * set <#if tableCarray.comments??>${tableCarray.comments}</#if>
 	 */
-	public void set${tableCarray.columnNameD}(${tableCarray.dataType} ${tableCarray.columnNameX}) {
-		this.${tableCarray.columnNameX} = ${tableCarray.columnNameX};
-	} 
+	<#if (tableCarray.queryType)?? && tableCarray.queryType == "01" && tableCarray.queryRule == "02">
+		public void set${tableCarray.columnNameD}(${tableCarray.dataType} ${tableCarray.columnNameX}) {
+			this.${tableCarray.columnNameX} = ${tableCarray.columnNameX};
+		}
+		public void set${tableCarray.columnNameD}beginDt(${tableCarray.dataType} ${tableCarray.columnNameX}beginDt) {
+			this.${tableCarray.columnNameX}beginDt = ${tableCarray.columnNameX}beginDt;
+		}
+		public void set${tableCarray.columnNameD}endDt(${tableCarray.dataType} ${tableCarray.columnNameX}endDt) {
+			this.${tableCarray.columnNameX}endDt = ${tableCarray.columnNameX}endDt;
+		}
+	<#else>
+		public void set${tableCarray.columnNameD}(${tableCarray.dataType} ${tableCarray.columnNameX}) {
+			this.${tableCarray.columnNameX} = ${tableCarray.columnNameX};
+		}
+	</#if>
+	 
 	</#list>
 	@Override
 	public String toString() {

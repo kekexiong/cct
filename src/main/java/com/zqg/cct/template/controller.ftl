@@ -20,13 +20,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @review ${reviewAuthor}/${reviewDate}
  */
 @Controller
-@RequestMapping("/code")
+@RequestMapping("/${dbUser}/${classNameD}")
 public class ${classNameD}Controller extends BaseController {
 
 	@Autowired
 	private ${classNameD}Service ${classNameX}Service;
 	static final Logger LOGGER = LoggerFactory.getLogger(${classNameD}Controller.class);
 	
+	<#if isQuery == "true">
 	/**
 	 * @description: 信息查询
 	 * @param session
@@ -37,18 +38,18 @@ public class ${classNameD}Controller extends BaseController {
 	 * @author ${classAuthor}
 	 * @data ${classTime}
 	 */
-	@RequestMapping(value ="/index", method = RequestMethod.POST)
+	@RequestMapping(value ="/${classNameD}query", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> queryCondition(HttpSession session,
-			@RequestParam(value = "start", defaultValue = "20") int start,
-			@RequestParam(value = "limit", defaultValue = "0") int limit,
-			@ModelAttribute ${classNameD} paramVo) {
+			@RequestParam(value = "start", defaultValue = ConstantsBase.START) int start,
+			@RequestParam(value = "limit", defaultValue = ConstantsBase.LIMIT) int limit,
+			@ModelAttribute ${classNameD} ${classNameX}) {
 		String tcd = "${classNameD}Controller.queryCondition";
-		String opNm = "商户D+1结算费率-查询";
+		String opNm = "${businessName}-查询";
 			try {
 				LOGGER.info(tcd, "", opNm + "--begin");
 				Map<String, Object> map = setParams(start, limit);
-				map.put("paramVo", paramVo);
+				map.put("${classNameX}", ${classNameX});
 				session.setAttribute("queryMecTOneAcRateParam", map);
 				List<${classNameD}> list = ${classNameX}Service.findByCondition(map);
 				int count = ${classNameX}Service.findByConditionCount(map);
@@ -56,21 +57,22 @@ public class ${classNameD}Controller extends BaseController {
 				return setResult(list, count);
 			} catch (Exception e) {
 				LOGGER.error(tcd, "", opNm + "--End,异常:", e);
-				return super.setFailure("查询失败");
+				return setFailure("查询失败");
 			}
 	}
-	
+	</#if>
+	<#if isQuery == "true">
 	/**
 	 * 根据主键取得详细
 	 * @param session
 	 * @param paramVo
 	 * @return
 	 */
-	@RequestMapping(value = "/getDetail/{uuid}", method = RequestMethod.POST)
+	@RequestMapping(value = "/${classNameD}getDetail/{uuid}", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> getByKey(HttpSession session, @ModelAttribute ${classNameD} paramVo) {
 		String tcd = "${classNameD}Controller.queryCondition";
-		String opNm = "商户D+1结算费率-详细";
+		String opNm = "${businessName}-详细";
 			try {
 				LOGGER.info(tcd, "", opNm + "--begin");
 				${classNameD} detail= ${classNameX}Service.getByKey(paramVo.getUuid());
@@ -81,24 +83,24 @@ public class ${classNameD}Controller extends BaseController {
 				return super.setFailure("查询失败");
 			}
 	}
+	</#if>
 	
-	
+	<#if isAdd == "true">
 	/**
 	 * 保存
 	 * @param paramVo
 	 * @return
 	 */
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	@RequestMapping(value = "/${classNameD}save", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> save( @ModelAttribute ${classNameD} paramVo) {
+	public Map<String, Object> save( @ModelAttribute ${classNameD} ${classNameX}) {
 		String tcd = "${classNameD}Controller.save";
-		String opNm = "商户D+1结算费率-保存";
+		String opNm = "${businessName}-保存";
 		try{
 			LOGGER.info(tcd, "", opNm + "--begin");
-			${classNameX}Service.insert(paramVo);
-			int num = ${classNameX}Service.insert(paramVo);
+			int num = ${classNameX}Service.insert(${classNameX});
 			if(num>0){
-				return super.setFailure("保存成功!");
+				return super.setSuccess("保存成功!");
 			}
 			LOGGER.info(tcd, "", opNm + "--end");
 			return super.setFailure("保存成功0条!");
@@ -108,18 +110,19 @@ public class ${classNameD}Controller extends BaseController {
 			return super.setFailure("保存失败!");
 		}
 	}
+	</#if>
 	
-	<#if isUpdate=="false">
+	<#if isUpdate=="true">
 	/**
 	 * 更新
 	 * @param paramVo
 	 * @return
 	 */
-	@RequestMapping(value = "/udpate", method = RequestMethod.POST)
+	@RequestMapping(value = "/${classNameD}udpate", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> udpate( @ModelAttribute ${classNameD} paramVo) {
 		String tcd = "${classNameD}Controller.save";
-		String opNm = "商户D+1结算费率-更新";
+		String opNm = "${businessName}-更新";
 		try{
 			LOGGER.info(tcd, "", opNm + "--begin");
 			${classNameX}Service.insert(paramVo);
@@ -137,21 +140,27 @@ public class ${classNameD}Controller extends BaseController {
 	}
 </#if>
 	
+<#if isDetele=="true">
 /**
 	 * 根据主键删除
 	 * @param session
 	 * @param paramVo
 	 * @return
 	 */
-	@RequestMapping(value = "/deleteByUuid", method = RequestMethod.POST)
+	@RequestMapping(value = "/${classNameD}deleteByUuid", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> deleteByUuid(HttpSession session, @ModelAttribute ${classNameD} paramVo) {
+	public Map<String, Object> deleteByUuid(HttpSession session, @RequestParam(value = "uuids") String uuids) {
 		String tcd = "${classNameD}Controller.deleteByUuid";
-		String opNm = "商户D+1结算费率-删除";
+		String opNm = "${businessName}-删除";
+		if(uuids==null|| "".equals(uuids)){
+			return super.setFailure("错误：付款单号参数为空");
+		}
+		// 参数map
+		Map<String, Object> paramsMap = new HashMap<String, Object>();
+		paramsMap.put("uuids", uuids.split(","));//付款单号数组
 		try{
 			LOGGER.info(tcd, "", opNm + "--begin");
-			${classNameX}Service.insert(paramVo);
-			int num = ${classNameX}Service.delete(paramVo.getUuid());
+			int num = ${classNameX}Service.delete(paramsMap);
 			if(num>0){
 				return super.setFailure("删除成功!");
 			}
@@ -163,4 +172,6 @@ public class ${classNameD}Controller extends BaseController {
 			return super.setFailure("删除失败!");
 		}
 	}
+	</#if>
+	
 }

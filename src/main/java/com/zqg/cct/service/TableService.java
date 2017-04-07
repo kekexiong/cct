@@ -55,6 +55,9 @@ public class TableService {
 		if("VARCHAR2".equals(item.getDataType())){
 			item.setDataType("String");
 		}
+		if("CHAR".equals(item.getDataType())){
+			item.setDataType("String");
+		}
 		if("NUMBER".equals(item.getDataType()) && "2".equals(item.getDataScale())){
 			item.setDataType("BigDecimal");
 			existImprot(table.getDomainImportPackageList(), bigDecimalImprot);

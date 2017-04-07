@@ -10,6 +10,7 @@ import ${mapperPackage}.${classNameD}Mapper;
  * @date   ${classTime}
  */
 public interface ${classNameD}Mapper {
+	<#if isQuery == "true">
 	/**
 	 * 根据条件查询
 	 * @author ${classAuthor}
@@ -18,6 +19,8 @@ public interface ${classNameD}Mapper {
 	 * @return
 	 */
 	public List<${classNameD}> findByCondition(Map<String,Object> map);
+	</#if>
+	<#if isQuery == "true">
 	/**
 	 * 根据条件查询总数
 	 * @author ${classAuthor}
@@ -26,7 +29,8 @@ public interface ${classNameD}Mapper {
 	 * @return
 	 */
 	public int findByConditionCount(Map<String,Object> map);
-	
+	</#if>
+	<#if isQuery == "true">
 	/**
 	 * 根据主键查询详细
 	 * @author ${classAuthor}
@@ -35,7 +39,9 @@ public interface ${classNameD}Mapper {
 	 * @return
 	 */
 	public ${classNameD} getByKey(String uuid); 
+	</#if>
 	
+	<#if isUpdate=="true">
 	/**
 	 * 更新
 	 * @author ${classAuthor}
@@ -44,7 +50,9 @@ public interface ${classNameD}Mapper {
 	 * @return
 	 */
 	public int update(${classNameD} ${classNameX});
+	</#if>
 	
+	<#if isAdd == "true">
 	/**
 	 * 插入
 	 * @author ${classAuthor}
@@ -52,7 +60,9 @@ public interface ${classNameD}Mapper {
 	 * @param tSesErrorLog
 	 * @return
 	 */	public int insert(${classNameD} ${classNameX});
+	 </#if>
 	 
+	 <#if isDetele=="true">
 	/**
 	 * 根据主键删除
 	 * @author ${classAuthor}
@@ -60,5 +70,6 @@ public interface ${classNameD}Mapper {
 	 * @param uuid
 	 * @return
 	 */
-	public int delete(String uuid);
+	public int delete(Map<String,Object> map);
+	</#if>
 }

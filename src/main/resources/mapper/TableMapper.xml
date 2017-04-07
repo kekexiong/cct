@@ -13,8 +13,8 @@
 		       t1.DATA_PRECISION as "dataPrecision",
 		       t1.DATA_SCALE     as "dataScale"
 		  from all_tab_columns t1, user_col_comments t2
-		 where t1.table_name = 'T_SES_ERROR_LOG'
-		   and t2.TABLE_NAME = 'T_SES_ERROR_LOG'
+		 where t1.table_name = 'T_SES_PAY_REF_BAT_TMP'
+		   and t2.TABLE_NAME = 'T_SES_PAY_REF_BAT_TMP'
 		   and t1.COLUMN_NAME = t2.COLUMN_NAME
 		 order by t1.COLUMN_ID asc
 	</select>

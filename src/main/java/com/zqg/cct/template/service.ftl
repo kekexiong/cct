@@ -15,7 +15,7 @@ import ${mapperPackage}.${classNameD}Mapper;
 public class ${classNameD}Service {
 	@Autowired
 	private ${classNameD}Mapper ${classNameX}Mapper;
-
+	<#if isQuery == "true">
 	/**
 	 * 根据条件查询
 	 * @author ${classAuthor}
@@ -26,7 +26,8 @@ public class ${classNameD}Service {
 	public List<${classNameD}> findByCondition(Map<String,Object> map) {
 		return  ${classNameX}Mapper.findByCondition(map);
 	}
-	
+	</#if>
+	<#if isQuery == "true">
 	/**
 	 * 根据条件查询总数
 	 * @author ${classAuthor}
@@ -37,7 +38,8 @@ public class ${classNameD}Service {
 	public int findByConditionCount(Map<String,Object> map) {
 		return  ${classNameX}Mapper.findByConditionCount(map);
 	}
-	
+	</#if>
+	<#if isQuery == "true">
 	/**
 	 * 根据主键查询详细
 	 * @author ${classAuthor}
@@ -48,7 +50,9 @@ public class ${classNameD}Service {
 	public ${classNameD} getByKey(String uuid) {
 		return  ${classNameX}Mapper.getByKey(uuid);
 	}
+	</#if>
 	
+	<#if isUpdate=="true">
 	/**
 	 * 更新
 	 * @author ${classAuthor}
@@ -59,7 +63,8 @@ public class ${classNameD}Service {
 	public int update(${classNameD} ${classNameX}) {
 		return  ${classNameX}Mapper.update(${classNameX});
 	}
-	
+	</#if>
+	<#if isAdd == "true">
 	/**
 	 * 插入
 	 * @author ${classAuthor}
@@ -70,7 +75,8 @@ public class ${classNameD}Service {
 	public int insert(${classNameD} ${classNameX}) {
 		return  ${classNameX}Mapper.insert(${classNameX});
 	}
-	
+	</#if>
+	<#if isDetele=="true">
 	/**
 	 * 根据主键删除
 	 * @author ${classAuthor}
@@ -78,8 +84,8 @@ public class ${classNameD}Service {
 	 * @param uuid
 	 * @return
 	 */
-	public int delete(String uuid) {
-		return  ${classNameX}Mapper.delete(uuid);
+	public int delete(Map<String,Object> map) {
+		return  ${classNameX}Mapper.delete(map);
 	}
-	
+	</#if>
 }

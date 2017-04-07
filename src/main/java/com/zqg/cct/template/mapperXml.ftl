@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="${mapperPackage}.${classNameD}Mapper">
-	<resultMap id="BaseResultMap" type="${domainPackage}.${classNameD}" >
+	<resultMap id="${classNameX}tMap" type="${domainPackage}.${classNameD}" >
 	 <id column="UUID" property="uuid" jdbcType="VARCHAR" />
 	 <#list tableCarrays as tableCarray>
 	 <result column="${tableCarray.columnName}" property="${tableCarray.columnNameX}"/>
@@ -10,45 +10,61 @@
 	</resultMap>
 	
 	<sql id="whereQueryCondition">
+	<where>
 		<#list tableCarrays as tableCarray>
-			<if test="${tableCarray.columnNameX}!= null and ${tableCarray.columnNameX}!= ''">
-				${tableCarray.columnName}=${specific}{${tableCarray.columnNameX}}
-			</if>
+			<#if (tableCarray.queryType)?? && tableCarray.queryType == "01" && tableCarray.queryRule != "02">
+				<if test="${classNameX}.${tableCarray.columnNameX}!= null and ${classNameX}.${tableCarray.columnNameX}!= ''">
+					and ${tableCarray.columnName}=${specific}{${classNameX}.${tableCarray.columnNameX}}
+				</if>
+			</#if>
+			<#if (tableCarray.queryType)?? && tableCarray.queryType == "01" && tableCarray.queryRule == "02">
+				<if test="${classNameX}.${tableCarray.columnNameX}beginDt!= null and ${classNameX}.${tableCarray.columnNameX}beginDt!= ''">
+					and ${tableCarray.columnName}&gt;=${specific}{${classNameX}.${tableCarray.columnNameX}beginDt}
+				</if>
+				<if test="${classNameX}.${tableCarray.columnNameX}endDt!= null and ${classNameX}.${tableCarray.columnNameX}endDt!= ''">
+					and ${tableCarray.columnName}&lt;=${specific}{${classNameX}.${tableCarray.columnNameX}endDt}
+				</if>
+			</#if>
 		</#list>
+		</where>
 	</sql>
-	
-	<select id="findByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+	<#if isQuery == "true">
+	<select id="findByCondition" parameterType="java.util.Map" resultMap="${classNameX}tMap">
 		${stringCarrayNames7}
 		SELECT
 			${stringCarrayNames3}
 		FROM ${dbUser}.${tableName}
-		WHERE
 			<include refid="whereQueryCondition"></include>
-		${stringCarrayNames8}
+			${stringCarrayNames8}
 	</select>
-	
+	</#if>
+	<#if isQuery == "true">
 	<select id="findByConditionCount" parameterType="java.util.Map" resultType="java.lang.Integer">
 		SELECT
 			COUNT(*) 
 		FROM ${dbUser}.${tableName}
-		WHERE
 		<include refid="whereQueryCondition"></include>
 	</select>
-	
+	</#if>
+	<#if isAdd == "true">
 	<insert id="insert" parameterType="${domainPackage}.${classNameD}">
 		INSERT INTO ${dbUser}.${tableName} (
 			<#list tableCarrays as tableCarray>
-				${tableCarray.columnName},
+				<#if (tableCarray.queryAdd??) && tableCarray.queryAdd == "01" && tableCarray.queryRule??>
+					${tableCarray.columnName},
+				</#if>
 			</#list>
 		) VALUES (
 			<#list tableCarrays as tableCarray>
-				${specific}{${tableCarray.columnNameX}},
+				<#if (tableCarray.queryAdd??) && tableCarray.queryAdd == "01">
+					${specific}{${tableCarray.columnNameX},jdbcType=VARCHAR},
+				</#if>
 			</#list>
 		)
 	</insert>
-	
-	
-	<select id="getByKey" parameterType="String" resultMap="BaseResultMap">
+	</#if>
+	<#if isQuery == "true">
+	<select id="getByKey" parameterType="String" resultMap="${classNameX}tMap">
 		SELECT
 			${stringCarrayNames3}
 		FROM 
@@ -56,7 +72,8 @@
 		WHERE
 			uuid=${specific}{uuid}
 	</select>
-	
+	</#if>
+	<#if isUpdate=="true">
 	<update id="update" parameterType="${domainPackage}.${classNameD}">
 		UPDATE ${dbUser}.${tableName} 
 		SET
@@ -66,12 +83,20 @@
 		WHERE
 			uuid=${specific}{uuid}
 	</update>
-	
-	<delete id="delete" parameterType="String">
-		DELETE 
-			${dbUser}.${tableName} 
-		WHERE
-			uuid=${specific}{uuid}
+	</#if>
+	<#if isDetele=="true">
+	<delete id="delete" parameterType="java.util.Map">
+ 		delete from ${dbUser}.${tableName}
+ 		where 
+	 		<#list tableCarrays as tableCarray>
+  				<#if (tableCarray.isPrimaryKey??) && tableCarray.isPrimaryKey == "√">
+  					${tableCarray.columnName}
+  				</#if>
+  			</#list>
+ 		  in 
+		<foreach item="item" index="index" collection="uuids" open="(" separator="," close=")">  
+  			${specific}{item}
+ 		</foreach>
 	</delete>
-	
+	</#if>
 </mapper>

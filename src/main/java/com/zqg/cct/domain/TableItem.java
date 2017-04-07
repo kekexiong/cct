@@ -14,6 +14,8 @@ public class TableItem {
 	private String columnNameX;// 小写
 	private String queryRule; // 查询规则
 	private String queryType; //查询类型
+	private String queryShow;//列表页面展示字段
+	private String queryAdd;//添加页面展示字段
 	public String getColumnName() {
 		return columnName;
 	}
@@ -116,5 +118,21 @@ public class TableItem {
 
 	public void setIsPrimaryKey(String isPrimaryKey) {
 		this.isPrimaryKey = isPrimaryKey;
+	}
+
+	public String getQueryShow() {
+		return queryShow;
+	}
+
+	public void setQueryShow(String queryShow) {
+		this.queryShow = queryShow;
+	}
+
+	public String getQueryAdd() {
+		return queryAdd;
+	}
+
+	public void setQueryAdd(String queryAdd) {
+		this.queryAdd = queryAdd;
 	}
 }

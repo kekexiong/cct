@@ -38,6 +38,48 @@
 		<td style="width: 300px"><input class="easyui-validatebox" type="text" name="classAuthor" id='classAuthor'
 			data-options="required:true" size="40" value='test'/></td>
 	</tr>
+	<tr>
+		<th style="width: 100px">数据库名:</th>
+		<td>
+			<select id = "dbUser" name="dbUser" >
+				<option value="SES">SES</option>
+				<option value="BAP">BAP</option>
+				<option value="MSP">MSP</option>
+			</select>
+		</td>
+		<th style="width: 100px">是否更新:</th>
+		<td style="width: 300px">
+			<select id = "isUpdate" name="isUpdate" >
+				<option value="true">是</option>
+				<option value="false">否</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<th style="width: 100px">是否删除:</th>
+		<td style="width: 300px">
+			<select id = "isDetele" name="isDetele" >
+				<option value="true">是</option>
+				<option value="false">否</option>
+			</select>
+		</td>
+		<th style="width: 100px">是否新增:</th>
+		<td style="width: 300px">
+			<select id = "isAdd" name="isAdd" >
+				<option value="true">是</option>
+				<option value="false">否</option>
+			</select>
+		</td>
+		</tr>
+		<tr>
+		<th style="width: 100px">是否查询:</th>
+		<td style="width: 300px">
+			<select id = "isQuery" name="isQuery" >
+				<option value="true">是</option>
+				<option value="false">否</option>
+			</select>
+		</td>
+	</tr>
 </table>
 
 	<table id="dg" class="easyui-datagrid" title="Row Editing in DataGrid" style="width:auto;height:auto"
@@ -95,8 +137,45 @@
 							method:'get',
 							data:selectRuleData
 						}
-					}">检索条件类型	</th>
+					}">检索(输入框)条件类型</th>
+			<th data-options="field:'queryShow',width:100,
+					formatter:function(value,row){
+					var propertyData=selectShowData
+					    for (var i = 0; i < propertyData.length; i++) {
+					        if (propertyData[i].id == value) {  
+					            return propertyData[i].name 
+					        }  
+					   }      return value; 
+					},
+					editor:{
+						type:'combobox',
+						options:{
+							valueField:'id',
+							textField:'name',
+							method:'get',
+							data:selectShowData
+						}
+					}">列表页面展示字段</th>
+			<th data-options="field:'queryAdd',width:100,
+					formatter:function(value,row){
+					var propertyData=selectAddData
+					    for (var i = 0; i < propertyData.length; i++) {
+					        if (propertyData[i].id == value) {  
+					            return propertyData[i].name 
+					        }  
+					   }      return value; 
+					},
+					editor:{
+						type:'combobox',
+						options:{
+							valueField:'id',
+							textField:'name',
+							method:'get',
+							data:selectAddData
+						}
+					}">添加页面展示字段字段</th>
 			</tr>
+			
 		</thead>
 	</table>
  
@@ -166,6 +245,11 @@
 			var tableName=$("#tableName").val();
 			var tableComments=$("#tableComments").val();
 			var classAuthor=$("#classAuthor").val();
+			var dbUser=$("#dbUser").val();
+			var isQuery = $("#isQuery").val();
+			var isAdd = $("#isAdd").val();
+			var isDetele = $("#isDetele").val();
+			var isUpdate = $("#isUpdate").val();
 			//提交请求
 			$.ajax({
 				url:"${pageContext.request.contextPath}/code/saveTable",
@@ -178,6 +262,11 @@
 						"tableName" : tableName,
 						"tableComments" : tableComments,
 						"classAuthor":classAuthor,
+						"dbUser":dbUser,
+						"isQuery":isQuery,
+						"isAdd":isAdd,
+						"isDetele":isDetele,
+						"isUpdate":isUpdate,
 						"list" :JSON.stringify(rows),
 						},
 				success : function(rtdata) {
@@ -214,10 +303,11 @@
             {"id":"03", "name":"Date"},{"id":"04", "name":"BigDecimal"},
             {"id":"05", "name":"text"},{"id":"06", "name":"Long"},
             {"id":"07", "name":"Float"}];
-var selectRuleData=[{"id":"01", "name":"可模糊查询"},{"id":"02", "name":"日期单个查询"},
-            {"id":"03", "name":"日期区间查询"}];
-var queryTypeData=[{"id":"01", "name":"是"},{"id":"02", "name":"否"},
-		              {"id":"03", "name":"做查询用"}];
+var selectRuleData=[{"id":"01", "name":"商编输入框"},
+            {"id":"02", "name":"日期区间查询"},{"id":"03", "name":"输入框"},{"id":"04", "name":"下拉选择框"}];
+var queryTypeData=[{"id":"01", "name":"是"},{"id":"02", "name":"否"}];
+var selectShowData=[{"id":"01", "name":"是"},{"id":"02", "name":"否"}];
+var selectAddData=[{"id":"01", "name":"是"},{"id":"02", "name":"否"}];
 	</script>
 </body>
 </html>
