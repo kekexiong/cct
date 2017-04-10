@@ -131,6 +131,16 @@
 														<button type="button" id="dele_btn" class="btn tn btn btn-primary"> 
 															<i class="fa fa-edit"></i> 删除
 														</button>
+														<#if isExport == "01">
+															<button type="button" id="isExport_btn" class="btn tn btn btn-primary"> 
+																<i class="fa fa-edit"></i> 导出
+															</button>
+														</#if>
+														<#if isImport == "01">
+															<button type="button" id="isImport_btn" class="btn tn btn btn-primary"> 
+																<i class="fa fa-edit"></i> 导入
+															</button>
+														</#if>
 													</div>
 												</div>
 											</div>
@@ -231,7 +241,7 @@
 		</div>
 		
 		<!----------------------------------- 添加(修改)功能弹出页面（获取输入值的输入框后缀统一增加_SHOW标识符） ------------------------------------------>
-		<div class="modal fade" id="addOrUpdateWin" tabindex="-1" role="dialog" data-backdrop="static" data-width="660px" data-height="300px">
+		<div class="modal fade" id="addOrUpdateWin" tabindex="-1" role="dialog" data-backdrop="static" data-width="1000px" data-height="500px">
 	        <div class="modal-header">
 	           <button type="button" class="close" 
 	              data-dismiss="modal" aria-hidden="true">
@@ -421,11 +431,10 @@
 			<#list tableCarrays as tableCarray>
 				<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "04" && tableCarray.queryAdd?? && tableCarray.queryAdd == "01">
 					getComboStore("${tableCarray.columnName}_SHOW", "${tableCarray.columnName}");
-					<#else>
-						<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "04" >
-							getComboStore("${tableCarray.columnName}", "${tableCarray.columnName}");
-						</#if>
-					</#if>
+				</#if>
+				<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "04">
+					getComboStore("${tableCarray.columnName}", "${tableCarray.columnName}");
+				</#if>
 				
 			</#list>
 	    	
@@ -459,6 +468,7 @@
 	    		addOrUpdate("update",record);
 			});
 	    	//添加保存按钮
+	    	var param = {};
 			$("#addform_save_btn").off('click').on('click', function() {
 				<#list tableCarrays as tableCarray>
 					<#if (tableCarray.queryAdd??) && tableCarray.queryAdd == "01">
@@ -476,7 +486,7 @@
 				</#list>
 				$.ajax({
 					type: "POST",
-					url: baseURL + "/${dbUser}/${classNameD}/${classNameD}save";,
+					url: baseURL + "/${dbUser}/${classNameD}/${classNameD}save",
 					contentType: "application/x-www-form-urlencoded;charset=utf-8",
 					data: param,
 					dataType: "json",
@@ -493,6 +503,10 @@
 					}
 				});
 			});
+			//弹出页面取消按钮
+			$("#addform_cancel_btn").on('click',function(){
+				$("#addOrUpdateWin").modal('hide');
+			});
 	    	//删除按钮
 			$("#dele_btn").on('click', function() {
 				var selectRocords = $("#queryMecGrid tbody input:checked");
@@ -506,7 +520,7 @@
 	        			record = tableData.items[index];
 	        			<#list tableCarrays as tableCarray>
 	        				<#if (tableCarray.isPrimaryKey??) && tableCarray.isPrimaryKey == "√">
-	        					uuids = record.${tableCarray.columnNameX}+",";
+	        					uuids += record.${tableCarray.columnNameX}+",";
 	        				</#if>
 	        			</#list>
 					}
@@ -548,23 +562,35 @@
 		//添加或者修改方法
 		function addOrUpdate(type,value){
 			if("add" == type){
-				("#addOrUpdateWin_title").html("添加信息")
 				$("#addOrUpdateWin").modal('show');
 			}else if("update" == type){
-				("#addOrUpdateWin_title").html("修改信息")
+				var param = {};
+				<#list tableCarrays as tableCarray>
+					<#if (tableCarray.isPrimaryKey??) && tableCarray.isPrimaryKey == "√">
+						param.${tableCarray.columnNameX} = record.${tableCarray.columnNameX};
+					</#if>
+				</#list>
 				$.ajax({
 					type : "POST",
-					url : baseURL + "/${dbUser}/${classNameD}/${classNameD}udpatey",
-					data :{
-						uuid:value
-					},
+					url : baseURL + "/${dbUser}/${classNameD}/${classNameD}getDetail",
+					data :param,
 					contentType: "application/x-www-form-urlencoded;charset=utf-8",
 					dataType : "json",
 					success:function(data){
-						alert("测试成功---------------");
+					<#list tableCarrays as tableCarray>
+						<#if (tableCarray.queryAdd??) && tableCarray.queryAdd == "01" &&
+						(tableCarray.queryRule=="01"||tableCarray.queryRule=="02"||tableCarray.queryRule=="03"||tableCarray.queryRule=="04")>
+							<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "01">
+								document.getElementById('${tableCarray.columnName}_MNO_SHOW').value=data.data.${tableCarray.columnNameX};	
+							<#else>
+								document.getElementById('${tableCarray.columnName}_SHOW').value=data.data.${tableCarray.columnNameX};
+							</#if>	
+						</#if>
+					</#list>
+						
 					},
 					error:function(){
-						alert("测试失败-------------")
+						alert("操作失败，请重新操作！")
 					}
 				});
 			}else{

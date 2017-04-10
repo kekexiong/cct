@@ -79,6 +79,22 @@
 				<option value="false">否</option>
 			</select>
 		</td>
+		<th style="width: 100px">是否显示导出:</th>
+		<td style="width: 300px">
+			<select id = "isExport" name="isExport" >
+				<option value="01">是</option>
+				<option value="00">否</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<th style="width: 100px">是否显示导入:</th>
+		<td style="width: 300px">
+			<select id = "isImport" name="isImport" >
+				<option value="01">是</option>
+				<option value="00">否</option>
+			</select>
+		</td>
 	</tr>
 </table>
 
@@ -250,6 +266,8 @@
 			var isAdd = $("#isAdd").val();
 			var isDetele = $("#isDetele").val();
 			var isUpdate = $("#isUpdate").val();
+			var isImport = $("#isImport").val();
+			var isExport = $("#isExport").val();
 			//提交请求
 			$.ajax({
 				url:"${pageContext.request.contextPath}/code/saveTable",
@@ -267,6 +285,8 @@
 						"isAdd":isAdd,
 						"isDetele":isDetele,
 						"isUpdate":isUpdate,
+						"isExport":isExport,
+						"isImport":isImport,
 						"list" :JSON.stringify(rows),
 						},
 				success : function(rtdata) {

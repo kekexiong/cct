@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="${mapperPackage}.${classNameD}Mapper">
-	<resultMap id="${classNameX}tMap" type="${domainPackage}.${classNameD}" >
+	<resultMap id="${classNameX}Map" type="${domainPackage}.${classNameD}" >
 	 <id column="UUID" property="uuid" jdbcType="VARCHAR" />
 	 <#list tableCarrays as tableCarray>
 	 <result column="${tableCarray.columnName}" property="${tableCarray.columnNameX}"/>
@@ -29,7 +29,7 @@
 		</where>
 	</sql>
 	<#if isQuery == "true">
-	<select id="findByCondition" parameterType="java.util.Map" resultMap="${classNameX}tMap">
+	<select id="findByCondition" parameterType="java.util.Map" resultMap="${classNameX}Map">
 		${stringCarrayNames7}
 		SELECT
 			${stringCarrayNames3}
@@ -50,13 +50,15 @@
 	<insert id="insert" parameterType="${domainPackage}.${classNameD}">
 		INSERT INTO ${dbUser}.${tableName} (
 			<#list tableCarrays as tableCarray>
-				<#if (tableCarray.queryAdd??) && tableCarray.queryAdd == "01" && tableCarray.queryRule??>
+				<#if (tableCarray.queryAdd??) && tableCarray.queryAdd == "01" && 
+				(tableCarray.queryRule=="01"||tableCarray.queryRule=="02"||tableCarray.queryRule=="03"||tableCarray.queryRule=="04")>
 					${tableCarray.columnName},
 				</#if>
 			</#list>
 		) VALUES (
 			<#list tableCarrays as tableCarray>
-				<#if (tableCarray.queryAdd??) && tableCarray.queryAdd == "01">
+				<#if (tableCarray.queryAdd??) && tableCarray.queryAdd == "01" &&
+				(tableCarray.queryRule=="01"||tableCarray.queryRule=="02"||tableCarray.queryRule=="03"||tableCarray.queryRule=="04")>
 					${specific}{${tableCarray.columnNameX},jdbcType=VARCHAR},
 				</#if>
 			</#list>
@@ -64,13 +66,17 @@
 	</insert>
 	</#if>
 	<#if isQuery == "true">
-	<select id="getByKey" parameterType="String" resultMap="${classNameX}tMap">
+	<select id="getByKey" parameterType="${domainPackage}.${classNameD}" resultMap="${classNameX}Map">
 		SELECT
 			${stringCarrayNames3}
 		FROM 
 			${dbUser}.${tableName}
 		WHERE
-			uuid=${specific}{uuid}
+			<#list tableCarrays as tableCarray>
+  				<#if (tableCarray.isPrimaryKey??) && tableCarray.isPrimaryKey == "√">
+  					${tableCarray.columnName}=${specific}{${tableCarray.columnNameX}}
+  				</#if>
+  			</#list>
 	</select>
 	</#if>
 	<#if isUpdate=="true">
@@ -78,10 +84,18 @@
 		UPDATE ${dbUser}.${tableName} 
 		SET
 			<#list tableCarrays as tableCarray>
-				${tableCarray.columnName}=${specific}{${tableCarray.columnNameX}},
+				<#if (tableCarray.queryAdd??) && tableCarray.queryAdd == "01" && 
+				(tableCarray.queryRule=="01"||tableCarray.queryRule=="02"||tableCarray.queryRule=="03"||tableCarray.queryRule=="04")>
+					${tableCarray.columnName}=${specific}{${tableCarray.columnNameX}},
+				</#if>
 			</#list>
 		WHERE
-			uuid=${specific}{uuid}
+			<#list tableCarrays as tableCarray>
+  				<#if (tableCarray.isPrimaryKey??) && tableCarray.isPrimaryKey == "√">
+  					${tableCarray.columnName}=${specific}{${tableCarray.columnNameX}}
+  				</#if>
+  			</#list>
+			
 	</update>
 	</#if>
 	<#if isDetele=="true">

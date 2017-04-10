@@ -80,6 +80,8 @@ public class CodeController {
 			@RequestParam(value = "isAdd", required = false,  defaultValue = "") String isAdd,
 			@RequestParam(value = "isDetele", required = false,  defaultValue = "") String isDetele,
 			@RequestParam(value = "isUpdate", required = false,  defaultValue = "") String isUpdate,
+			@RequestParam(value = "isExport", required = false,  defaultValue = "") String isExport,
+			@RequestParam(value = "isImport", required = false,  defaultValue = "") String isImport,
 			HttpServletRequest request, HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
@@ -105,6 +107,8 @@ public class CodeController {
 		table.setIsAdd(isAdd);
 		table.setIsDetele(isDetele);
 		table.setIsQuery(isQuery);
+		table.setIsExport(isExport);
+		table.setIsImport(isImport);
 		tableService.process(list, table);
 		return JSON.toJSONString(tableService.getTableItem(null));
 	}

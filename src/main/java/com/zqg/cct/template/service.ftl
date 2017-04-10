@@ -47,8 +47,8 @@ public class ${classNameD}Service {
 	 * @param uuid
 	 * @return
 	 */
-	public ${classNameD} getByKey(String uuid) {
-		return  ${classNameX}Mapper.getByKey(uuid);
+	public ${classNameD} getByKey(${classNameD} paramVo) {
+		return  ${classNameX}Mapper.getByKey(paramVo);
 	}
 	</#if>
 	

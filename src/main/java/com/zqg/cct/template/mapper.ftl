@@ -38,7 +38,7 @@ public interface ${classNameD}Mapper {
 	 * @param uuid
 	 * @return
 	 */
-	public ${classNameD} getByKey(String uuid); 
+	public ${classNameD} getByKey(${classNameD} paramVo); 
 	</#if>
 	
 	<#if isUpdate=="true">

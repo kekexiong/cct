@@ -68,16 +68,18 @@ public class ${classNameD}Controller extends BaseController {
 	 * @param paramVo
 	 * @return
 	 */
-	@RequestMapping(value = "/${classNameD}getDetail/{uuid}", method = RequestMethod.POST)
+	@RequestMapping(value = "/${classNameD}getDetail", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> getByKey(HttpSession session, @ModelAttribute ${classNameD} paramVo) {
 		String tcd = "${classNameD}Controller.queryCondition";
 		String opNm = "${businessName}-详细";
 			try {
 				LOGGER.info(tcd, "", opNm + "--begin");
-				${classNameD} detail= ${classNameX}Service.getByKey(paramVo.getUuid());
+				${classNameD} detail= ${classNameX}Service.getByKey(paramVo);
 				LOGGER.info(tcd, "", opNm + "--end");
-				return setResult(detail, 0);
+				Map<String, Object> map = new HashMap<>();
+				map.put("data", detail);
+				return map;
 			} catch (Exception e) {
 				LOGGER.error(tcd, "", opNm + "--End,异常:", e);
 				return super.setFailure("查询失败");
@@ -125,8 +127,7 @@ public class ${classNameD}Controller extends BaseController {
 		String opNm = "${businessName}-更新";
 		try{
 			LOGGER.info(tcd, "", opNm + "--begin");
-			${classNameX}Service.insert(paramVo);
-			int num = ${classNameX}Service.insert(paramVo);
+			int num = ${classNameX}Service.update(paramVo);
 			if(num>0){
 				return super.setFailure("更新成功!");
 			}
