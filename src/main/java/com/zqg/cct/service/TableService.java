@@ -62,7 +62,7 @@ public class TableService {
 			item.setDataType("BigDecimal");
 			existImprot(table.getDomainImportPackageList(), bigDecimalImprot);
 		}
-		if("NUMBER".equals(item.getDataType()) && StringUtils.isBlank(item.getDataPrecision())){
+		if("NUMBER".equals(item.getDataType()) && (StringUtils.isBlank(item.getDataPrecision()) || "0".equals(item.getDataScale()))){
 			item.setDataType("Int");
 		}
 		return item.getDataType();
