@@ -49,8 +49,8 @@ public class TableUtil {
 			tableDomain.setStringCarrayNames4(stringCarrayNames4);
 			tableDomain.setStringCarrayNames5(stringCarrayNames5);
 			tableDomain.setStringCarrayNames6(stringCarrayNames6);
-			tableDomain.setStringCarrayNames7("<if test=" + '\"' + " startRow != null and startRow != '' " + '\"' + ">select * from(select a.*,rownum rn from(</if>");//<!-- 分页前缀  --> 
-			tableDomain.setStringCarrayNames8("<if test=" + '\"' + " startRow != null and startRow != '' " + '\"' + ">) a where rownum &lt;= #{endRow}) where rn &gt;#{startRow}</if>");//<!-- 分页后缀  -->	
+			tableDomain.setStringCarrayNames7("select * from(select a.*,rownum rn from(");//<!-- 分页前缀  --> 
+			tableDomain.setStringCarrayNames8(") a where rownum &lt;= #{endRow}) where rn &gt;#{startRow}");//<!-- 分页后缀  -->	
 		return tables;
 	}
 }

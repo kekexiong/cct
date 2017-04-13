@@ -28,6 +28,7 @@
 		</#list>
 		</where>
 	</sql>
+	
 	<#if isQuery == "true">
 	<select id="findByCondition" parameterType="java.util.Map" resultMap="${classNameX}Map">
 		${stringCarrayNames7}
@@ -49,19 +50,9 @@
 	<#if isAdd == "true">
 	<insert id="insert" parameterType="${domainPackage}.${classNameD}">
 		INSERT INTO ${dbUser}.${tableName} (
-			<#list tableCarrays as tableCarray>
-				<#if (tableCarray.queryAdd??) && tableCarray.queryAdd == "01" && 
-				(tableCarray.queryRule=="01"||tableCarray.queryRule=="02"||tableCarray.queryRule=="03"||tableCarray.queryRule=="04")>
-					${tableCarray.columnName},
-				</#if>
-			</#list>
+			${tableCarray.columnName},
 		) VALUES (
-			<#list tableCarrays as tableCarray>
-				<#if (tableCarray.queryAdd??) && tableCarray.queryAdd == "01" &&
-				(tableCarray.queryRule=="01"||tableCarray.queryRule=="02"||tableCarray.queryRule=="03"||tableCarray.queryRule=="04")>
-					${specific}{${tableCarray.columnNameX},jdbcType=VARCHAR},
-				</#if>
-			</#list>
+			${specific}{${tableCarray.columnNameX},jdbcType=VARCHAR},
 		)
 	</insert>
 	</#if>

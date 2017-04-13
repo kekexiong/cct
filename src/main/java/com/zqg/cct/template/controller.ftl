@@ -27,6 +27,26 @@ public class ${classNameD}Controller extends BaseController {
 	private ${classNameD}Service ${classNameX}Service;
 	static final Logger LOGGER = LoggerFactory.getLogger(${classNameD}Controller.class);
 	
+	/**
+	 * @description: 获取付款类型字段
+	 * @return map
+	 * @author ${classAuthor}
+	 * @data ${classTime}
+	 */
+	public List<Map<String, Object>> getCustomStore(){
+		String tcd = "${classNameD}Controller.getCustomStore";
+		String opNm = "${businessName}-获取付款类型字段";
+		LOGGER.info(tcd, "", opNm + "--begin");
+		List<Map<String, Object>> payTypeNames = null;
+		try {
+            payTypeNames = tSesAutoPayCheckService.getCustomStore();
+            LOGGER.info(tcd, "", opNm + "--获取参数成功！");
+        } catch (Exception e) {
+            LOGGER.error(tcd, "", opNm + "--End,异常:", e);
+        }
+        LOGGER.info(tcd, "", opNm + "--end");
+        return payTypeNames;
+	}
 	<#if isQuery == "true">
 	/**
 	 * @description: 信息查询
@@ -99,6 +119,8 @@ public class ${classNameD}Controller extends BaseController {
 		String tcd = "${classNameD}Controller.save";
 		String opNm = "${businessName}-保存";
 		try{
+			String uuid = CreateUUID.GetRandomUUID();
+			${classNameX}.setUuid(uuid);
 			LOGGER.info(tcd, "", opNm + "--begin");
 			int num = ${classNameX}Service.insert(${classNameX});
 			if(num>0){
@@ -120,7 +142,7 @@ public class ${classNameD}Controller extends BaseController {
 	 * @param paramVo
 	 * @return
 	 */
-	@RequestMapping(value = "/${classNameD}udpate", method = RequestMethod.POST)
+	@RequestMapping(value = "/${classNameD}update", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> udpate( @ModelAttribute ${classNameD} paramVo) {
 		String tcd = "${classNameD}Controller.save";
@@ -129,7 +151,7 @@ public class ${classNameD}Controller extends BaseController {
 			LOGGER.info(tcd, "", opNm + "--begin");
 			int num = ${classNameX}Service.update(paramVo);
 			if(num>0){
-				return super.setFailure("更新成功!");
+				return super.setSuccess("更新成功!");
 			}
 			LOGGER.info(tcd, "", opNm + "--end");
 			return super.setFailure("更新成功0条!");
@@ -163,7 +185,7 @@ public class ${classNameD}Controller extends BaseController {
 			LOGGER.info(tcd, "", opNm + "--begin");
 			int num = ${classNameX}Service.delete(paramsMap);
 			if(num>0){
-				return super.setFailure("删除成功!");
+				return super.setSuccess("删除成功!");
 			}
 			LOGGER.info(tcd, "", opNm + "--end");
 			return super.setFailure("删除成功0条!");

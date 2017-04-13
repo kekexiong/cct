@@ -37,6 +37,7 @@ public class TableDomain {
 	private String isUpdate; // 改
 	private String isExport;//是否显示导出按钮
 	private String isImport;//是否显示导入按钮
+	private String isOperation;//是否显示操作链接
 
 	public String getTableName() {
 		return tableName;
@@ -308,5 +309,13 @@ public class TableDomain {
 
 	public void setIsExport(String isExport) {
 		this.isExport = isExport;
+	}
+
+	public String getIsOperation() {
+		return isOperation;
+	}
+
+	public void setIsOperation(String isOperation) {
+		this.isOperation = isOperation;
 	}
 }

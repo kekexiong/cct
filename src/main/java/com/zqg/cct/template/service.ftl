@@ -15,6 +15,15 @@ import ${mapperPackage}.${classNameD}Mapper;
 public class ${classNameD}Service {
 	@Autowired
 	private ${classNameD}Mapper ${classNameX}Mapper;
+	/**
+	 * @description: 获取付款类型字段
+	 * @return map
+	 * @author ${classAuthor}
+	 * @data ${classTime}
+	 */
+	public List<Map<String, Object>> getCustomStore(){
+		return  ${classNameX}Mapper.getCustomStore();
+	}
 	<#if isQuery == "true">
 	/**
 	 * 根据条件查询

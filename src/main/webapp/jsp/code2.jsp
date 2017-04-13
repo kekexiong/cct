@@ -95,6 +95,13 @@
 				<option value="00">否</option>
 			</select>
 		</td>
+		<th style="width: 100px">每条记录后面是否显示操作链接:</th>
+		<td style="width: 300px">
+			<select id = "isOperation" name="isOperation" >
+				<option value="01">是</option>
+				<option value="00">否</option>
+			</select>
+		</td>
 	</tr>
 </table>
 
@@ -189,7 +196,25 @@
 							method:'get',
 							data:selectAddData
 						}
-					}">添加页面展示字段字段</th>
+					}">添加(修改)页面展示字段</th>
+			<th data-options="field:'queryView',width:100,
+					formatter:function(value,row){
+					var propertyData=selectViewData
+					    for (var i = 0; i < propertyData.length; i++) {
+					        if (propertyData[i].id == value) {  
+					            return propertyData[i].name 
+					        }  
+					   }      return value; 
+					},
+					editor:{
+						type:'combobox',
+						options:{
+							valueField:'id',
+							textField:'name',
+							method:'get',
+							data:selectViewData
+						}
+					}">详情页面展示字段</th>
 			</tr>
 			
 		</thead>
@@ -254,7 +279,6 @@
 		}
 		function getChanges(){
 			var rows = $('#dg').datagrid('getRows');
-			//alert(rows.length+' rows are changed!');
 			var serviceName=$("#serviceName").val();
 			var classPackage=$("#classPackage").val();
 			var className=$("#className").val();
@@ -268,6 +292,7 @@
 			var isUpdate = $("#isUpdate").val();
 			var isImport = $("#isImport").val();
 			var isExport = $("#isExport").val();
+			var isOperation = $("#isOperation").val();
 			//提交请求
 			$.ajax({
 				url:"${pageContext.request.contextPath}/code/saveTable",
@@ -287,6 +312,7 @@
 						"isUpdate":isUpdate,
 						"isExport":isExport,
 						"isImport":isImport,
+						"isOperation":isOperation,
 						"list" :JSON.stringify(rows),
 						},
 				success : function(rtdata) {
@@ -324,10 +350,12 @@
             {"id":"05", "name":"text"},{"id":"06", "name":"Long"},
             {"id":"07", "name":"Float"}];
 var selectRuleData=[{"id":"01", "name":"商编输入框"},
-            {"id":"02", "name":"日期区间查询"},{"id":"03", "name":"输入框"},{"id":"04", "name":"下拉选择框"}];
+            {"id":"02", "name":"日期区间查询"},{"id":"03", "name":"输入框"},{"id":"04", "name":"下拉选择框"},
+            {"id":"05", "name":"自定义下拉选择框"},{"id":"06", "name":"日期输入框"}];
 var queryTypeData=[{"id":"01", "name":"是"},{"id":"02", "name":"否"}];
 var selectShowData=[{"id":"01", "name":"是"},{"id":"02", "name":"否"}];
 var selectAddData=[{"id":"01", "name":"是"},{"id":"02", "name":"否"}];
+var selectViewData=[{"id":"01", "name":"是"},{"id":"02", "name":"否"}];
 	</script>
 </body>
 </html>

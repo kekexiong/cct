@@ -10,6 +10,14 @@ import ${mapperPackage}.${classNameD}Mapper;
  * @date   ${classTime}
  */
 public interface ${classNameD}Mapper {
+	
+	/**
+	 * @description: 获取付款类型字段
+	 * @return map
+	 * @author ${classAuthor}
+	 * @data ${classTime}
+	 */
+	public List<Map<String, Object>> getCustomStore();
 	<#if isQuery == "true">
 	/**
 	 * 根据条件查询

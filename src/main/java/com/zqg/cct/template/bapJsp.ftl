@@ -29,7 +29,6 @@
 	<!-- BEGIN CONTAINER -->
 	<div class="clearfix"></div>
 	<div class="page-container">
-
 		<!-- BEGIN MENU -->
 		<%-- <jsp:include page="../common/menu.jsp" flush="true" /> --%>
 		<!-- END MENU -->
@@ -47,68 +46,80 @@
 							<div class="portlet-body form">
 								<form action="<%=request.getContextPath()%>/mec/queryData" class="form-horizontal" id="queryMecPanel_Form">
 									<div class="row norow">
-										<#list tableCarrays as tableCarray> 
-											<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "03">
-												<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-													<div class="form-group">
-														<label for="span-medium-2"
-															class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
-														<div class="col-md-8 paddingnone">
-															<input name="${tableCarray.columnNameX}"
-																id="${tableCarray.columnName}" class="form-control"
-																placeholder="${tableCarray.comments}">
-														</div>
-													</div>
-												</div>
-											</#if> 
-											<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "02">
-												<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-													<div class="form-group">
-														<label class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
-														<div class="col-md-8 paddingnone">
-															<div class="input-group input-daterange">
-																<input type="text" class="form-control col-md-3"
-																	name="${tableCarray.columnNameX}beginDt"
-																	id="${tableCarray.columnName}_beginDt"> <span
-																	class="input-group-addon"> <i
-																	class="fa fa-exchange"></i>
-																</span> <input type="text" class="form-control"
-																	name="${tableCarray.columnNameX}endDt"
-																	id="${tableCarray.columnName}_endDt">
+										<#list tableCarrays as tableCarray>
+											<#if (tableCarray.queryType??) && tableCarray.queryType == "01">
+												<#if (tableCarray.queryRule??) && tableCarray.queryRule == "03">
+													<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+														<div class="form-group">
+															<label for="span-medium-2"
+																class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
+															<div class="col-md-8 paddingnone">
+																<input name="${tableCarray.columnNameX}"
+																	id="${tableCarray.columnName}" class="form-control"
+																	placeholder="${tableCarray.comments}">
 															</div>
 														</div>
 													</div>
-												</div>
-											</#if> 
-											<#if (tableCarray.queryRule)?? && tableCarray.queryRule== "01">
-												<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-													<div class="form-group">
-														<label for="span-medium-2"
-															class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
-														<div class="col-md-8 paddingnone">
-															<input name="${tableCarray.columnNameX}"
-																id="${tableCarray.columnName}_MNO" class="form-control"
-																placeholder="${tableCarray.comments}">
+												</#if> 
+												<#if (tableCarray.queryRule??) && tableCarray.queryRule == "02">
+													<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+														<div class="form-group">
+															<label class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
+															<div class="col-md-8 paddingnone">
+																<div class="input-group input-daterange">
+																	<input type="text" class="form-control col-md-3"
+																		name="${tableCarray.columnNameX}beginDt"
+																		id="${tableCarray.columnName}_beginDt"> <span
+																		class="input-group-addon"> <i
+																		class="fa fa-exchange"></i>
+																	</span> <input type="text" class="form-control"
+																		name="${tableCarray.columnNameX}endDt"
+																		id="${tableCarray.columnName}_endDt">
+																</div>
+															</div>
 														</div>
 													</div>
-												</div>
-											</#if> 
-											<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "04">
-												<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-													<div class="form-group">
-														<label class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
-														<div class="col-md-8 paddingnone">
-															<select name="${tableCarray.columnNameX}"
-																id="${tableCarray.columnName}"
-																class="bs-select form-control" data-show-subtext="true">
-																<!-- <option value="">全部</option>
-																<option value="00">是</option>
-																<option value="01">否</option> -->
-															</select>
+												</#if> 
+												<#if (tableCarray.queryRule??) && tableCarray.queryRule== "01">
+													<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+														<div class="form-group">
+															<label for="span-medium-2"
+																class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
+															<div class="col-md-8 paddingnone">
+																<input name="${tableCarray.columnNameX}"
+																	id="${tableCarray.columnName}_MNO" class="form-control"
+																	placeholder="${tableCarray.comments}">
+															</div>
 														</div>
 													</div>
-												</div>
-											</#if> 
+												</#if> 
+												<#if (tableCarray.queryRule??) && (tableCarray.queryRule == "04" || tableCarray.queryRule == "05")>
+													<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+														<div class="form-group">
+															<label class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
+															<div class="col-md-8 paddingnone">
+																<select name="${tableCarray.columnNameX}"
+																	id="${tableCarray.columnName}"
+																	class="bs-select form-control" data-show-subtext="true">
+																</select>
+															</div>
+														</div>
+													</div>
+												</#if>
+												<#if (tableCarray.queryRule??) && tableCarray.queryRule == "06"><!-- 时间输入框 -->
+													<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+														<div class="form-group">
+															<label class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
+															<div class="col-md-8 paddingnone">
+																<div class="input-group input-daterange">
+																	<input type="text" class="form-control col-md-3"
+																		name="${tableCarray.columnNameX}" id="${tableCarray.columnName}">
+																</div>
+															</div>
+														</div>
+													</div>
+												</#if> 
+											</#if>
 										</#list>
 									</div>
 									<div class="form-actions">
@@ -176,6 +187,9 @@
 															<th class="nowrap">${tableCarray.comments}</th> 
 														</#if>
 													</#list>
+													<#if isOperation == "01">
+														<th class="nowrap">操作</th> 
+													</#if>
 											</tr>
 										</thead>
 										<tbody>
@@ -202,11 +216,6 @@
 										</select>
 									</div>
 									<div class="inline fl">条</div>
-								</div>
-								<div class="">
-									<label class="control-label text-right">&nbsp;&nbsp;总笔数: &nbsp;</label><label id="count_Label"></label>
-									<label class="control-label text-right">&nbsp;&nbsp;总计金额: &nbsp;</label><label id="totalAmt_Label"></label>
-								</div>
 
 								<div class="col-sm-6 pull-right no-padding">
 									<div id="pagination"
@@ -239,9 +248,8 @@
 				</div>
 			</div>
 		</div>
-		
 		<!----------------------------------- 添加(修改)功能弹出页面（获取输入值的输入框后缀统一增加_SHOW标识符） ------------------------------------------>
-		<div class="modal fade" id="addOrUpdateWin" tabindex="-1" role="dialog" data-backdrop="static" data-width="1000px" data-height="500px">
+		<div class="modal fade" id="addOrUpdateWin" tabindex="-1" role="dialog" data-backdrop="static" data-width="700px" data-height="300px">
 	        <div class="modal-header">
 	           <button type="button" class="close" 
 	              data-dismiss="modal" aria-hidden="true">
@@ -251,13 +259,15 @@
 	        </div>
 	        <div class="modal-body">
 	           <div class="portlet-body form">
-	               <form action="<%=request.getContextPath()%>/" class="form-horizontal" id="addform">
+	               <form action="<%=request.getContextPath()%>/" class="form-horizontal" id="addOrUpdateform">
 	                   <div class="form-body">
 	                       <div class="row norow">
+	                       	<input type="hidden" value = "" id = "hiddenType"/>
+	                       	<input type="hidden" value = "" id = "hiddenUUid"/>
 	                           <#list tableCarrays as tableCarray>
 	                           		<#if (tableCarray.queryAdd??) && (tableCarray.queryAdd == "01")>
 	                           			<#if (tableCarray.queryRule??) && tableCarray.queryRule == "01"><!-- 商编输入 -->
-		                           			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+		                           			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 												<div class="form-group">
 													<label for="span-medium-2"
 														class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
@@ -269,7 +279,7 @@
 											</div>
 	                           			</#if>
 	                           			<#if (tableCarray.queryRule??) && tableCarray.queryRule == "02"><!-- 时间区间值输入 -->
-		                           			<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+		                           			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 												<div class="form-group">
 													<label class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
 													<div class="col-md-8 paddingnone">
@@ -288,7 +298,7 @@
 											</div>
 	                           			</#if>
 	                           			<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "03"><!-- 普通输入框 -->
-										<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 											<div class="form-group">
 												<label for="span-medium-2"
 													class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
@@ -300,18 +310,29 @@
 											</div>
 										</div>
 	                           		</#if>
-	                           		<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "04"><!-- 下拉框 -->
-										<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+	                           		<#if (tableCarray.queryRule)?? && (tableCarray.queryRule == "04" || tableCarray.queryRule == "05")><!-- 下拉框 -->
+										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 											<div class="form-group">
 												<label class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
 												<div class="col-md-8 paddingnone">
 													<select name="${tableCarray.columnNameX}"
 														id="${tableCarray.columnName}_SHOW"
 														class="bs-select form-control" data-show-subtext="true">
-														<!-- <option value="">全部</option>
-														<option value="00">是</option>
-														<option value="01">否</option> -->
 													</select>
+												</div>
+											</div>
+										</div>
+									</#if>
+									<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "06"><!-- 时间输入框 -->
+										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+											<div class="form-group">
+												<label class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
+												<div class="col-md-8 paddingnone">
+													<div class="input-group input-daterange">
+														<input type="text" class="form-control col-md-3"
+															name="${tableCarray.columnNameX}"
+															id="${tableCarray.columnName}_SHOW">
+													</div>
 												</div>
 											</div>
 										</div>
@@ -337,9 +358,118 @@
 	           </div>
 	        </div>
     	</div>
-		
-		
-		
+    	<!-- ---------------------------------------详情页面展示(获取输入值的输入框后缀统一增加_VIEW标识符)------------------------------------------------------------ -->
+		<#if isOperation == "01">
+			<div class="modal fade" id="viewWin" tabindex="-1" role="dialog" data-backdrop="static" data-width="700px" data-height="300px">
+		        <div class="modal-header">
+		           <button type="button" class="close" 
+		              data-dismiss="modal" aria-hidden="true">
+		                 &times;
+		           </button>
+		           <h4 class="modal-title" >${businessName}详情信息</h4>
+		        </div>
+		        <div class="modal-body">
+		           <div class="portlet-body form">
+		               <form action="<%=request.getContextPath()%>/" class="form-horizontal" id="">
+		                   <div class="form-body">
+		                       <div class="row norow">
+		                           <#list tableCarrays as tableCarray>
+		                           		<#if (tableCarray.queryView??) && (tableCarray.queryView == "01")>
+		                           			<#if (tableCarray.queryRule??) && tableCarray.queryRule == "01"><!-- 商编输入 -->
+			                           			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+													<div class="form-group">
+														<label for="span-medium-2"
+															class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
+														<div class="col-md-8 paddingnone">
+															<input name="${tableCarray.columnNameX}" id="${tableCarray.columnName}_MNO_VIEW" 
+																disabled="disabled"
+																class="form-control" placeholder="${tableCarray.comments}">
+														</div>
+													</div>
+												</div>
+		                           			</#if>
+		                           			<#if (tableCarray.queryRule??) && tableCarray.queryRule == "02"><!-- 时间区间值输入 -->
+			                           			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+													<div class="form-group">
+														<label class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
+														<div class="col-md-8 paddingnone">
+															<div class="input-group input-daterange">
+																<input type="text" class="form-control col-md-3"
+																	disabled="disabled"
+																	name="${tableCarray.columnNameX}beginDt"
+																	id="${tableCarray.columnName}_beginDt_VIEW"> <span
+																	class="input-group-addon"> <i
+																	class="fa fa-exchange"></i>
+																</span> <input type="text" class="form-control" disabled="disabled"
+																	name="${tableCarray.columnNameX}endDt"
+																	id="${tableCarray.columnName}_endDt_VIEW">
+															</div>
+														</div>
+													</div>
+												</div>
+		                           			</#if>
+		                           			<#if (tableCarray.queryRule??) && tableCarray.queryRule == "06"><!-- 时间值输入 -->
+			                           			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+													<div class="form-group">
+														<label class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
+														<div class="col-md-8 paddingnone">
+															<div class="input-group input-daterange">
+																<input type="text" class="form-control col-md-3"
+																	disabled="disabled"
+																	name="${tableCarray.columnNameX}"
+																	id="${tableCarray.columnName}_VIEW"> 
+															</div>
+														</div>
+													</div>
+												</div>
+		                           			</#if>
+		                           			<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "03"><!-- 普通输入框 -->
+											<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+												<div class="form-group">
+													<label for="span-medium-2"
+														class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
+													<div class="col-md-8 paddingnone">
+														<input name="${tableCarray.columnNameX}"
+															id="${tableCarray.columnName}_VIEW" class="form-control" disabled="disabled"
+															placeholder="${tableCarray.comments}">
+													</div>
+												</div>
+											</div>
+		                           		</#if>
+		                           		<#if (tableCarray.queryRule)?? && (tableCarray.queryRule == "04" ||tableCarray.queryRule == "05")><!-- 下拉框 -->
+											<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+												<div class="form-group">
+													<label class="control-label col-md-4 text-right">${tableCarray.comments}:</label>
+													<div class="col-md-8 paddingnone">
+														<select name="${tableCarray.columnNameX}"
+															id="${tableCarray.columnName}_VIEW"
+															class="bs-select form-control" data-show-subtext="true">
+														</select>
+													</div>
+												</div>
+											</div>
+										</#if>
+										</#if>
+		                           </#list>
+		                           <div class="clearfix"></div>
+		                       </div>
+		                   </div>
+		                   <div class="form-actions">
+		                       <div class="row">
+		                           <div class="col-md-12">
+		                               <div class="row">
+		                                   <div class="col-md-12" style="text-align:center;">
+		                                       <button type="button" id="openform_cancel_btn" class="btn red"> <i class="fa fa-share"></i> 取消</button>
+		                                   </div>
+		                               </div>
+		                           </div>
+		                       </div>
+		                   </div>
+		               </form>
+		           </div>
+		        </div>
+	    	</div>
+		</#if>
 		
 	</div>
 
@@ -423,23 +553,38 @@
 			$('table > tbody').empty();
 			reloadGrid();
 		}
+		function onChange4PageSize(select) {
+	    	limit = select.value;
+	    	reloadGrid();
+	    }
 		//初始化页面功能
 		$(function(){
 			<!---------------------在此手动设置按钮的权限------------------------------->
 			//if (!hasPermission(PERMISSSIONCONST.SES1002)) {$("#").hide();}
 			<!---------------------在此手动初始化页面表单审核状态数据源---------------------->
+			<!--getComboStore系统表生成下拉框    参数说明1：传入值，用于下拉框回显，2下拉夸ID，3传入key值，4传入FALSE或者TRUE用于下拉框可选或者可读状态，FALSE下拉框可以不是disabled，TRUE是disabled状态-->
+			<!--getCustomStore自定义下拉框    参数说明1：传入值，用于下拉框回显，2下拉夸ID，3传入FALSE或者TRUE用于下拉框可选或者可读状态，FALSE下拉框可以不是disabled，TRUE是disabled状态-->
+			<!--如果不需要回显第一个参数传入""，如果不需要设定disabled属性传入FALSE-->
 			<#list tableCarrays as tableCarray>
-				<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "04" && tableCarray.queryAdd?? && tableCarray.queryAdd == "01">
-					getComboStore("${tableCarray.columnName}_SHOW", "${tableCarray.columnName}");
+				<#if (tableCarray.queryRule??) && tableCarray.queryRule == "04">
+					<#if (tableCarray.queryType??) && tableCarray.queryType == "01"><!--列表下拉框-->
+						getComboStore("","${tableCarray.columnName}", "${tableCarray.columnName}","");
+					</#if>
+					<#if tableCarray.queryAdd?? && tableCarray.queryAdd == "01"><!--添加获取修改下拉框-->
+						getComboStore("","${tableCarray.columnName}_SHOW", "${tableCarray.columnName}","");
+					</#if>
 				</#if>
-				<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "04">
-					getComboStore("${tableCarray.columnName}", "${tableCarray.columnName}");
+				<#if (tableCarray.queryRule??) && tableCarray.queryRule == "05">
+					<#if (tableCarray.queryType??) && tableCarray.queryType == "01"><!--列表下拉框-->
+						getCustomStore("","${tableCarray.columnName}","");
+					</#if>
+					<#if tableCarray.queryAdd?? && tableCarray.queryAdd == "01">
+						getCustomStore("","${tableCarray.columnName}_SHOW","");
+					</#if>
 				</#if>
-				
 			</#list>
-	    	
-	    	//初始化输入框时间默认值方法
-	    	initDefaultDate();
+			//初始化输入框时间默认值方法	
+			initDefaultDate();
 	    	//重置按钮
 			$("#reset_btn").on('click', function() {
 				$("#queryMecPanel_Form")[0].reset();
@@ -451,8 +596,14 @@
 				page = 1;
 				reloadGrid();
 			});
-	    	//添加按钮
+			//添加按钮
 			$("#add_btn").on('click', function() {
+				//清空记录
+				$("#addOrUpdateform")[0].reset();
+				$("#addOrUpdateform .bs-select").selectpicker('val','');
+				document.getElementById("hiddenType").value = "1";
+				var title = document.getElementById("addOrUpdateWin_title");
+				title.innerHTML = "${businessName}添加信息";
 				addOrUpdate("add","");
 			});
 			//修改按钮
@@ -465,6 +616,9 @@
 	    			var index = $(selectRocords[0]).attr("rownum");
 	    			record = tableData.items[index];
 	    		}
+	    		document.getElementById("hiddenType").value = "2";
+				var title = document.getElementById("addOrUpdateWin_title");
+				title.innerHTML = "${businessName}修改信息";
 	    		addOrUpdate("update",record);
 			});
 	    	//添加保存按钮
@@ -484,9 +638,19 @@
 						</#if>
 					</#if>
 				</#list>
+				var hiddenType = $("#hiddenType").val();
+				var url = "";
+				if("1" == hiddenType){
+					url = baseURL + "/${dbUser}/${classNameD}/${classNameD}save";
+				}else if ("2" == hiddenType){
+					url = baseURL + "/${dbUser}/${classNameD}/${classNameD}update";
+					param.uuid = $("#hiddenUUid").val();
+				}else{
+					url = "";
+				}
 				$.ajax({
 					type: "POST",
-					url: baseURL + "/${dbUser}/${classNameD}/${classNameD}save",
+					url: url,
 					contentType: "application/x-www-form-urlencoded;charset=utf-8",
 					data: param,
 					dataType: "json",
@@ -503,7 +667,7 @@
 					}
 				});
 			});
-			//弹出页面取消按钮
+			//弹出页面取消按钮（添加/修改）
 			$("#addform_cancel_btn").on('click',function(){
 				$("#addOrUpdateWin").modal('hide');
 			});
@@ -560,7 +724,7 @@
 			});
 		});
 		//添加或者修改方法
-		function addOrUpdate(type,value){
+		function addOrUpdate(type,record){
 			if("add" == type){
 				$("#addOrUpdateWin").modal('show');
 			}else if("update" == type){
@@ -577,17 +741,21 @@
 					contentType: "application/x-www-form-urlencoded;charset=utf-8",
 					dataType : "json",
 					success:function(data){
+					<!--修改页面展示字段-->
 					<#list tableCarrays as tableCarray>
-						<#if (tableCarray.queryAdd??) && tableCarray.queryAdd == "01" &&
-						(tableCarray.queryRule=="01"||tableCarray.queryRule=="02"||tableCarray.queryRule=="03"||tableCarray.queryRule=="04")>
-							<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "01">
-								document.getElementById('${tableCarray.columnName}_MNO_SHOW').value=data.data.${tableCarray.columnNameX};	
+						<#if (tableCarray.queryAdd??) && tableCarray.queryAdd == "01"&&
+						(tableCarray.queryRule=="01"||tableCarray.queryRule=="02"||tableCarray.queryRule=="03"||tableCarray.queryRule=="04" ||tableCarray.queryRule=="05")>
+							<#if (tableCarray.queryRule??) && tableCarray.queryRule == "04">
+								getComboStore(data.data.${tableCarray.columnNameX},"${tableCarray.columnName}_SHOW", "${tableCarray.columnName}",false);
+							<#elseif (tableCarray.queryRule??) && tableCarray.queryRule == "05">
+								getCustomStore(data.data.${tableCarray.columnNameX},"${tableCarray.columnName}_SHOW",false);
 							<#else>
 								document.getElementById('${tableCarray.columnName}_SHOW').value=data.data.${tableCarray.columnNameX};
-							</#if>	
+							</#if>
 						</#if>
 					</#list>
-						
+					document.getElementById('hiddenUUid').value=data.data.uuid;
+					$("#addOrUpdateWin").modal('show');
 					},
 					error:function(){
 						alert("操作失败，请重新操作！")
@@ -598,8 +766,8 @@
     			return;
 			}
 		}
-		//下拉框码表中加载数据
-	    function getComboStore(element, type_code) {
+		//下拉框码表中加载数据(使用系统表)
+		function getComboStore(value,element,type_code,isdisabled) {
 	    	$.ajax({
 	            type: "GET",
 	            url: baseURL+"/code/query/typ/" + type_code,
@@ -617,12 +785,44 @@
 	              	//更新内容刷新到相应的位置
 	                $("#" + element).selectpicker('render');
 	                $("#" + element).selectpicker('refresh');
+	                $("#" + element).selectpicker('val', value);
+	                if(isdisabled){
+	                	$("#" + element).attr('disabled', true);
+	                }
 	            },
 	            error: function(error) {
 	            }
 	        });
 	    }
-		//初始化输入框时间默认值
+		function getCustomStore(value,element,isdisabled){
+			<!--请在此处实现自定义下拉框选项-->
+			/* $.ajax({
+	            type: "GET",
+	            url: <!--请在此处定义传入的URL-->,
+	            contentType: "application/json;charset=utf-8",
+	            dataType: "json",
+	            success: function(data) {
+	            	if(data.timeout){
+	            		ajaxTimeout();
+	                }
+	                $("#" + element).empty();
+	                $("#" + element).append($("<option></option>").val("").text("全部"));
+	                $.each(data, function(index, obj) {
+	                	$("#" + element).append($("<option></option>").val(obj.cdVl).text(obj.cdNm));
+	                });
+	              	//更新内容刷新到相应的位置
+	                $("#" + element).selectpicker('render');
+	                $("#" + element).selectpicker('refresh');
+	                $("#" + element).selectpicker('val', value);
+	                if(isdisabled){
+	                	$("#" + element).attr('disabled', true);
+	                }
+	            },
+	            error: function(error) {
+	            }
+	        }); */
+		}
+	    
 		function initDefaultDate(){
 	    	var myDate = new Date();
 	    	var tempMonth;
@@ -645,8 +845,14 @@
 		    			$("#${tableCarray.columnName}_beginDt").datepicker('update', dateString);
 		    			$("#${tableCarray.columnName}_endDt").datepicker('update', dateString);
 	    			</#if>
+	    			<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "06">
+	    				$("#${tableCarray.columnName}").datepicker('setStartDate', null);
+	    				$("#${tableCarray.columnName}").datepicker('update', dateString);
+	    			</#if>
 	    		</#list>
 	    }
+		
+		
 		var queryInner_Path = baseURL + "/${dbUser}/${classNameD}/${classNameD}query";
 		//实现查询按钮方法
 		function reloadGrid(){
@@ -657,15 +863,16 @@
 	    	}
 	    	start=(page-1)*limit;
 	    	<#list tableCarrays as tableCarray>
-				<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "02">
+				<#if (tableCarray.queryRule)?? && (tableCarray.queryRule == "02"|| tableCarray.queryRule =="06")>
 	    			var beginDt = $("#${tableCarray.columnName}_beginDt").val();
 	    			var endDt = $("#${tableCarray.columnName}_endDt").val();
-				</#if>
+	    			if(daysBetween(beginDt, endDt) > 30){
+	    	            bootbox.alert("起止时间的最大间隔为1个月");
+	    	            return;
+	    	        }
+    			</#if>
 			</#list>
-			if(daysBetween(beginDt, endDt) > 30){
-	            bootbox.alert("起止时间的最大间隔为1个月");
-	            return;
-	        }
+			
 			//获取筛选条件输入值
 			var param = {page:page,start:start,limit:limit};
 			<#list tableCarrays as tableCarray>
@@ -694,21 +901,12 @@
 					$("#itemCount").text(data.totalCount);
 					$("#nowpage").text(page);
 					$("#toalPage").text(toalPage);
-					if (!data.totalCount || data.totalCount == 0) {
-	    			    $("#count_Label").text("0  笔");
-	    			    $("#totalAmt_Label").text("0 元");
-	    				$("#pagination-bar").hide();
-	    				return;
-	    			}
 					if (toalPage < 2) {
 	    				$("#pagination").hide();
 	    			} else {
 	    				$("#pagination").show();
 	    			}
 					tableData = $.extend(true, {}, data);
-					var sumPayAmt = data.items[0].sumPayAmt;
-                    $("#count_Label").text(data.totalCount +" 笔");
-    			    $("#totalAmt_Label").text(sumPayAmt+ " 元");
     			    $("#queryMecGrid").DataTable().clear().draw();
     			    $.each(data.items,function(index,obj){
     			    	var trData = [];
@@ -719,6 +917,9 @@
     			    			trData.push(obj.${tableCarray.columnNameX});
     			    		</#if>
     			    	</#list>
+    			    	<#if isOperation == "01">
+    			    		trData.push("<a href='javascript:void(0)'  onclick=view('"+obj.uuid+"')><i class='fa fa-search-plus'></i>查看</a>");
+    			    	</#if>
     			    	for(i=0; i < trData.length; i++){
     			    		if(trData[i] == undefined){
     			    			trData[i] = ''; 
@@ -764,6 +965,43 @@
 	        var cha=((Date.parse(OneMonth+'/'+OneDay+'/'+OneYear)- Date.parse(TwoMonth+'/'+TwoDay+'/'+TwoYear))/86400000);   
 	        return Math.abs(cha);  
 	    }
+		<#if isOperation == "01">
+		<!--操作链接点击事件-->
+		function view(uuid){
+			var param = {};
+			param.uuid = uuid;
+			$.ajax({
+				type : "POST",
+				url : baseURL + "/${dbUser}/${classNameD}/${classNameD}getDetail",
+				data :param,
+				contentType: "application/x-www-form-urlencoded;charset=utf-8",
+				dataType : "json",
+				success:function(data){
+					<#list tableCarrays as tableCarray>
+						<#if (tableCarray.queryView??) && tableCarray.queryView == "01" &&
+						(tableCarray.queryRule=="01"||tableCarray.queryRule=="02"||tableCarray.queryRule=="03"||tableCarray.queryRule=="04" ||tableCarray.queryRule=="05")>
+						<#if (tableCarray.queryRule??) && tableCarray.queryRule == "04">
+							getComboStore(data.data.${tableCarray.columnNameX},"${tableCarray.columnName}_VIEW", "${tableCarray.columnName}",true);
+						<#elseif (tableCarray.queryRule??) && tableCarray.queryRule == "05">
+							getCustomStore(data.data.${tableCarray.columnNameX},"${tableCarray.columnName}_VIEW",true);
+						<#else>
+							document.getElementById('${tableCarray.columnName}_VIEW').value=data.data.${tableCarray.columnNameX};
+						</#if>
+						</#if>
+					</#list>
+					$("#viewWin").modal('show');
+					
+				},
+				error:function(){
+					alert("操作失败，请重新操作！")
+				}
+			});
+		}
+		//弹出页面取消按钮（详情）
+		$("#openform_cancel_btn").on('click',function(){
+			$("#viewWin").modal('hide');
+		});
+		</#if>
 		
 
 		/* 写到流水模板下载 流水批量导入，需要重新考虑（页面没有实现） */

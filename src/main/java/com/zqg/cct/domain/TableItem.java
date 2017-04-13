@@ -16,6 +16,7 @@ public class TableItem {
 	private String queryType; //查询类型
 	private String queryShow;//列表页面展示字段
 	private String queryAdd;//添加页面展示字段
+	private String queryView;//详情页面展示字段
 	public String getColumnName() {
 		return columnName;
 	}
@@ -134,5 +135,13 @@ public class TableItem {
 
 	public void setQueryAdd(String queryAdd) {
 		this.queryAdd = queryAdd;
+	}
+
+	public String getQueryView() {
+		return queryView;
+	}
+
+	public void setQueryView(String queryView) {
+		this.queryView = queryView;
 	}
 }
