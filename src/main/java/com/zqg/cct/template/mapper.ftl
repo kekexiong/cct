@@ -11,13 +11,17 @@ import ${mapperPackage}.${classNameD}Mapper;
  */
 public interface ${classNameD}Mapper {
 	
+	<#list tableCarrays as tableCarray>
+	<#if (tableCarray.queryRule??) && tableCarray.queryRule == "05">
 	/**
 	 * @description: 获取付款类型字段
 	 * @return map
 	 * @author ${classAuthor}
 	 * @data ${classTime}
 	 */
-	public List<Map<String, Object>> getCustomStore();
+	public List<Map<String, Object>> get${tableCarray.columnNameD}();
+	</#if>
+	</#list>
 	<#if isQuery == "true">
 	/**
 	 * 根据条件查询

@@ -183,7 +183,7 @@
 												<th><input type="checkbox" class="group-checkable" onclick="checkAll(this.checked)" /></th> 
 													<th class="nowrap">序号</th>
 													<#list tableCarrays as tableCarray>
-														<#if (tableCarray.queryShow??) && tableCarray.queryShow == "01">
+														<#if (tableCarray.queryShow??) && tableCarray.queryShow == "01" && tableCarray.isAddColumnName != "3">
 															<th class="nowrap">${tableCarray.comments}</th> 
 														</#if>
 													</#list>
@@ -576,10 +576,10 @@
 				</#if>
 				<#if (tableCarray.queryRule??) && tableCarray.queryRule == "05">
 					<#if (tableCarray.queryType??) && tableCarray.queryType == "01"><!--列表下拉框-->
-						getCustomStore("","${tableCarray.columnName}","");
+						get${tableCarray.columnNameD}("","${tableCarray.columnName}","");
 					</#if>
 					<#if tableCarray.queryAdd?? && tableCarray.queryAdd == "01">
-						getCustomStore("","${tableCarray.columnName}_SHOW","");
+						get${tableCarray.columnNameD}("","${tableCarray.columnName}_SHOW","");
 					</#if>
 				</#if>
 			</#list>
@@ -626,14 +626,14 @@
 			$("#addform_save_btn").off('click').on('click', function() {
 				<#list tableCarrays as tableCarray>
 					<#if (tableCarray.queryAdd??) && tableCarray.queryAdd == "01">
-						<#if (tableCarray.queryType)?? && tableCarray.queryType == "01" && tableCarray.queryRule == "02">
+						<#if (tableCarray.queryRule??) && tableCarray.queryRule == "02">
 							param.${tableCarray.columnNameX}beginDt = $("#${tableCarray.columnName}_beginDt_SHOW").val().replace('/', '').replace('/', '');
 							param.${tableCarray.columnNameX}endDt = $("#${tableCarray.columnName}_endDt_SHOW").val().replace('/', '').replace('/', '');
 						</#if>
-						<#if (tableCarray.queryRule)?? && (tableCarray.queryRule == "03" || tableCarray.queryRule == "04")>
+						<#if (tableCarray.queryRule??) && (tableCarray.queryRule == "03" || tableCarray.queryRule == "04" || tableCarray.queryRule == "05")>
 							param.${tableCarray.columnNameX} = $("#${tableCarray.columnName}_SHOW").val();
 						</#if>
-						<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "01">
+						<#if (tableCarray.queryRule??) && tableCarray.queryRule == "01">
 							param.${tableCarray.columnNameX} = $("#${tableCarray.columnName}_MNO_SHOW").val().replace(/^\s+|\s+$/g, "");
 						</#if>
 					</#if>
@@ -748,7 +748,7 @@
 							<#if (tableCarray.queryRule??) && tableCarray.queryRule == "04">
 								getComboStore(data.data.${tableCarray.columnNameX},"${tableCarray.columnName}_SHOW", "${tableCarray.columnName}",false);
 							<#elseif (tableCarray.queryRule??) && tableCarray.queryRule == "05">
-								getCustomStore(data.data.${tableCarray.columnNameX},"${tableCarray.columnName}_SHOW",false);
+								get${tableCarray.columnNameD}(data.data.${tableCarray.columnNameX},"${tableCarray.columnName}_SHOW",false);
 							<#else>
 								document.getElementById('${tableCarray.columnName}_SHOW').value=data.data.${tableCarray.columnNameX};
 							</#if>
@@ -794,11 +794,13 @@
 	            }
 	        });
 	    }
-		function getCustomStore(value,element,isdisabled){
+		<#list tableCarrays as tableCarray>
+			<#if (tableCarray.queryRule??) && tableCarray.queryRule == "05">
+		function get${tableCarray.columnNameD}(value,element,isdisabled){
 			<!--请在此处实现自定义下拉框选项-->
-			/* $.ajax({
+			$.ajax({
 	            type: "GET",
-	            url: <!--请在此处定义传入的URL-->,
+	            url: baseURL+"/${dbUser}/${classNameD}/get${tableCarray.columnNameD}",
 	            contentType: "application/json;charset=utf-8",
 	            dataType: "json",
 	            success: function(data) {
@@ -808,7 +810,7 @@
 	                $("#" + element).empty();
 	                $("#" + element).append($("<option></option>").val("").text("全部"));
 	                $.each(data, function(index, obj) {
-	                	$("#" + element).append($("<option></option>").val(obj.cdVl).text(obj.cdNm));
+	                	$("#" + element).append($("<option></option>").val(obj.${tableCarray.columnNameX}_Code).text(obj.${tableCarray.columnNameX}_Name));
 	                });
 	              	//更新内容刷新到相应的位置
 	                $("#" + element).selectpicker('render');
@@ -820,9 +822,10 @@
 	            },
 	            error: function(error) {
 	            }
-	        }); */
+	        });
 		}
-	    
+		</#if>
+	</#list> 
 		function initDefaultDate(){
 	    	var myDate = new Date();
 	    	var tempMonth;
@@ -913,7 +916,7 @@
     			    	trData.push("<input type=\"checkbox\" class=\"checkboxes\" onclick=\"clickCheck(this)\" rownum=\""+index+"\" />");
     			    	trData.push(start + index + 1);
     			    	<#list tableCarrays as tableCarray>
-    			    		<#if tableCarray.queryShow?? && tableCarray.queryShow == "01">
+    			    		<#if tableCarray.queryShow?? && tableCarray.queryShow == "01" && tableCarray.isAddColumnName != "3">
     			    			trData.push(obj.${tableCarray.columnNameX});
     			    		</#if>
     			    	</#list>
@@ -983,7 +986,7 @@
 						<#if (tableCarray.queryRule??) && tableCarray.queryRule == "04">
 							getComboStore(data.data.${tableCarray.columnNameX},"${tableCarray.columnName}_VIEW", "${tableCarray.columnName}",true);
 						<#elseif (tableCarray.queryRule??) && tableCarray.queryRule == "05">
-							getCustomStore(data.data.${tableCarray.columnNameX},"${tableCarray.columnName}_VIEW",true);
+							get${tableCarray.columnNameD}(data.data.${tableCarray.columnNameX},"${tableCarray.columnName}_VIEW",true);
 						<#else>
 							document.getElementById('${tableCarray.columnName}_VIEW').value=data.data.${tableCarray.columnNameX};
 						</#if>

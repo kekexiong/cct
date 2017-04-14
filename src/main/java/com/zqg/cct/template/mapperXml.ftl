@@ -33,7 +33,16 @@
 	<select id="findByCondition" parameterType="java.util.Map" resultMap="${classNameX}Map">
 		${stringCarrayNames7}
 		SELECT
-			${stringCarrayNames3}
+			<#list tableCarrays as tableCarray> 
+				<#if (tableCarray.columnName??) >
+					<#if (tableCarray.isAddColumnName??) && tableCarray.isAddColumnName == "0">
+						${tableCarray.columnName},
+					</#if>
+					<#if (tableCarray.isAddColumnName??) && tableCarray.isAddColumnName == "1">
+						"" as "${tableCarray.columnNameX}",
+					</#if>
+				</#if> 
+			</#list>
 		FROM ${dbUser}.${tableName}
 			<include refid="whereQueryCondition"></include>
 			${stringCarrayNames8}
@@ -50,9 +59,17 @@
 	<#if isAdd == "true">
 	<insert id="insert" parameterType="${domainPackage}.${classNameD}">
 		INSERT INTO ${dbUser}.${tableName} (
-			${tableCarray.columnName},
+			<#list tableCarrays as tableCarray>
+				<#if (tableCarray.isAddColumnName??) && tableCarray.isAddColumnName == "0">
+					${tableCarray.columnName},
+				</#if>
+			</#list>
 		) VALUES (
-			${specific}{${tableCarray.columnNameX},jdbcType=VARCHAR},
+			<#list tableCarrays as tableCarray>
+				<#if (tableCarray.isAddColumnName??) && tableCarray.isAddColumnName == "0">
+					${specific}{${tableCarray.columnNameX},jdbcType=VARCHAR},
+				</#if>
+			</#list>
 		)
 	</insert>
 	</#if>
@@ -104,4 +121,14 @@
  		</foreach>
 	</delete>
 	</#if>
+	<#list tableCarrays as tableCarray>
+	<#if (tableCarray.queryRule??) && tableCarray.queryRule == "05">
+	<select id="get${tableCarray.columnNameD}" resultType="Map">
+		select "" as "${tableCarray.columnNameX}_Code",
+			   "" as "${tableCarray.columnNameX}_Name" 
+		from T t
+	</select>
+		
+	</#if>
+	</#list>
 </mapper>

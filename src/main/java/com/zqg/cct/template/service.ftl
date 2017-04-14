@@ -15,15 +15,20 @@ import ${mapperPackage}.${classNameD}Mapper;
 public class ${classNameD}Service {
 	@Autowired
 	private ${classNameD}Mapper ${classNameX}Mapper;
+	<#list tableCarrays as tableCarray>
+	<#if (tableCarray.queryRule??) && tableCarray.queryRule == "05">
 	/**
 	 * @description: 获取付款类型字段
 	 * @return map
 	 * @author ${classAuthor}
 	 * @data ${classTime}
 	 */
-	public List<Map<String, Object>> getCustomStore(){
-		return  ${classNameX}Mapper.getCustomStore();
+	public List<Map<String, Object>> get${tableCarray.columnNameD}(){
+		return  ${classNameX}Mapper.get${tableCarray.columnNameD}();
 	}
+	</#if>
+	</#list>
+	
 	<#if isQuery == "true">
 	/**
 	 * 根据条件查询

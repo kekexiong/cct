@@ -1,5 +1,6 @@
 package com.zqg.cct.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -89,6 +90,24 @@ public class CodeController {
 		//List<TableItem> list = (List<TableItem>) request.getParameter("list");
 		String listString =request.getParameter("list");
 		List<TableItem> list=JSON.parseArray(listString, TableItem.class);
+		List <TableItem> newList = new ArrayList<TableItem>();
+		for(int i = 0 ;i<list.size();i++){
+			TableItem item = list.get(i);
+			newList.add(item);
+			String queryRule = item.getQueryRule();
+			if(!"".equals(queryRule) &&("04".equals(queryRule)|| "05".equals(queryRule))){
+				item.setIsAddColumnName("3");
+				TableItem item1 = new TableItem();
+				item1.setComments(item.getComments());
+				item1.setColumnName(item.getColumnName()+"_NAME");
+				item1.setDataType("VARCHAR2");
+				item1.setIsAddColumnName("1");
+				item1.setQueryShow("01");
+				newList.add(item1);
+			}else{
+				item.setIsAddColumnName("0");
+			}
+		}
 		TableDomain table = new TableDomain();
 		table.setTableName(tableName);
 		table.setDomainPackage("com.zqg.cct.domain");
@@ -111,7 +130,7 @@ public class CodeController {
 		table.setIsExport(isExport);
 		table.setIsImport(isImport);
 		table.setIsOperation(isOperation);
-		tableService.process(list, table);
+		tableService.process(newList, table);
 		return JSON.toJSONString(tableService.getTableItem(null));
 	}
 	

@@ -27,19 +27,23 @@ public class ${classNameD}Controller extends BaseController {
 	private ${classNameD}Service ${classNameX}Service;
 	static final Logger LOGGER = LoggerFactory.getLogger(${classNameD}Controller.class);
 	
+	<#list tableCarrays as tableCarray>
+	<#if (tableCarray.queryRule??) && tableCarray.queryRule == "05">
 	/**
 	 * @description: 获取付款类型字段
 	 * @return map
 	 * @author ${classAuthor}
 	 * @data ${classTime}
 	 */
-	public List<Map<String, Object>> getCustomStore(){
+	@RequestMapping(value ="/get${tableCarray.columnNameD}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Map<String, Object>> get${tableCarray.columnNameD}(){
 		String tcd = "${classNameD}Controller.getCustomStore";
 		String opNm = "${businessName}-获取付款类型字段";
 		LOGGER.info(tcd, "", opNm + "--begin");
 		List<Map<String, Object>> payTypeNames = null;
 		try {
-            payTypeNames = tSesAutoPayCheckService.getCustomStore();
+            payTypeNames = tSesAutoPayCheckService.get${tableCarray.columnNameD}();
             LOGGER.info(tcd, "", opNm + "--获取参数成功！");
         } catch (Exception e) {
             LOGGER.error(tcd, "", opNm + "--End,异常:", e);
@@ -47,6 +51,9 @@ public class ${classNameD}Controller extends BaseController {
         LOGGER.info(tcd, "", opNm + "--end");
         return payTypeNames;
 	}
+	</#if>
+	</#list>
+	
 	<#if isQuery == "true">
 	/**
 	 * @description: 信息查询
@@ -121,6 +128,16 @@ public class ${classNameD}Controller extends BaseController {
 		try{
 			String uuid = CreateUUID.GetRandomUUID();
 			${classNameX}.setUuid(uuid);
+			String loginName = SysUtils.getLoginName();
+	        String nowDate = DateTimeUtil.formatDateByFormat(new Date(), TimeFormater.YYYYMMDD);
+	        String nowTime = DateTimeUtil.formatDateByFormat(new Date(), TimeFormater.HHmmss);
+	        ${classNameX}.setOpId(loginName);
+	        ${classNameX}.setOpDt(nowDate);
+	        ${classNameX}.setOpTm(nowTime);
+	        ${classNameX}.setUuid(uuid);
+	        ${classNameX}.setCtDt(nowDate);
+	        ${classNameX}.setCtId(loginName);
+	        ${classNameX}.setCtTm(nowTime);
 			LOGGER.info(tcd, "", opNm + "--begin");
 			int num = ${classNameX}Service.insert(${classNameX});
 			if(num>0){
@@ -148,6 +165,12 @@ public class ${classNameD}Controller extends BaseController {
 		String tcd = "${classNameD}Controller.save";
 		String opNm = "${businessName}-更新";
 		try{
+			String loginName = SysUtils.getLoginName();
+	        String nowDate = DateTimeUtil.formatDateByFormat(new Date(), TimeFormater.YYYYMMDD);
+	        String nowTime = DateTimeUtil.formatDateByFormat(new Date(), TimeFormater.HHmmss);
+	        paramVo.setOpDt(nowDate);
+	        paramVo.setOpId(loginName);
+	        paramVo.setOpTm(nowTime);
 			LOGGER.info(tcd, "", opNm + "--begin");
 			int num = ${classNameX}Service.update(paramVo);
 			if(num>0){
