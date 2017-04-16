@@ -36,14 +36,15 @@
 			<#list tableCarrays as tableCarray> 
 				<#if (tableCarray.columnName??) >
 					<#if (tableCarray.isAddColumnName??) && tableCarray.isAddColumnName == "0">
-						${tableCarray.columnName},
+						t.${tableCarray.columnName},
 					</#if>
 					<#if (tableCarray.isAddColumnName??) && tableCarray.isAddColumnName == "1">
-						"" as "${tableCarray.columnNameX}",
+						'' as "${tableCarray.columnNameX}",
 					</#if>
 				</#if> 
 			</#list>
-		FROM ${dbUser}.${tableName}
+			<!-- 请在此关联查询表 -->
+		FROM ${dbUser}.${tableName} t
 			<include refid="whereQueryCondition"></include>
 			${stringCarrayNames8}
 	</select>
@@ -60,13 +61,13 @@
 	<insert id="insert" parameterType="${domainPackage}.${classNameD}">
 		INSERT INTO ${dbUser}.${tableName} (
 			<#list tableCarrays as tableCarray>
-				<#if (tableCarray.isAddColumnName??) && tableCarray.isAddColumnName == "0">
+				<#if (tableCarray.isAddColumnName??) && tableCarray.isAddColumnName != "1">
 					${tableCarray.columnName},
 				</#if>
 			</#list>
 		) VALUES (
 			<#list tableCarrays as tableCarray>
-				<#if (tableCarray.isAddColumnName??) && tableCarray.isAddColumnName == "0">
+				<#if (tableCarray.isAddColumnName??) && tableCarray.isAddColumnName != "1">
 					${specific}{${tableCarray.columnNameX},jdbcType=VARCHAR},
 				</#if>
 			</#list>
@@ -93,7 +94,8 @@
 		SET
 			<#list tableCarrays as tableCarray>
 				<#if (tableCarray.queryAdd??) && tableCarray.queryAdd == "01" && 
-				(tableCarray.queryRule=="01"||tableCarray.queryRule=="02"||tableCarray.queryRule=="03"||tableCarray.queryRule=="04")>
+				(tableCarray.queryRule=="01"||tableCarray.queryRule=="02"||tableCarray.queryRule=="03"
+				||tableCarray.queryRule=="04" ||tableCarray.queryRule=="05")>
 					${tableCarray.columnName}=${specific}{${tableCarray.columnNameX}},
 				</#if>
 			</#list>
@@ -124,6 +126,7 @@
 	<#list tableCarrays as tableCarray>
 	<#if (tableCarray.queryRule??) && tableCarray.queryRule == "05">
 	<select id="get${tableCarray.columnNameD}" resultType="Map">
+	<!-- 请在此处拼写查询sql 查询字段替代“”-->
 		select "" as "${tableCarray.columnNameX}_Code",
 			   "" as "${tableCarray.columnNameX}_Name" 
 		from T t

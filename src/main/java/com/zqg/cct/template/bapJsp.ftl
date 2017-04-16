@@ -879,15 +879,18 @@
 			//获取筛选条件输入值
 			var param = {page:page,start:start,limit:limit};
 			<#list tableCarrays as tableCarray>
-				<#if (tableCarray.queryType)?? && tableCarray.queryType == "01" && tableCarray.queryRule == "02">
-					param.${tableCarray.columnNameX}beginDt = $("#${tableCarray.columnName}_beginDt").val().replace('/', '').replace('/', '');
-					param.${tableCarray.columnNameX}endDt = $("#${tableCarray.columnName}_endDt").val().replace('/', '').replace('/', '');
-				</#if>
-				<#if (tableCarray.queryRule)?? && (tableCarray.queryRule == "03" || tableCarray.queryRule == "04")>
-					param.${tableCarray.columnNameX} = $("#${tableCarray.columnName}").val();
-				</#if>
-				<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "01">
-					param.${tableCarray.columnNameX} = $("#${tableCarray.columnName}_MNO").val().replace(/^\s+|\s+$/g, "");
+				<#if (tableCarray.queryType)?? && tableCarray.queryType == "01">
+					<#if tableCarray.queryRule?? && tableCarray.queryRule == "02">
+						param.${tableCarray.columnNameX}beginDt = $("#${tableCarray.columnName}_beginDt").val().replace('/', '').replace('/', '');
+						param.${tableCarray.columnNameX}endDt = $("#${tableCarray.columnName}_endDt").val().replace('/', '').replace('/', '');
+					</#if>
+					<#if (tableCarray.queryRule)?? && (tableCarray.queryRule == "03" || tableCarray.queryRule == "04"
+							|| tableCarray.queryRule == "05" || tableCarray.queryRule == "06")>
+						param.${tableCarray.columnNameX} = $("#${tableCarray.columnName}").val();
+					</#if>
+					<#if (tableCarray.queryRule)?? && tableCarray.queryRule == "01">
+						param.${tableCarray.columnNameX} = $("#${tableCarray.columnName}_MNO").val().replace(/^\s+|\s+$/g, "");
+					</#if>
 				</#if>
 			</#list>
 			$.ajax({

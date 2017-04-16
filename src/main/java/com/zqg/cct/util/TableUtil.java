@@ -23,7 +23,7 @@ public class TableUtil {
 				if (!"".endsWith(stringCarrayNames2)) {
 					stringCarrayNames2 += ", ";
 				}
-				if (!"".endsWith(stringCarrayNames3)) {
+				if (!"".endsWith(stringCarrayNames3) && !"1".equals(item.getIsAddColumnName())) {
 					stringCarrayNames3 += ", ";
 				}
 				if (!"".endsWith(stringCarrayNames4)) {
@@ -35,7 +35,9 @@ public class TableUtil {
 				 */
 				stringCarrayNames1 += item.getColumnName();
 				stringCarrayNames2 += item.getDataType() + " " + item.getColumnName();
-				stringCarrayNames3 += item.getColumnName();
+				if(!"1".equals(item.getIsAddColumnName())){
+					stringCarrayNames3 += item.getColumnName();
+				}
 				stringCarrayNames4 += String.format("#{%s}", item.getColumnName());
 				stringCarrayNames5 += "<if test=" + '\"' +  item.getColumnNameX()+ "!= null and "+ item.getColumnNameX()+ "!= ''"+ '\"'+ ">" 
 						+ String.format("%s=#{%s}", item.getColumnName(), item.getColumnNameX())  + "</if>";
