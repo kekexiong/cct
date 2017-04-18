@@ -553,6 +553,10 @@
 			$('table > tbody').empty();
 			reloadGrid();
 		}
+		//全选列表数据
+	    function checkAll(checked) {
+	    	$("#queryMecGrid tbody :checkbox").prop('checked', checked);
+	    }
 		function onChange4PageSize(select) {
 	    	limit = select.value;
 	    	reloadGrid();
