@@ -866,7 +866,7 @@
 			$('table > tbody').empty();
 	    	if(limit==0) {
 	    		//默认20条
-	    		limit=20;
+	    		limit=$("#limit").val();
 	    	}
 	    	start=(page-1)*limit;
 	    	<#list tableCarrays as tableCarray>
