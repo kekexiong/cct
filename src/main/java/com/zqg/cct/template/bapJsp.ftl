@@ -199,7 +199,7 @@
 							</div>
 							<!-- 分页开始 -->
 							<div class="row no-margin" id="pagination-bar">
-								<div class="col-sm-4 left no-padding">
+								<div class="col-sm-12 left no-padding">
 									<div class="inline fl">
 										记录数共:<span id="itemCount"></span>条 当前第<span id="nowpage"></span>/<span
 											id="toalPage"></span>页 每页显示:
