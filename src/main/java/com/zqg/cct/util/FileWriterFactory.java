@@ -24,6 +24,7 @@ public class FileWriterFactory {
 	public static final int SERVICE = 3;
 	public static final int MAPPER = 4;
 	public static final int MAPPER_XML = 5;
+	public static final int EXCELTEMPLATE_XML = 7;
 	private static String templateUrl = "com/zqg/cct/template/";
 	Configuration configuration = FileWriterFactory.getConfiguration(templateUrl);
 	public static Configuration getConfiguration(String url) {
@@ -88,13 +89,16 @@ public class FileWriterFactory {
 			case CONTROLLER:
 				packageName = table.getControllerPackage();
 				break;
+			case EXCELTEMPLATE_XML:
+				packageName = table.getMapperXmlPackage();
+				break;
 			}
 			packageName = packageName.replace(".", "/");
 			//String url = FileWriterFactory.class.getResource("/").getPath() +"/" + packageName + "/" + fileName;
 			String url = table.getBasePath()+"/src/main/java/"  + packageName + "/" + fileName;
 			//文件夹路径 add by wenjifeng 20170401
 			String urlPag = table.getBasePath()+"/src/main/java/"  + packageName;
-			if(MAPPER_XML==type){
+			if(MAPPER_XML==type || EXCELTEMPLATE_XML == type){
 				url= table.getBasePath()+"/src/main/resources/"  + packageName + "/" + fileName;
 				//文件夹路径 add by wenjifeng 20170401
 				urlPag = table.getBasePath()+"/src/main/resources/"  + packageName;

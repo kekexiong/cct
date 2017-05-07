@@ -18,6 +18,7 @@ public class TableItem {
 	private String queryAdd;//添加页面展示字段
 	private String queryView;//详情页面展示字段
 	private String isAddColumnName;//是否是添加字段 0:不是；1：是
+	private String queryExport;//导出字段
 	public String getColumnName() {
 		return columnName;
 	}
@@ -152,5 +153,13 @@ public class TableItem {
 
 	public void setIsAddColumnName(String isAddColumnName) {
 		this.isAddColumnName = isAddColumnName;
+	}
+
+	public String getQueryExport() {
+		return queryExport;
+	}
+
+	public void setQueryExport(String queryExport) {
+		this.queryExport = queryExport;
 	}
 }

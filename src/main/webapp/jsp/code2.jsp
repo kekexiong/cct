@@ -215,6 +215,24 @@
 							data:selectViewData
 						}
 					}">详情页面展示字段</th>
+			<th data-options="field:'queryExport',width:100,
+					formatter:function(value,row){
+					var propertyData=selectExportData
+					    for (var i = 0; i < propertyData.length; i++) {
+					        if (propertyData[i].id == value) {  
+					            return propertyData[i].name 
+					        }  
+					   }      return value; 
+					},
+					editor:{
+						type:'combobox',
+						options:{
+							valueField:'id',
+							textField:'name',
+							method:'get',
+							data:selectExportData
+						}
+					}">导出字段</th>
 			</tr>
 			
 		</thead>
@@ -356,6 +374,7 @@ var queryTypeData=[{"id":"01", "name":"是"},{"id":"02", "name":"否"}];
 var selectShowData=[{"id":"01", "name":"是"},{"id":"02", "name":"否"}];
 var selectAddData=[{"id":"01", "name":"是"},{"id":"02", "name":"否"}];
 var selectViewData=[{"id":"01", "name":"是"},{"id":"02", "name":"否"}];
+var selectExportData=[{"id":"01", "name":"是"},{"id":"02", "name":"否"}];
 	</script>
 </body>
 </html>

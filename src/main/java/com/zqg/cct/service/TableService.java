@@ -47,6 +47,7 @@ public class TableService {
 		FileWriterFactory.dataSourceOut("controller.ftl", table, table.getClassNameD() + "Controller.java",	FileWriterFactory.CONTROLLER);
 
 		FileWriterFactory.dataSourceOut("bapJsp.ftl", table, table.getClassNameD() + ".jsp", FileWriterFactory.JSP);
+		FileWriterFactory.dataSourceOut("excel-templateXml.ftl", table, "excel-templateXml.xml", FileWriterFactory.EXCELTEMPLATE_XML);
 		
 	};
 	

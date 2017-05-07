@@ -78,7 +78,7 @@ public class ${classNameD}Controller extends BaseController {
 				Map<String, Object> map = setParams(start, limit);
 				map.put("${classNameX}", ${classNameX});
 				session.setAttribute("queryMecTOneAcRateParam", map);
-				List<${classNameD}> list = ${classNameX}Service.findByCondition(map);
+				List<Map<String, Object>> list = ${classNameX}Service.findByCondition(map);
 				int count = ${classNameX}Service.findByConditionCount(map);
 				LOGGER.info(tcd, "", opNm + "--end");
 				return setResult(list, count);
@@ -218,6 +218,100 @@ public class ${classNameD}Controller extends BaseController {
 			return super.setFailure("删除失败!");
 		}
 	}
+	</#if>
+	<#if isImport == "01" >
+	/**
+     * @description:主页面导入功能
+     * @param session
+     * @param response
+     * @return:void
+     * @author:${classAuthor}
+     * @date:
+     */
+	@RequestMapping(value = "${classNameD}importExcel", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> ${classNameD}importExcel (HttpSession session, HttpServletRequest request){
+		String tcd = "${classNameD}Controller-${classNameD}importExcel";
+        String opNm = "${businessName}-导入";
+        logger.info(LogUtils.genLogs(LogType.BAP, tcd, opNm, "==开始"));
+        Map<String, Object> rsMap = null;
+        try {
+            Principal pr = SysUtils.getSessionStoreRange();
+            String loginId = pr.getLoginName();
+            rsMap = ${classNameX}Service.batchOperate(request);
+            if (rsMap.get("errors") != null) {
+                List<BnkRetPo> errlist = (List<BnkRetPo>) rsMap.get("errors");
+                session.setAttribute("errlist", errlist);
+            }
+            return rsMap;
+        } catch (Exception e) {
+            logger.error("#bap#${businessName}信息管理-批量添加${businessName}异常原因是：", e);
+            rsMap = new HashMap<String, Object>();
+            rsMap.put("success", false);
+            rsMap.put("msgInfo", "系统异常！");
+            return rsMap;
+        }
+	}
+	
+	/**
+     * @description:导出错误信息
+     * @param session
+     * @param response
+     * @return:void
+     * @author:${classAuthor}
+     * @date:2017年4月26日
+     */
+	@RequestMapping(value = "${classNameD}getFailExport", method = RequestMethod.GET)
+    @ResponseBody
+	public void getBnkBinFailExport(HttpSession session, HttpServletResponse response) {
+		try{
+			//从session中获取错误信息list
+			List<BnkRetPo> erroList = (List<BnkRetPo>) session.getAttribute("errlist");
+	        List<Map<String, Object>> inList = null;
+	        if(erroList.size()>0){
+	        	inList = new ArrayList<Map<String, Object>>();
+	        	for (int i = 0; i < erroList.size(); i++) {
+	                Map<String, Object> map = new HashMap<String, Object>();
+	                BnkRetPo po = erroList.get(i);
+	                String bnkCd = po.getBnkCd();
+	                String failReason = po.getFailReason();
+	                map.put("bnkCd", bnkCd);
+	                map.put("failReason", failReason);
+	                inList.add(map);
+	            }
+	        	File file = ${classNameX}Service.exportExcelFail(inList, SysUtils.getLoginName());
+	            DownloadFileUtil.getInstance().downLoad(file, response);
+	        }
+		} catch (Exception e){
+			logger.error("验证失败结果导出异常，", e);
+		}
+	}
+	</#if>
+	<#if isExport == "01" >
+	/**
+     * @description:主页面导出功能
+     * @param session
+     * @param response
+     * @return:void
+     * @author:${classAuthor}
+     * @date:2017年4月24日
+     */
+	@RequestMapping(value = "/${classNameD}Export", method = RequestMethod.GET)
+    public void export(HttpSession session, HttpServletResponse response) {
+        String tcd = "${classNameD}Controller-export";
+        String opNm = "${businessName}信息管理-导出";
+        Map<String, Object> paraMap = (Map<String, Object>) session.getAttribute("queryMecTOneAcRateParam");
+        HSSFWorkbook hSSFWorkbook;
+        String fileName = null;
+        try {
+            hSSFWorkbook = ${classNameX}Service.export(paraMap);
+            fileName = "${businessName}表信息" + System.currentTimeMillis() + ".xls";
+            DownloadFileUtil.getInstance().downLoadExcel(hSSFWorkbook, fileName, response);
+        } catch (Exception e) {
+            logger.error(BapLogUtil.genLogs(tcd, opNm + "异常：" + e.getMessage()));
+        }
+        logger.info(BapLogUtil.genLogs(tcd, opNm + "end,fileName=" + fileName));
+    }
 	</#if>
 	
 }

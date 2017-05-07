@@ -13,8 +13,8 @@
 		       t1.DATA_PRECISION as "dataPrecision",
 		       t1.DATA_SCALE     as "dataScale"
 		  from all_tab_columns t1, user_col_comments t2
-		 where t1.table_name = 'T_SES_AUTO_PAY_CHECK'
-		   and t2.TABLE_NAME = 'T_SES_AUTO_PAY_CHECK'
+		 where t1.table_name = 'T_SES_BIN_USEFUL'
+		   and t2.TABLE_NAME = 'T_SES_BIN_USEFUL'
 		   and t1.COLUMN_NAME = t2.COLUMN_NAME
 		 order by t1.COLUMN_ID asc
 	</select>

@@ -30,7 +30,7 @@ public interface ${classNameD}Mapper {
 	 * @param map
 	 * @return
 	 */
-	public List<${classNameD}> findByCondition(Map<String,Object> map);
+	public List<Map<String, Object>> findByCondition(Map<String,Object> map);
 	</#if>
 	<#if isQuery == "true">
 	/**

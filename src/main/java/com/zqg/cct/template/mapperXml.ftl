@@ -3,7 +3,6 @@
 
 <mapper namespace="${mapperPackage}.${classNameD}Mapper">
 	<resultMap id="${classNameX}Map" type="${domainPackage}.${classNameD}" >
-	 <id column="UUID" property="uuid" jdbcType="VARCHAR" />
 	 <#list tableCarrays as tableCarray>
 	 <result column="${tableCarray.columnName}" property="${tableCarray.columnNameX}"/>
 	</#list>
@@ -30,13 +29,13 @@
 	</sql>
 	
 	<#if isQuery == "true">
-	<select id="findByCondition" parameterType="java.util.Map" resultMap="${classNameX}Map">
+	<select id="findByCondition" parameterType="java.util.Map" resultType="Map">
 		${stringCarrayNames7}
 		SELECT
 			<#list tableCarrays as tableCarray> 
 				<#if (tableCarray.columnName??) >
 					<#if (tableCarray.isAddColumnName??) && tableCarray.isAddColumnName == "0">
-						t.${tableCarray.columnName},
+						t.${tableCarray.columnName} as "${tableCarray.columnNameX}",
 					</#if>
 					<#if (tableCarray.isAddColumnName??) && tableCarray.isAddColumnName == "1">
 						'' as "${tableCarray.columnNameX}",
