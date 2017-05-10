@@ -174,7 +174,7 @@
 								</div>
 							</div>
 							<div class="portlet-body wheel">
-								<div style="overflow-x: scroll;">
+								<div>
 									<table
 										class="table table-striped table-bordered table-hover table-checkable order-column"
 										id="queryMecGrid">
