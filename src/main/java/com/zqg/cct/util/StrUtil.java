@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.TreeSet;
@@ -90,30 +89,6 @@ public class StrUtil {
 				str += (s[i] + "|");
 		}
 		return str;
-	}
-
-	/***
-	 * 根据传入的数组attr，取出其中的值，两两拼成一串，存入到List中
-	 * 
-	 * @param attr
-	 *            传入的数组
-	 * @return 返回一个List，如传入的数组为{1,2,3,4,5},返回的list结构为 list.get(0)="1,2";
-	 *         list.get(1)="3,4";list.get(2)="5"
-	 */
-	public static ArrayList mergeTwoByArray(String[] attr) {
-
-		ArrayList<String> list = new ArrayList<String>();
-		// 取模为0，表示一共有偶数个
-		for (int i = 0; i < attr.length / 2; i++) {
-			list.add(attr[2 * i] + ":" + attr[2 * i + 1]);
-		}
-
-		// 取模为1，表示一共有奇数个 ,在偶数个的基础上增加最后一个数值
-		if (attr.length % 2 == 1) {
-			list.add(attr[attr.length - 1]);
-		}
-
-		return list;
 	}
 
 	/**
@@ -328,6 +303,7 @@ public class StrUtil {
 	 * @param args
 	 * @return
 	 */
+	@SuppressWarnings("resource")
 	public static String strFormat(Object... args) {
 		String format = "%s";
 		for (int i = 1; i < args.length; i++) {
