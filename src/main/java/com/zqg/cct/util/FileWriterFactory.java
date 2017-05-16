@@ -27,10 +27,11 @@ public class FileWriterFactory {
 	public static final int EXCELTEMPLATE_XML = 7;
 	private static String templateUrl = "com/zqg/cct/template/";
 	Configuration configuration = FileWriterFactory.getConfiguration(templateUrl);
+
 	public static Configuration getConfiguration(String url) {
 		if (cfg == null) {
 			cfg = new Configuration();
-			
+
 			url = FileWriterFactory.class.getResource("/").getPath() + url;
 			System.out.println(url);
 			File file = new File(url);
@@ -58,7 +59,7 @@ public class FileWriterFactory {
 	 * @param fileName
 	 *            生成文件名称
 	 */
-	public static void dataSourceOut(String templateName,TableDomain table, String fileName, int type) {
+	public static void dataSourceOut(String templateName, TableDomain table, String fileName, int type) {
 
 		Template temp = null;
 		try {
@@ -72,53 +73,48 @@ public class FileWriterFactory {
 			String packageName = "";
 			switch (type) {
 			case DOMAIN:
-				packageName = table.getDomainPackage();
+				packageName = "java/" + table.getDomainPackage();
 				break;
 			case JSP:
 				packageName = table.getJspPackage();
 				break;
 			case SERVICE:
-				packageName = table.getServicePackage();
+				packageName = "java/" + table.getServicePackage();
 				break;
 			case MAPPER:
-				packageName = table.getMapperPackage();
+				packageName = "java/" + table.getMapperPackage();
 				break;
 			case MAPPER_XML:
 				packageName = table.getMapperXmlPackage();
 				break;
 			case CONTROLLER:
-				packageName = table.getControllerPackage();
+				packageName = "java/" + table.getControllerPackage();
 				break;
 			case EXCELTEMPLATE_XML:
 				packageName = table.getMapperXmlPackage();
 				break;
 			}
 			packageName = packageName.replace(".", "/");
-			//String url = FileWriterFactory.class.getResource("/").getPath() +"/" + packageName + "/" + fileName;
-			String url = table.getBasePath()+"/src/main/java/"  + packageName + "/" + fileName;
-			//文件夹路径 add by wenjifeng 20170401
-			String urlPag = table.getBasePath()+"/src/main/java/"  + packageName;
-			if(MAPPER_XML==type || EXCELTEMPLATE_XML == type){
-				url= table.getBasePath()+"/src/main/resources/"  + packageName + "/" + fileName;
-				//文件夹路径 add by wenjifeng 20170401
-				urlPag = table.getBasePath()+"/src/main/resources/"  + packageName;
-			}
-			
-			//自动创建文件夹 add by wenjifeng 20170401
+			// String url = FileWriterFactory.class.getResource("/").getPath()
+			// +"/" + packageName + "/" + fileName;
+			String url = table.getBasePath() + "/src/main/" + packageName + "/" + fileName;
+			// 文件夹路径 add by wenjifeng 20170401
+			String urlPag = table.getBasePath() + "/src/main/" + packageName;
+
+			// 自动创建文件夹 add by wenjifeng 20170401
 			File filePag = new File(urlPag);
-			if(!filePag.exists()){
-				filePag.mkdirs();//创建文件夹
+			if (!filePag.exists()) {
+				filePag.mkdirs();// 创建文件夹
 			}
-			
+
 			File file = new File(url);
 			// 文件存在删除
-			if(file.exists()){
-				file.delete();//删除文件
+			if (file.exists()) {
+				file.delete();// 删除文件
 			}
-			//out = new FileWriter(file);
-			  // 编码设置3  
-            out= new BufferedWriter(new OutputStreamWriter(  
-                    new FileOutputStream(file), "UTF-8"));
+			// out = new FileWriter(file);
+			// 编码设置3
+			out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
 			temp.setEncoding("UTF-8");
 			temp.process(table, out);
 			temp.process(table, new OutputStreamWriter(System.out));
@@ -138,8 +134,7 @@ public class FileWriterFactory {
 		}
 	}
 
-	public static void dataSourceOut(Configuration cfg, String templateName,
-			Object root, String fileName) {
+	public static void dataSourceOut(Configuration cfg, String templateName, Object root, String fileName) {
 		Template temp = null;
 		try {
 			temp = cfg.getTemplate(templateName);

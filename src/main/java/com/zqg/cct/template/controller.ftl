@@ -12,6 +12,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.lemon.core.constants.ConstantsBase;
+import com.lemon.ses.util.CreateUUID;
+import com.lemon.utils.LogUtils;
+import com.lemon.ses.util.DateUtils;
+import com.lemon.sys.utils.SysUtils;
+import com.lemon.core.constants.LogType;
+import com.lemon.usr.domain.retPo.BnkRetPo;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import com.lemon.common.utils.DownloadFileUtil;
+import com.lemon.common.utils.log.BapLogUtil;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import java.io.File;
 
 /**
  * @description  ${businessName}控制层
@@ -104,7 +119,7 @@ public class ${classNameD}Controller extends BaseController {
 				LOGGER.info(tcd, "", opNm + "--begin");
 				${classNameD} detail= ${classNameX}Service.getByKey(paramVo);
 				LOGGER.info(tcd, "", opNm + "--end");
-				Map<String, Object> map = new HashMap<>();
+				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("data", detail);
 				return map;
 			} catch (Exception e) {
@@ -126,18 +141,12 @@ public class ${classNameD}Controller extends BaseController {
 		String tcd = "${classNameD}Controller.save";
 		String opNm = "${businessName}-保存";
 		try{
-			String uuid = CreateUUID.GetRandomUUID();
-			${classNameX}.setUuid(uuid);
-			String loginName = SysUtils.getLoginName();
-	        String nowDate = DateTimeUtil.formatDateByFormat(new Date(), TimeFormater.YYYYMMDD);
-	        String nowTime = DateTimeUtil.formatDateByFormat(new Date(), TimeFormater.HHmmss);
-	        ${classNameX}.setOpId(loginName);
-	        ${classNameX}.setOpDt(nowDate);
-	        ${classNameX}.setOpTm(nowTime);
-	        ${classNameX}.setUuid(uuid);
-	        ${classNameX}.setCtDt(nowDate);
-	        ${classNameX}.setCtId(loginName);
-	        ${classNameX}.setCtTm(nowTime);
+	        ${classNameX}.setOpId(SysUtils.getLoginName());
+	        ${classNameX}.setOpDt(DateUtils.getCurDT());
+	        ${classNameX}.setOpTm(DateUtils.getCurTM());
+	        ${classNameX}.setCtDt(DateUtils.getCurDT());
+	        ${classNameX}.setCtId(SysUtils.getLoginName());
+	        ${classNameX}.setCtTm(DateUtils.getCurTM());
 			LOGGER.info(tcd, "", opNm + "--begin");
 			int num = ${classNameX}Service.insert(${classNameX});
 			if(num>0){
@@ -165,12 +174,9 @@ public class ${classNameD}Controller extends BaseController {
 		String tcd = "${classNameD}Controller.save";
 		String opNm = "${businessName}-更新";
 		try{
-			String loginName = SysUtils.getLoginName();
-	        String nowDate = DateTimeUtil.formatDateByFormat(new Date(), TimeFormater.YYYYMMDD);
-	        String nowTime = DateTimeUtil.formatDateByFormat(new Date(), TimeFormater.HHmmss);
-	        paramVo.setOpDt(nowDate);
-	        paramVo.setOpId(loginName);
-	        paramVo.setOpTm(nowTime);
+	        paramVo.setOpDt(DateUtils.getCurDT());
+	        paramVo.setOpId(SysUtils.getLoginName());
+	        paramVo.setOpTm(DateUtils.getCurTM());
 			LOGGER.info(tcd, "", opNm + "--begin");
 			int num = ${classNameX}Service.update(paramVo);
 			if(num>0){
@@ -233,11 +239,9 @@ public class ${classNameD}Controller extends BaseController {
 	public Map<String, Object> ${classNameD}importExcel (HttpSession session, HttpServletRequest request){
 		String tcd = "${classNameD}Controller-${classNameD}importExcel";
         String opNm = "${businessName}-导入";
-        logger.info(LogUtils.genLogs(LogType.BAP, tcd, opNm, "==开始"));
+        LOGGER.info(LogUtils.genLogs(LogType.BAP, tcd, opNm, "==开始"));
         Map<String, Object> rsMap = null;
         try {
-            Principal pr = SysUtils.getSessionStoreRange();
-            String loginId = pr.getLoginName();
             rsMap = ${classNameX}Service.batchOperate(request);
             if (rsMap.get("errors") != null) {
                 List<BnkRetPo> errlist = (List<BnkRetPo>) rsMap.get("errors");
@@ -245,7 +249,7 @@ public class ${classNameD}Controller extends BaseController {
             }
             return rsMap;
         } catch (Exception e) {
-            logger.error("#bap#${businessName}信息管理-批量添加${businessName}异常原因是：", e);
+            LOGGER.error("#bap#${businessName}信息管理-批量添加${businessName}异常原因是：", e);
             rsMap = new HashMap<String, Object>();
             rsMap.put("success", false);
             rsMap.put("msgInfo", "系统异常！");
@@ -283,7 +287,7 @@ public class ${classNameD}Controller extends BaseController {
 	            DownloadFileUtil.getInstance().downLoad(file, response);
 	        }
 		} catch (Exception e){
-			logger.error("验证失败结果导出异常，", e);
+			LOGGER.error("验证失败结果导出异常，", e);
 		}
 	}
 	</#if>
@@ -308,9 +312,9 @@ public class ${classNameD}Controller extends BaseController {
             fileName = "${businessName}表信息" + System.currentTimeMillis() + ".xls";
             DownloadFileUtil.getInstance().downLoadExcel(hSSFWorkbook, fileName, response);
         } catch (Exception e) {
-            logger.error(BapLogUtil.genLogs(tcd, opNm + "异常：" + e.getMessage()));
+            LOGGER.error(BapLogUtil.genLogs(tcd, opNm + "异常：" + e.getMessage()));
         }
-        logger.info(BapLogUtil.genLogs(tcd, opNm + "end,fileName=" + fileName));
+        LOGGER.info(BapLogUtil.genLogs(tcd, opNm + "end,fileName=" + fileName));
     }
 	</#if>
 	

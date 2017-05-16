@@ -11,7 +11,7 @@ jar {
     }
 }
 
-//  Ê¹ÓÃ¿ªÔ´ÖÐ¹úµÄmaven²Ö¿â
+//  Ê¹ï¿½Ã¿ï¿½Ô´ï¿½Ð¹ï¿½ï¿½ï¿½mavenï¿½Ö¿ï¿½
 repositories {
      maven{ 
      	//url 'http://maven.oschina.net/content/groups/public/'
@@ -53,6 +53,14 @@ dependencies {
 	compile( 'mysql:mysql-connector-java:5.1.31'  ){transitive = false}   
 	compile ('org.freemarker:freemarker:2.3.20'){transitive = false}  
 	compile 'com.oracle:ojdbc6:11.2.0.4' 
+	
+	compile "com.lemon:lemon-core:1.2-SNAPSHOT"
+	compile 'org.apache.shiro:shiro-core:1.2.2'
+	compile 'org.apache.poi:poi:3.10-FINAL'
+	compile 'org.apache.poi:poi-ooxml:3.10-FINAL'
+	compile 'org.apache.poi:poi-ooxml-schemas:3.10-FINAL'
+	compile 'org.apache.poi:poi-excelant:3.10-FINAL'
+	compile 'org.apache.poi:poi-scratchpad:3.10-FINAL'
 }
 
 test {

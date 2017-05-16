@@ -16,27 +16,27 @@
 <table  id="ab"  class="addtable">
     <tr>
 		<th style="width: 100px">业务名称:</th>
-		<td style="width: 300px"><input class="easyui-validatebox" type="text" name="serviceName" id='serviceName'
-			data-options="required:true" size="40" value='test'/></td>
+		<td style="width: 200px"><input class="easyui-validatebox" type="text" name="serviceName" id='serviceName'
+			data-options="required:true" size="30" value='test'/></td>
 		<th style="width: 100px">java类包:</th>
-		<td style="width: 300px"><input class="easyui-validatebox" type="text" name="classPackage" id='classPackage'
-			data-options="required:true" size="40" value='test'/></td>
+		<td style="width: 200px"><input class="easyui-validatebox" type="text" name="classPackage" id='classPackage'
+			data-options="required:true" size="30" value='test'/></td>
 	</tr>
 	<tr>
 		<th style="width: 100px">类名:</th>
-		<td style="width: 300px"><input class="easyui-validatebox" type="text" name="className" id='className'
-			data-options="required:true" size="40" value='test'/></td>
+		<td style="width: 200px"><input class="easyui-validatebox" type="text" name="className" id='className'
+			data-options="required:true" size="30" value='test'/></td>
 		<th style="width: 100px">表名:</th>
-		<td style="width: 300px"><input class="easyui-validatebox" type="text" name="tableName" id='tableName'
-			data-options="required:true" size="40" value='test'/></td>
+		<td style="width: 200px"><input class="easyui-validatebox" type="text" name="tableName" id='tableName'
+			data-options="required:true" size="30" value='test'/></td>
 	</tr>
 	<tr>
 		<th style="width: 100px">表注释:</th>
-		<td style="width: 300px"><input class="easyui-validatebox" type="text" name="tableComments" id='tableComments'
-			data-options="required:true" size="40" value='test'/></td>
+		<td style="width: 200px"><input class="easyui-validatebox" type="text" name="tableComments" id='tableComments'
+			data-options="required:true" size="30" value='test'/></td>
 		<th style="width: 100px">作者:</th>
-		<td style="width: 300px"><input class="easyui-validatebox" type="text" name="classAuthor" id='classAuthor'
-			data-options="required:true" size="40" value='test'/></td>
+		<td style="width: 200px"><input class="easyui-validatebox" type="text" name="classAuthor" id='classAuthor'
+			data-options="required:true" size="30" value='test'/></td>
 	</tr>
 	<tr>
 		<th style="width: 100px">数据库名:</th>
@@ -47,8 +47,31 @@
 				<option value="MSP">MSP</option>
 			</select>
 		</td>
+	</tr>
+	<tr>
+		<th style="width: 100px">是否新增:</th>
+		<td style="width: 200px">
+			<select id = "isAdd" name="isAdd" >
+				<option value="true">是</option>
+				<option value="false">否</option>
+			</select>
+		</td>
+		<th style="width: 100px">是否删除:</th>
+		<td style="width: 200px">
+			<select id = "isDetele" name="isDetele" >
+				<option value="true">是</option>
+				<option value="false">否</option>
+			</select>
+		</td>
+		<th style="width: 100px">是否查询:</th>
+		<td style="width: 200px">
+			<select id = "isQuery" name="isQuery" >
+				<option value="true">是</option>
+				<option value="false">否</option>
+			</select>
+		</td>
 		<th style="width: 100px">是否更新:</th>
-		<td style="width: 300px">
+		<td style="width: 200px">
 			<select id = "isUpdate" name="isUpdate" >
 				<option value="true">是</option>
 				<option value="false">否</option>
@@ -56,51 +79,32 @@
 		</td>
 	</tr>
 	<tr>
-		<th style="width: 100px">是否删除:</th>
-		<td style="width: 300px">
-			<select id = "isDetele" name="isDetele" >
-				<option value="true">是</option>
-				<option value="false">否</option>
-			</select>
-		</td>
-		<th style="width: 100px">是否新增:</th>
-		<td style="width: 300px">
-			<select id = "isAdd" name="isAdd" >
-				<option value="true">是</option>
-				<option value="false">否</option>
-			</select>
-		</td>
-		</tr>
-		<tr>
-		<th style="width: 100px">是否查询:</th>
-		<td style="width: 300px">
-			<select id = "isQuery" name="isQuery" >
-				<option value="true">是</option>
-				<option value="false">否</option>
-			</select>
-		</td>
-		<th style="width: 100px">是否显示导出:</th>
-		<td style="width: 300px">
+	<th style="width: 100px">是否导出:</th>
+		<td style="width: 200px">
 			<select id = "isExport" name="isExport" >
+				<option value="01">是</option>
+				<option value="00">否</option>
+			</select>
+		</td>
+		<th style="width: 100px">是否导入:</th>
+		<td style="width: 200px">
+			<select id = "isImport" name="isImport" >
+				<option value="01">是</option>
+				<option value="00">否</option>
+			</select>
+		</td>
+		<th style="width: 100px">操作链接:</th>
+		<td style="width: 200px">
+			<select id = "isOperation" name="isOperation" >
 				<option value="01">是</option>
 				<option value="00">否</option>
 			</select>
 		</td>
 	</tr>
 	<tr>
-		<th style="width: 100px">是否显示导入:</th>
-		<td style="width: 300px">
-			<select id = "isImport" name="isImport" >
-				<option value="01">是</option>
-				<option value="00">否</option>
-			</select>
-		</td>
-		<th style="width: 100px">每条记录后面是否显示操作链接:</th>
-		<td style="width: 300px">
-			<select id = "isOperation" name="isOperation" >
-				<option value="01">是</option>
-				<option value="00">否</option>
-			</select>
+	<th style="width: 100px">测试URL:</th>
+		<td style="width: 200px">
+			 <a href="" target="_blank" id = "testUrl">测试链接</a>
 		</td>
 	</tr>
 </table>
@@ -362,6 +366,26 @@
 				}
 			});
 		}
+		
+		
+		$(function (){
+			//提交请求
+			$.ajax({
+				url:"${pageContext.request.contextPath}/code/innt",
+				type:"POST",
+				async:false,
+				dataType:"json",
+				success : function(rtdata) {
+					$("#serviceName").val(rtdata.businessName);
+					$("#classAuthor").val(rtdata.classAuthor);
+					$("#tableName").val(rtdata.tableName);
+					$("#classPackage").val(rtdata.classPackage);
+					document.getElementById("testUrl").href='http://localhost:8080/cct/jsp/'+rtdata.classNameD+'.jsp';
+				},
+				error : function() {
+				}
+			});
+		})
 		
 		var typeData=[{"id":"01", "name":"String"},{"id":"02", "name":"Integer"},
             {"id":"03", "name":"Date"},{"id":"04", "name":"BigDecimal"},

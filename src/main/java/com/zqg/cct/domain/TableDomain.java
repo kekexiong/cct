@@ -6,6 +6,7 @@ public class TableDomain {
 	private String tableName;// 表
 	private String tableNote;// 表注释
 	private String businessName;// 业务名称
+	private String classPackage; // java类Base包
 	private String controllerPackage;// 生成包
 	private String domainPackage;// 生成包
 	private String mapperPackage;// 生成包
@@ -317,5 +318,13 @@ public class TableDomain {
 
 	public void setIsOperation(String isOperation) {
 		this.isOperation = isOperation;
+	}
+
+	public String getClassPackage() {
+		return classPackage;
+	}
+
+	public void setClassPackage(String classPackage) {
+		this.classPackage = classPackage;
 	}
 }

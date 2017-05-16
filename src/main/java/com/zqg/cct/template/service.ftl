@@ -4,6 +4,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ${domainPackage}.${classNameD};
 import ${mapperPackage}.${classNameD}Mapper;
+import java.io.File;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.lemon.common.constants.FilePathConfigs;
+import com.lemon.common.utils.DateTimeUtil.TimeFormater;
+import com.lemon.common.utils.excel.ExcelExportUtil;
+import com.lemon.common.utils.excel.dto.ExcelTemplateType;
+import com.lemon.common.utils.excel.factory.ExcelXmlModelFactory;
+import com.lemon.core.constants.LogType;
+import com.lemon.msp.util.ExcelUtils;
+import com.lemon.usr.domain.retPo.BnkRetPo;
+import com.lemon.utils.LogUtils;
+import com.lemon.ses.util.DateUtils;
+import com.lemon.msp.util.FileUtils;
+import com.lemon.common.utils.FileUtil;
 
 
 /**
@@ -13,6 +39,9 @@ import ${mapperPackage}.${classNameD}Mapper;
  */
  @Service
 public class ${classNameD}Service {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(${classNameD}Service.class);
+	
 	@Autowired
 	private ${classNameD}Mapper ${classNameX}Mapper;
 	<#list tableCarrays as tableCarray>
@@ -112,7 +141,7 @@ public class ${classNameD}Service {
      * @date:
      */
 	public Map<String, Object> batchOperate (HttpServletRequest request){
-		logger.info(LogUtils.genLogs(LogType.BAP, "批量添加${businessName}信息", "", "批量添加${businessName}信息开始"));
+		LOGGER.info(LogUtils.genLogs(LogType.BAP, "批量添加${businessName}信息", "", "批量添加${businessName}信息开始"));
 		List<Map<String, Object>> reList = new ArrayList<Map<String, Object>>();//存放读取数据list
 		Map<String, Object> map = new HashMap<String, Object>();//返回结果map
 		List<BnkRetPo> errors = new ArrayList<BnkRetPo>();//存放错误信息list集合
@@ -130,7 +159,7 @@ public class ${classNameD}Service {
 		};
 		List<Map<String, Object>> dataMaps = new ArrayList<Map<String, Object>>();//创建一个存放读取Excel内容的list
 		this.fileValid(request, fields,  columnName, sizeLimit, reList, errors, dataMaps, map);
-		if (!(boolean) map.get("success")) {
+		if (!(Boolean) map.get("success")) {
             return map;
         }
 		//遍历读取数据
@@ -150,7 +179,7 @@ public class ${classNameD}Service {
             map.put("hasError", false);
             map.put("errors", null);
         }
-        logger.info("#批量添加${businessName}信息#批量导入添加成功#map:{}", map);
+        LOGGER.info("#批量添加${businessName}信息#批量导入添加成功#map:{}", map);
         return map;
 	}
 	/**
@@ -167,7 +196,7 @@ public class ${classNameD}Service {
 		FileUtils fileUtils = new FileUtils();
 		InputStream input = fileUtils.getUploadInputStream(request, map);
 		if (input == null) {
-            logger.info(LogUtils.genLogs(LogType.BAP, "批量操作${businessName}信息", "", "获取上传的文件流失败"));
+            LOGGER.info(LogUtils.genLogs(LogType.BAP, "批量操作${businessName}信息", "", "获取上传的文件流失败"));
             map.put("success", false);
             map.put("msgCd", "MEC99999");
             map.put("msgInfo", map.get("msg"));
@@ -176,7 +205,7 @@ public class ${classNameD}Service {
 		//检查文件是否超出范围
 		XSSFWorkbook xwb = ExcelUtils.checkUploadExcel(input, map);
 		if (xwb == null) {
-            logger.info(LogUtils.genLogs(LogType.BAP, "批量操作${businessName}信息", "", "上传的文件有问题"));
+            LOGGER.info(LogUtils.genLogs(LogType.BAP, "批量操作${businessName}信息", "", "上传的文件有问题"));
             map.put("success", false);
             map.put("msgCd", "MEC99999");
             map.put("msgInfo", map.get("msg"));
@@ -185,7 +214,7 @@ public class ${classNameD}Service {
 		//调用ExcelUtils.readExcelForTSesBinUseful方法，要考虑这个方法是否满足读取需要，如果不满足   则需要自己拷贝并修改读取方法
 		ExcelUtils.readExcelForTSesBinUseful(xwb, fields, columnName, sizeLimit, reList, map, errors, dataMaps);
 		if (map.get("success").equals("false")) {
-            logger.info(LogUtils.genLogs(LogType.BAP, "批量操作${businessName}信息", "", "上传的文件有问题"));
+            LOGGER.info(LogUtils.genLogs(LogType.BAP, "批量操作${businessName}信息", "", "上传的文件有问题"));
             map.put("success", false);
             map.put("msgCd", "MEC99999");
             map.put("msgInfo", map.get("msg"));
