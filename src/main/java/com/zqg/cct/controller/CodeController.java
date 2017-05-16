@@ -132,8 +132,8 @@ public class CodeController {
 		table.setMapperPackage(classPackage+".mapper");
 		table.setServicePackage(classPackage+".service");
 		table.setControllerPackage(classPackage+".controller");
-		table.setJspPackage("src.main.webapp.jsp");
-		table.setMapperXmlPackage("src.main.recources.mapper");
+		table.setJspPackage("webapp.jsp");
+		table.setMapperXmlPackage("resources.mapper");
 		table.setDbUser(dbUser);
 		table.setBasePath("D:/workspaceCCT/cct");
 		table.setClassAuthor(classAuthor);
