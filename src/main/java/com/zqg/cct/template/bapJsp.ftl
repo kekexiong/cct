@@ -134,13 +134,13 @@
 															<i class="fa fa-refresh"></i> 重置
 														</button>
 														<button type="button" id="add_btn" class="btn btn-info"> 
-															<i class="fa fa-pencil"></i> 添加
+															<i class="fa fa-plus"></i> 添加
 														</button>
 														<button type="button" id="edit_btn" class="btn tn btn btn-primary"> 
 															<i class="fa fa-edit"></i> 修改
 														</button>
 														<button type="button" id="dele_btn" class="btn tn btn btn-primary"> 
-															<i class="fa fa-detele"></i> 删除
+															<i class="fa fa-remove"></i> 删除
 														</button>
 														<#if isExport == "01">
 															<button type="button" id="isExport_btn" class="btn tn btn btn-primary"> 

@@ -26,6 +26,9 @@ public class TableService {
 			if("UUID".equals(itemList.get(i).getColumnName())){
 				itemList.get(i).setIsPrimaryKey("√");
 			}
+			if("VARCHAR2".equals(itemList.get(i).getColumnName())){
+				
+			}
 		}
 		return itemList;
 	}

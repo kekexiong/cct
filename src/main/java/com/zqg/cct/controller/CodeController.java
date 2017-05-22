@@ -123,6 +123,34 @@ public class CodeController {
 				item1.setQueryShow("01");
 				newList.add(item1);
 			} else {
+				if("√".equals(item.getQueryType())){
+					item.setQueryType("01");
+				}else{
+					item.setQueryType("02");
+				}
+				if("√".equals(item.getQueryExport())){
+					item.setQueryExport("01");
+				}else{
+					item.setQueryExport("02");
+				}
+				
+				if("√".equals(item.getQueryShow())){
+					item.setQueryShow("01");
+				}else{
+					item.setQueryShow("02");
+				}
+				
+				if("√".equals(item.getQueryView())){
+					item.setQueryView("01");
+				}else{
+					item.setQueryView("02");
+				}
+				
+				if("√".equals(item.getQueryAdd())){
+					item.setQueryAdd("01");
+				}else{
+					item.setQueryAdd("02");
+				}
 				item.setIsAddColumnName("0");
 			}
 		}

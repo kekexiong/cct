@@ -129,25 +129,8 @@
 				<th data-options="field:'dataLength',width:60,editor:'numberbox'">长度</th>
 				<th data-options="field:'dataPrecision',width:70,editor:'numberbox'">数字长度</th>
 				<th data-options="field:'dataScale',width:50,editor:'numberbox'">小数点</th>
-				<th data-options="field:'queryType',width:100,
-					formatter:function(value,row){
-					var propertyData=queryTypeData
-					    for (var i = 0; i < propertyData.length; i++) {
-					        if (propertyData[i].id == value) {  
-					            return propertyData[i].name 
-					        }  
-					   }      return value; 
-					},
-					editor:{
-						type:'combobox',
-						options:{
-							valueField:'id',
-							textField:'name',
-							method:'get',
-							data:queryTypeData
-						}
-					}">是否检索条件</th>
-			<th data-options="field:'queryRule',width:100,
+				<th data-options="field:'queryType',width:100,align:'center',editor:{type:'checkbox',options:{on:'√',off:''}}">设为检索条件</th>
+				<th data-options="field:'queryRule',width:100,
 					formatter:function(value,row){
 					var propertyData=selectRuleData
 					    for (var i = 0; i < propertyData.length; i++) {
@@ -165,78 +148,10 @@
 							data:selectRuleData
 						}
 					}">检索(输入框)条件类型</th>
-			<th data-options="field:'queryShow',width:100,
-					formatter:function(value,row){
-					var propertyData=selectShowData
-					    for (var i = 0; i < propertyData.length; i++) {
-					        if (propertyData[i].id == value) {  
-					            return propertyData[i].name 
-					        }  
-					   }      return value; 
-					},
-					editor:{
-						type:'combobox',
-						options:{
-							valueField:'id',
-							textField:'name',
-							method:'get',
-							data:selectShowData
-						}
-					}">列表页面展示字段</th>
-			<th data-options="field:'queryAdd',width:100,
-					formatter:function(value,row){
-					var propertyData=selectAddData
-					    for (var i = 0; i < propertyData.length; i++) {
-					        if (propertyData[i].id == value) {  
-					            return propertyData[i].name 
-					        }  
-					   }      return value; 
-					},
-					editor:{
-						type:'combobox',
-						options:{
-							valueField:'id',
-							textField:'name',
-							method:'get',
-							data:selectAddData
-						}
-					}">添加(修改)页面展示字段</th>
-			<th data-options="field:'queryView',width:100,
-					formatter:function(value,row){
-					var propertyData=selectViewData
-					    for (var i = 0; i < propertyData.length; i++) {
-					        if (propertyData[i].id == value) {  
-					            return propertyData[i].name 
-					        }  
-					   }      return value; 
-					},
-					editor:{
-						type:'combobox',
-						options:{
-							valueField:'id',
-							textField:'name',
-							method:'get',
-							data:selectViewData
-						}
-					}">详情页面展示字段</th>
-			<th data-options="field:'queryExport',width:100,
-					formatter:function(value,row){
-					var propertyData=selectExportData
-					    for (var i = 0; i < propertyData.length; i++) {
-					        if (propertyData[i].id == value) {  
-					            return propertyData[i].name 
-					        }  
-					   }      return value; 
-					},
-					editor:{
-						type:'combobox',
-						options:{
-							valueField:'id',
-							textField:'name',
-							method:'get',
-							data:selectExportData
-						}
-					}">导出字段</th>
+			<th data-options="field:'queryShow',width:100,align:'center',editor:{type:'checkbox',options:{on:'√',off:''}}">设为列表字段</th>
+			<th data-options="field:'queryAdd',width:100,align:'center',editor:{type:'checkbox',options:{on:'√',off:''}}">设为添加(修改)字段</th>
+			<th data-options="field:'queryView',width:100,align:'center',editor:{type:'checkbox',options:{on:'√',off:''}}">设为详情字段</th>
+			<th data-options="field:'queryExport',width:100,align:'center',editor:{type:'checkbox',options:{on:'√',off:''}}">设为导出字段</th>
 			</tr>
 			
 		</thead>
@@ -391,8 +306,8 @@
             {"id":"03", "name":"Date"},{"id":"04", "name":"BigDecimal"},
             {"id":"05", "name":"text"},{"id":"06", "name":"Long"},
             {"id":"07", "name":"Float"}];
-var selectRuleData=[{"id":"01", "name":"商编输入框"},
-            {"id":"02", "name":"日期区间查询"},{"id":"03", "name":"输入框"},{"id":"04", "name":"下拉选择框"},
+var selectRuleData=[{"id":"03", "name":"输入框"},{"id":"04", "name":"下拉选择框"},{"id":"01", "name":"商编输入框"},
+            {"id":"02", "name":"日期区间查询"},
             {"id":"05", "name":"自定义下拉选择框"},{"id":"06", "name":"日期输入框"}];
 var queryTypeData=[{"id":"01", "name":"是"},{"id":"02", "name":"否"}];
 var selectShowData=[{"id":"01", "name":"是"},{"id":"02", "name":"否"}];
