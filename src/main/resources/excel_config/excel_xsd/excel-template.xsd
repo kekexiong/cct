@@ -1,0 +1,34 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="excelTemplateList" type="ExcelTemplateList"/>
+
+    <xsd:complexType name="ExcelTemplateList">
+		<xsd:sequence>
+		    <xsd:element name="excelTemplate" type="ExcelTemplateType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+    </xsd:complexType>
+    
+	<xsd:complexType name="ExcelTemplateType">
+		<xsd:sequence>
+		    <xsd:element name="excelId" type="xsd:string"/>
+			<xsd:element name="excelName" type="xsd:string"/>	
+			<xsd:element name="excelFileName" type="xsd:string"/>
+			<xsd:element name="excelHead" type="ExcelHeadType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ExcelHeadType">
+		<xsd:sequence>
+    		<xsd:element name="excelColList" type="ExcelColType" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	    <xsd:attribute name="headRowIndex"    type="xsd:int"/>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ExcelColType">
+		<xsd:attribute name="excelColId"    type="xsd:string"/>
+		<xsd:attribute name="excelColName"  type="xsd:string"/>
+		<xsd:attribute name="excelColIndex" type="xsd:int"/>
+		<xsd:attribute name="excelColWidth" type="xsd:int"/>
+		<xsd:attribute name="wrap"          type="xsd:boolean"/>
+		<xsd:attribute name="displayFormat" type="xsd:string"/>
+	</xsd:complexType>
+  </xsd:schema>
