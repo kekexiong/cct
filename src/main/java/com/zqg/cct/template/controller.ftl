@@ -108,7 +108,9 @@ public class ${classNameD}Controller extends BaseController {
 	 * 根据主键取得详细
 	 * @param session
 	 * @param paramVo
-	 * @return
+	 * @return map
+	 * @author ${classAuthor}
+	 * @data ${classTime}
 	 */
 	@RequestMapping(value = "/${classNameD}getDetail", method = RequestMethod.POST)
 	@ResponseBody
@@ -133,7 +135,9 @@ public class ${classNameD}Controller extends BaseController {
 	/**
 	 * 保存
 	 * @param paramVo
-	 * @return
+	 * @return map
+	 * @author ${classAuthor}
+	 * @data ${classTime}
 	 */
 	@RequestMapping(value = "/${classNameD}save", method = RequestMethod.POST)
 	@ResponseBody
@@ -141,13 +145,30 @@ public class ${classNameD}Controller extends BaseController {
 		String tcd = "${classNameD}Controller.save";
 		String opNm = "${businessName}-保存";
 		try{
-	        ${classNameX}.setOpId(SysUtils.getLoginName());
-	        ${classNameX}.setOpDt(DateUtils.getCurDT());
-	        ${classNameX}.setOpTm(DateUtils.getCurTM());
-	        ${classNameX}.setCtDt(DateUtils.getCurDT());
-	        ${classNameX}.setCtId(SysUtils.getLoginName());
-	        ${classNameX}.setCtTm(DateUtils.getCurTM());
 			LOGGER.info(tcd, "", opNm + "--begin");
+		<#list insertCarrays as tableCarray>
+				<#if tableCarray.columnNameD == "Uuid">
+				${classNameX}.set${tableCarray.columnNameD}(CreateUUID.GetRandomUUID());
+			</#if>
+			<#if tableCarray.columnNameD == "OpId">
+				${classNameX}.set${tableCarray.columnNameD}(SysUtils.getLoginName());
+			</#if>
+			<#if tableCarray.columnNameD == "OpDt">
+				${classNameX}.set${tableCarray.columnNameD}(DateUtils.getCurDT());
+			</#if>
+			<#if tableCarray.columnNameD == "OpTm">
+				${classNameX}.set${tableCarray.columnNameD}(DateUtils.getCurTM());
+			</#if>
+			<#if tableCarray.columnNameD == "CtId">
+				${classNameX}.set${tableCarray.columnNameD}(SysUtils.getLoginName());
+			</#if>
+			<#if tableCarray.columnNameD == "CtDt">
+				${classNameX}.set${tableCarray.columnNameD}(DateUtils.getCurDT());
+			</#if>
+			<#if tableCarray.columnNameD == "CtTm">
+				${classNameX}.set${tableCarray.columnNameD}(DateUtils.getCurTM());
+			</#if>			
+		</#list>
 			int num = ${classNameX}Service.insert(${classNameX});
 			if(num>0){
 				return super.setSuccess("保存成功!");
@@ -166,7 +187,9 @@ public class ${classNameD}Controller extends BaseController {
 	/**
 	 * 更新
 	 * @param paramVo
-	 * @return
+	 * @return map
+	 * @author ${classAuthor}
+	 * @data ${classTime}
 	 */
 	@RequestMapping(value = "/${classNameD}update", method = RequestMethod.POST)
 	@ResponseBody
@@ -174,9 +197,17 @@ public class ${classNameD}Controller extends BaseController {
 		String tcd = "${classNameD}Controller.save";
 		String opNm = "${businessName}-更新";
 		try{
-	        paramVo.setOpDt(DateUtils.getCurDT());
-	        paramVo.setOpId(SysUtils.getLoginName());
-	        paramVo.setOpTm(DateUtils.getCurTM());
+	       <#list updateCarrays as tableCarray>
+				<#if tableCarray.columnNameD == "OpId">
+					paramVo.set${tableCarray.columnNameD}(SysUtils.getLoginName());
+				</#if>
+				<#if tableCarray.columnNameD == "OpDt">
+					paramVo.set${tableCarray.columnNameD}(DateUtils.getCurDT());
+				</#if>
+				<#if tableCarray.columnNameD == "OpTm">
+					paramVo.set${tableCarray.columnNameD}(DateUtils.getCurTM());
+				</#if>
+			</#list>
 			LOGGER.info(tcd, "", opNm + "--begin");
 			int num = ${classNameX}Service.update(paramVo);
 			if(num>0){
@@ -197,7 +228,9 @@ public class ${classNameD}Controller extends BaseController {
 	 * 根据主键删除
 	 * @param session
 	 * @param paramVo
-	 * @return
+	 * @return map
+	 * @author ${classAuthor}
+	 * @data ${classTime}
 	 */
 	@RequestMapping(value = "/${classNameD}deleteByUuid", method = RequestMethod.POST)
 	@ResponseBody
@@ -227,12 +260,38 @@ public class ${classNameD}Controller extends BaseController {
 	</#if>
 	<#if isImport == "01" >
 	/**
-     * @description:主页面导入功能
-     * @param session
+     * @description:下载导入模板
+     * @param paramVo
      * @param response
-     * @return:void
-     * @author:${classAuthor}
-     * @date:
+	 * @return map
+	 * @author ${classAuthor}
+	 * @data ${classTime}
+     */
+	@RequestMapping(value = "/downloadTemplate")
+	// @RequiresPermissions("bap:ses:setord_downloadBatchDelayedPayTemplate")
+	public void downloadBatchTemplate(HttpServletRequest request, HttpServletResponse response) {
+		String tcd = "${classNameD}Controller-downloadTemplate";
+		String opNm = "${businessName}-下载导入模板";
+        LOGGER.info(LogUtils.genLogs(LogType.BAP, tcd, opNm, "==开始"));
+		String 	fileName = "${classNameX}Template.xlsx";
+		try {
+			LOGGER.info(BapLogUtil.genLogs(fileName, opNm + "begin"));
+			String path = request.getSession().getServletContext().getRealPath("") + "/download/bap/" + fileName;
+			File file = new File(path);
+			DownloadFileUtil.getInstance().downLoad(file, response);
+			LOGGER.info(BapLogUtil.genLogs(fileName, opNm + "end"));
+		} catch (Exception e) {
+			LOGGER.error(BapLogUtil.genLogs(fileName, opNm + e));
+		}
+	}
+	
+	/**
+     * @description:主页面导入功能
+     * @param paramVo
+     * @param response
+	 * @return map
+	 * @author ${classAuthor}
+	 * @data ${classTime}
      */
 	@RequestMapping(value = "${classNameD}importExcel", method = RequestMethod.POST)
 	@ResponseBody
@@ -249,7 +308,7 @@ public class ${classNameD}Controller extends BaseController {
             }
             return rsMap;
         } catch (Exception e) {
-            LOGGER.error("#bap#${businessName}信息管理-批量添加${businessName}异常原因是：", e);
+             LOGGER.error(tcd,opNm,"异常原因是：", e);
             rsMap = new HashMap<String, Object>();
             rsMap.put("success", false);
             rsMap.put("msgInfo", "系统异常！");
@@ -259,11 +318,11 @@ public class ${classNameD}Controller extends BaseController {
 	
 	/**
      * @description:导出错误信息
-     * @param session
+     * @param paramVo
      * @param response
-     * @return:void
-     * @author:${classAuthor}
-     * @date:2017年4月26日
+	 * @return void
+	 * @author ${classAuthor}
+	 * @data ${classTime}
      */
 	@RequestMapping(value = "${classNameD}getFailExport", method = RequestMethod.GET)
     @ResponseBody
@@ -296,9 +355,9 @@ public class ${classNameD}Controller extends BaseController {
      * @description:主页面导出功能
      * @param session
      * @param response
-     * @return:void
-     * @author:${classAuthor}
-     * @date:2017年4月24日
+	 * @return void
+	 * @author ${classAuthor}
+	 * @data ${classTime}
      */
 	@RequestMapping(value = "/${classNameD}Export", method = RequestMethod.GET)
     public void export(HttpSession session, HttpServletResponse response) {

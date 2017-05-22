@@ -17,10 +17,8 @@
         <excelName>${businessName}信息</excelName>
         <excelFileName></excelFileName><!-- 按照不设置模板导出 -->
         <excelHead headRowIndex="1">
-        	<#list tableCarrays as tableCarray>
-        		<#if tableCarray.queryExport?? && tableCarray.queryExport == "01">
+        	<#list exprotCarrays as tableCarray>
         		<excelColList excelColIndex="${tableCarray_index}" excelColId="${tableCarray.columnNameX}" excelColName="<#if tableCarray.comments??>${tableCarray.comments}</#if>"  excelColWidth="3000"/>
-        		</#if>
         	</#list>
         </excelHead>
 	</excelTemplate>

@@ -134,6 +134,7 @@ public class CodeController {
 		table.setControllerPackage(classPackage+".controller");
 		table.setJspPackage("webapp.jsp");
 		table.setMapperXmlPackage("resources.mapper");
+		table.setExcelXmlPackage("resources.excel_config.excel_model");
 		table.setDbUser(dbUser);
 		table.setBasePath("D:/workspaceCCT/cct");
 		table.setClassAuthor(classAuthor);

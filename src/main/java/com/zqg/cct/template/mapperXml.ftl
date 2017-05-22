@@ -33,14 +33,14 @@
 		${stringCarrayNames7}
 		SELECT
 			<#list tableCarrays as tableCarray> 
-				<#if (tableCarray.columnName??) >
+				<#if (tableCarray.columnName??)>
 					<#if (tableCarray.isAddColumnName??) && tableCarray.isAddColumnName == "0">
-						t.${tableCarray.columnName} as "${tableCarray.columnNameX}",
+						t.${tableCarray.columnName} as "${tableCarray.columnNameX}"<#if (tableCarray_has_next)>,</#if>
 					</#if>
 					<#if (tableCarray.isAddColumnName??) && tableCarray.isAddColumnName == "1">
-						'' as "${tableCarray.columnNameX}",
+						'' as "${tableCarray.columnNameX}"<#if (tableCarray_has_next)>,</#if>
 					</#if>
-				</#if> 
+				</#if>
 			</#list>
 			<!-- 请在此关联查询表 -->
 		FROM ${dbUser}.${tableName} t
@@ -59,16 +59,12 @@
 	<#if isAdd == "true">
 	<insert id="insert" parameterType="${domainPackage}.${classNameD}">
 		INSERT INTO ${dbUser}.${tableName} (
-			<#list tableCarrays as tableCarray>
-				<#if (tableCarray.isAddColumnName??) && tableCarray.isAddColumnName != "1">
-					${tableCarray.columnName},
-				</#if>
+			<#list insertCarrays as tableCarray>
+					${tableCarray.columnName}<#if (tableCarray_has_next)>,</#if>
 			</#list>
 		) VALUES (
-			<#list tableCarrays as tableCarray>
-				<#if (tableCarray.isAddColumnName??) && tableCarray.isAddColumnName != "1">
-					${specific}{${tableCarray.columnNameX},jdbcType=VARCHAR},
-				</#if>
+			<#list insertCarrays as tableCarray>
+					${specific}{${tableCarray.columnNameX},jdbcType=VARCHAR}<#if (tableCarray_has_next)>,</#if>
 			</#list>
 		)
 	</insert>
@@ -91,12 +87,8 @@
 	<update id="update" parameterType="${domainPackage}.${classNameD}">
 		UPDATE ${dbUser}.${tableName} 
 		SET
-			<#list tableCarrays as tableCarray>
-				<#if (tableCarray.queryAdd??) && tableCarray.queryAdd == "01" && 
-				(tableCarray.queryRule=="01"||tableCarray.queryRule=="02"||tableCarray.queryRule=="03"
-				||tableCarray.queryRule=="04" ||tableCarray.queryRule=="05")>
-					${tableCarray.columnName}=${specific}{${tableCarray.columnNameX}},
-				</#if>
+			<#list updateCarrays as tableCarray>
+					${tableCarray.columnName}=${specific}{${tableCarray.columnNameX}}<#if (tableCarray_has_next)>,</#if>
 			</#list>
 		WHERE
 			<#list tableCarrays as tableCarray>

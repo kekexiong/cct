@@ -140,11 +140,16 @@
 															<i class="fa fa-edit"></i> 修改
 														</button>
 														<button type="button" id="dele_btn" class="btn tn btn btn-primary"> 
-															<i class="fa fa-refresh"></i> 删除
+															<i class="fa fa-detele"></i> 删除
 														</button>
 														<#if isExport == "01">
 															<button type="button" id="isExport_btn" class="btn tn btn btn-primary"> 
-																<i class="fa fa-sign-out"></i> 导出
+																<i class="fa fa-download"></i> 导出
+															</button>
+														</#if>
+														<#if isImport == "01">
+															<button type="button" id="download_template_btn" class="btn btn btn-primary">
+															 <i class="fa fa-download"></i>下载模板
 															</button>
 														</#if>
 														<#if isImport == "01">
@@ -1116,8 +1121,8 @@
                     	$("#pagination .next a").css({'color':'#23527c','cursor':'pointer'});
                     }
                   	//动态设置iframe高度
-                    var currentTabId = $("#tab-bar", parent.document).children('li.active').children('a').attr('href').replace('#tab_','');
-                    setIframeHeight($('#frame_'+currentTabId,parent.document)[0]);
+                    //var currentTabId = $("#tab-bar", parent.document).children('li.active').children('a').attr('href').replace('#tab_','');
+                    //setIframeHeight($('#frame_'+currentTabId,parent.document)[0]);
 				},
 				error:function(error){
 					
@@ -1264,6 +1269,11 @@
 		});
 		</#if>
 		<#if isExport == "01">
+		//下载模板按钮
+		$("#download_template_btn").on('click', function() {
+			window.open(baseURL +'/${dbUser}/${classNameD}/downloadTemplate');
+		});
+		
 		//导出按钮
 		$("#isExport_btn").on('click', function() {
 			var totalCount = $("#itemCount").text();

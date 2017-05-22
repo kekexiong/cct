@@ -12,11 +12,15 @@ public class TableDomain {
 	private String mapperPackage;// 生成包
 	private String servicePackage;// 生成包
 	private String mapperXmlPackage;// 生成包
+	private String excelXmlPackage;// 生成包
 	private String basePath;// 生产文件根目录
 	private String jspPackage;// 生成包
 	private String classNameD;// 大写
 	private String classNameX;// 小写
 	private List<TableItem> tableCarrays;// 字段集合
+	private List<TableItem> updateCarrays;// 更新集合
+	private List<TableItem> insertCarrays;// 插入集合
+	private List<TableItem> exprotCarrays;// 导出集合
 	private String classAuthor;// 作者
 	private String classTime;// 日期
 	private String reviewAuthor;// 作者
@@ -326,5 +330,37 @@ public class TableDomain {
 
 	public void setClassPackage(String classPackage) {
 		this.classPackage = classPackage;
+	}
+
+	public List<TableItem> getUpdateCarrays() {
+		return updateCarrays;
+	}
+
+	public void setUpdateCarrays(List<TableItem> updateCarrays) {
+		this.updateCarrays = updateCarrays;
+	}
+
+	public List<TableItem> getInsertCarrays() {
+		return insertCarrays;
+	}
+
+	public void setInsertCarrays(List<TableItem> insertCarrays) {
+		this.insertCarrays = insertCarrays;
+	}
+
+	public List<TableItem> getExprotCarrays() {
+		return exprotCarrays;
+	}
+
+	public void setExprotCarrays(List<TableItem> exprotCarrays) {
+		this.exprotCarrays = exprotCarrays;
+	}
+
+	public String getExcelXmlPackage() {
+		return excelXmlPackage;
+	}
+
+	public void setExcelXmlPackage(String excelXmlPackage) {
+		this.excelXmlPackage = excelXmlPackage;
 	}
 }

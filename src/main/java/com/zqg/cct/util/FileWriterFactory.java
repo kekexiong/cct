@@ -91,7 +91,7 @@ public class FileWriterFactory {
 				packageName = "java/" + table.getControllerPackage();
 				break;
 			case EXCELTEMPLATE_XML:
-				packageName = table.getMapperXmlPackage();
+				packageName = table.getExcelXmlPackage();
 				break;
 			}
 			packageName = packageName.replace(".", "/");
