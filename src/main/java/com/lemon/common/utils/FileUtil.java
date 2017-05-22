@@ -88,13 +88,13 @@ public class FileUtil {
         return FileUtils.readFileToString(new File(filePath), encoding);
     }
 
-    public static List readLineByName(String srcFileName, String encoding) throws
+    public static List<?> readLineByName(String srcFileName, String encoding) throws
             IOException {
         return FileUtils.readLines(new File(getClassFolderPath() + srcFileName),
                                    encoding);
     }
 
-    public static List readLineByPath(String srcFilePath, String encoding) throws
+    public static List<?> readLineByPath(String srcFilePath, String encoding) throws
             IOException {
         return FileUtils.readLines(new File(srcFilePath), encoding);
     }
@@ -114,7 +114,7 @@ public class FileUtil {
         FileUtils.writeStringToFile(new File(filePath), content, encoding);
     }
 
-    public static void writeFile(List filePath, List content, String encoding) throws
+    public static void writeFile(List<?> filePath, List<?> content, String encoding) throws
             IOException {
         for (int i = 0; i < content.size(); i++) {
             FileUtils.writeStringToFile(new File((String) filePath.get(i)),

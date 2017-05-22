@@ -28,6 +28,7 @@ public class FileWriterFactory {
 	private static String templateUrl = "com/zqg/cct/template/";
 	Configuration configuration = FileWriterFactory.getConfiguration(templateUrl);
 
+	@SuppressWarnings("deprecation")
 	public static Configuration getConfiguration(String url) {
 		if (cfg == null) {
 			cfg = new Configuration();

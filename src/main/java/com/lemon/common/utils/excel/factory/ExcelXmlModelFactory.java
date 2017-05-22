@@ -17,7 +17,7 @@ import com.lemon.common.utils.log.BapLogUtil;
 
 public class ExcelXmlModelFactory {
 	private static ExcelXmlModelFactory instance;
-	private Map<String, ExcelTemplateType> excelInfoTable = new HashMap();
+	private Map<String, ExcelTemplateType> excelInfoTable = new HashMap<String, ExcelTemplateType>();
 
 	static final Logger logger = LoggerFactory
 			.getLogger(ExcelXmlModelFactory.class);

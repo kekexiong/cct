@@ -33,6 +33,7 @@ public class ExcelHelper{
 				colsNum = hssfRow.getLastCellNum();
 				String[] tmpArr = new String[colsNum];
 				for(short j = startCol ; j < colsNum ;j++){
+					@SuppressWarnings("deprecation")
 					HSSFCell hssfCell = hssfRow.getCell(j);
 					Object value = getCellValue(hssfCell, i, j);
 					tmpArr[j] = value.toString();
@@ -45,6 +46,7 @@ public class ExcelHelper{
 		return resultList;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static String[] getRow(HSSFSheet sheet, int rowNum) throws Exception {
 		String[] row = new String[]{""};
 		try {
@@ -65,6 +67,7 @@ public class ExcelHelper{
 		return row;
 	}	
 	
+	@SuppressWarnings({ "unused", "static-access" })
 	public static Object getCellValue(HSSFCell hssfCell, int rowIndex, short colIndex) throws Exception {
 		Object value = null;
 		try {
@@ -109,7 +112,8 @@ public class ExcelHelper{
 	}
 	
 
-    public static void writeCell(HSSFSheet sheet, int rowIndex, short colIndex, String val) throws Exception {
+    @SuppressWarnings("deprecation")
+	public static void writeCell(HSSFSheet sheet, int rowIndex, short colIndex, String val) throws Exception {
     	HSSFCell cell = sheet.getRow(rowIndex).getCell(colIndex);
         writeCell(cell, val);
     }

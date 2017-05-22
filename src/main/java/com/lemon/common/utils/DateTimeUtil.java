@@ -379,7 +379,7 @@ public class DateTimeUtil {
 	     }
 		return monthList;    
     } 
-    public static List getDateList(Date startDate,Date endDate) throws ParseException{  
+    public static List<Date> getDateList(Date startDate,Date endDate) throws ParseException{  
 		List<Date> dateList=new ArrayList<Date>();
 		GregorianCalendar gc1 = new GregorianCalendar();
 		GregorianCalendar gc2 = new GregorianCalendar();  

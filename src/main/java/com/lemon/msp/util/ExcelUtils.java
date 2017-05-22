@@ -667,6 +667,7 @@ public class ExcelUtils {
 	 * @return List<Map<String,Object>>
 	 * @data   2016-01-28
 	 */
+	@SuppressWarnings("unused")
 	public static List<Map<String,Object>> readBankStmtCheckExcel(XSSFWorkbook xwb,String[] fields,String[] columnName, int[] sizeLimit,Map<String,Object> msg){
 		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
 		msg.put("success", "false"); 

@@ -32,7 +32,7 @@ public class SysUtils {
 	public static Map convertBean(Object bean) throws IntrospectionException,
 			IllegalAccessException, InvocationTargetException {
 		Class<? extends Object> type = bean.getClass();
-		Map returnMap = new HashMap();
+		Map<String, Object> returnMap = new HashMap<String, Object>();
 		BeanInfo beanInfo = Introspector.getBeanInfo(type);
 
 		PropertyDescriptor[] propertyDescriptors = beanInfo

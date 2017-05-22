@@ -46,8 +46,7 @@ public abstract class AbstractXmlModel {
       
     }
 
-    @SuppressWarnings("unchecked")
 	protected Object getRootModel(){
-        return ((JAXBElement)this.rootModel).getValue();
+        return ((JAXBElement<?>)this.rootModel).getValue();
     }
 }
