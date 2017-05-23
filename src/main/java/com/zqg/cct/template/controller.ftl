@@ -69,7 +69,7 @@ public class ${classNameD}Controller extends BaseController {
 	</#if>
 	</#list>
 	
-	<#if isQuery == "true">
+	<#if isQuery == "01">
 	/**
 	 * @description: 信息查询
 	 * @param session
@@ -103,7 +103,7 @@ public class ${classNameD}Controller extends BaseController {
 			}
 	}
 	</#if>
-	<#if isQuery == "true">
+	<#if isQuery == "01">
 	/**
 	 * 根据主键取得详细
 	 * @param session
@@ -131,7 +131,7 @@ public class ${classNameD}Controller extends BaseController {
 	}
 	</#if>
 	
-	<#if isAdd == "true">
+	<#if isAdd == "01">
 	/**
 	 * 保存
 	 * @param paramVo
@@ -183,7 +183,7 @@ public class ${classNameD}Controller extends BaseController {
 	}
 	</#if>
 	
-	<#if isUpdate=="true">
+	<#if isUpdate=="01">
 	/**
 	 * 更新
 	 * @param paramVo
@@ -223,7 +223,7 @@ public class ${classNameD}Controller extends BaseController {
 	}
 </#if>
 	
-<#if isDetele=="true">
+<#if isDetele=="01">
 /**
 	 * 根据主键删除
 	 * @param session

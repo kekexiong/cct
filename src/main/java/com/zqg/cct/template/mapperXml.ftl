@@ -28,7 +28,7 @@
 		</where>
 	</sql>
 	
-	<#if isQuery == "true">
+	<#if isQuery == "01">
 	<select id="findByCondition" parameterType="java.util.Map" resultType="Map">
 		${stringCarrayNames7}
 		SELECT
@@ -48,7 +48,7 @@
 			${stringCarrayNames8}
 	</select>
 	</#if>
-	<#if isQuery == "true">
+	<#if isQuery == "01">
 	<select id="findByConditionCount" parameterType="java.util.Map" resultType="java.lang.Integer">
 		SELECT
 			COUNT(*) 
@@ -56,7 +56,7 @@
 		<include refid="whereQueryCondition"></include>
 	</select>
 	</#if>
-	<#if isAdd == "true">
+	<#if isAdd == "01">
 	<insert id="insert" parameterType="${domainPackage}.${classNameD}">
 		INSERT INTO ${dbUser}.${tableName} (
 			<#list insertCarrays as tableCarray>
@@ -69,7 +69,7 @@
 		)
 	</insert>
 	</#if>
-	<#if isQuery == "true">
+	<#if isQuery == "01">
 	<select id="getByKey" parameterType="${domainPackage}.${classNameD}" resultMap="${classNameX}Map">
 		SELECT
 			${stringCarrayNames3}
@@ -83,7 +83,7 @@
   			</#list>
 	</select>
 	</#if>
-	<#if isUpdate=="true">
+	<#if isUpdate=="01">
 	<update id="update" parameterType="${domainPackage}.${classNameD}">
 		UPDATE ${dbUser}.${tableName} 
 		SET
@@ -99,7 +99,7 @@
 			
 	</update>
 	</#if>
-	<#if isDetele=="true">
+	<#if isDetele=="01">
 	<delete id="delete" parameterType="java.util.Map">
  		delete from ${dbUser}.${tableName}
  		where 

@@ -140,7 +140,7 @@
 															<i class="fa fa-edit"></i> 修改
 														</button>
 														<button type="button" id="dele_btn" class="btn tn btn btn-primary"> 
-															<i class="fa fa-remove"></i> 删除
+															<i class="fa fa-trash-o fa-lg"></i> 删除
 														</button>
 														<#if isExport == "01">
 															<button type="button" id="isExport_btn" class="btn tn btn btn-primary"> 
@@ -154,7 +154,7 @@
 														</#if>
 														<#if isImport == "01">
 															<button type="button" id="isImport_btn" class="btn tn btn btn-primary"> 
-																<i class="fa fa-pencil"></i> 导入
+																<i class="fa fa-upload"></i> 导入
 															</button>
 														</#if>
 													</div>

@@ -22,7 +22,7 @@ public interface ${classNameD}Mapper {
 	public List<Map<String, Object>> get${tableCarray.columnNameD}();
 	</#if>
 	</#list>
-	<#if isQuery == "true">
+	<#if isQuery == "01">
 	/**
 	 * 根据条件查询
 	 * @author ${classAuthor}
@@ -32,7 +32,7 @@ public interface ${classNameD}Mapper {
 	 */
 	public List<Map<String, Object>> findByCondition(Map<String,Object> map);
 	</#if>
-	<#if isQuery == "true">
+	<#if isQuery == "01">
 	/**
 	 * 根据条件查询总数
 	 * @author ${classAuthor}
@@ -42,7 +42,7 @@ public interface ${classNameD}Mapper {
 	 */
 	public int findByConditionCount(Map<String,Object> map);
 	</#if>
-	<#if isQuery == "true">
+	<#if isQuery == "01">
 	/**
 	 * 根据主键查询详细
 	 * @author ${classAuthor}
@@ -53,7 +53,7 @@ public interface ${classNameD}Mapper {
 	public ${classNameD} getByKey(${classNameD} paramVo); 
 	</#if>
 	
-	<#if isUpdate=="true">
+	<#if isUpdate=="01">
 	/**
 	 * 更新
 	 * @author ${classAuthor}
@@ -64,7 +64,7 @@ public interface ${classNameD}Mapper {
 	public int update(${classNameD} ${classNameX});
 	</#if>
 	
-	<#if isAdd == "true">
+	<#if isAdd == "01">
 	/**
 	 * 插入
 	 * @author ${classAuthor}
@@ -74,7 +74,7 @@ public interface ${classNameD}Mapper {
 	 */	public int insert(${classNameD} ${classNameX});
 	 </#if>
 	 
-	 <#if isDetele=="true">
+	 <#if isDetele=="01">
 	/**
 	 * 根据主键删除
 	 * @author ${classAuthor}

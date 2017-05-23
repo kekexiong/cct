@@ -51,54 +51,55 @@
 	<tr>
 		<th style="width: 100px">是否新增:</th>
 		<td style="width: 200px">
-			<select id = "isAdd" name="isAdd" >
-				<option value="true">是</option>
-				<option value="false">否</option>
-			</select>
+			<span class="radioSpan">
+                <input type="radio" name="isAdd" value="00" >否</input>
+                <input type="radio" name="isAdd" value="01" checked="true">是</input>
+          	</span>
 		</td>
 		<th style="width: 100px">是否删除:</th>
 		<td style="width: 200px">
-			<select id = "isDetele" name="isDetele" >
-				<option value="true">是</option>
-				<option value="false">否</option>
-			</select>
+			<span class="radioSpan">
+                <input type="radio" name="isDetele" value="00" >否</input>
+                <input type="radio" name="isDetele" value="01" checked="true">是</input>
+          	</span>
 		</td>
 		<th style="width: 100px">是否查询:</th>
 		<td style="width: 200px">
-			<select id = "isQuery" name="isQuery" >
-				<option value="true">是</option>
-				<option value="false">否</option>
-			</select>
+			 <span class="radioSpan">
+                <input type="radio" name="isQuery" value="00" >否</input>
+                <input type="radio" name="isQuery" value="01" checked="true">是</input>
+          </span>
 		</td>
 		<th style="width: 100px">是否更新:</th>
 		<td style="width: 200px">
-			<select id = "isUpdate" name="isUpdate" >
-				<option value="true">是</option>
-				<option value="false">否</option>
-			</select>
+		   <span class="radioSpan">
+                <input type="radio" name="isUpdate" value="00" >否</input>
+                <input type="radio" name="isUpdate" value="01" checked="true">是</input>
+          </span>
 		</td>
 	</tr>
 	<tr>
 	<th style="width: 100px">是否导出:</th>
+	
 		<td style="width: 200px">
-			<select id = "isExport" name="isExport" >
-				<option value="01">是</option>
-				<option value="00">否</option>
-			</select>
+		 <span class="radioSpan">
+                <input type="radio" name="isExport" value="00" >否</input>
+                <input type="radio" name="isExport" value="01" checked="true">是</input>
+          </span>
 		</td>
 		<th style="width: 100px">是否导入:</th>
 		<td style="width: 200px">
-			<select id = "isImport" name="isImport" >
-				<option value="01">是</option>
-				<option value="00">否</option>
-			</select>
+			<span class="radioSpan">
+                <input type="radio" name="isImport" value="00" >否</input>
+                <input type="radio" name="isImport" value="01" checked="true">是</input>
+          </span>
 		</td>
 		<th style="width: 100px">操作链接:</th>
 		<td style="width: 200px">
-			<select id = "isOperation" name="isOperation" >
-				<option value="01">是</option>
-				<option value="00">否</option>
-			</select>
+		<span class="radioSpan">
+                <input type="radio" name="isOperation" value="00" >否</input>
+                <input type="radio" name="isOperation" value="01" checked="true">是</input>
+          </span>
 		</td>
 	</tr>
 	<tr>
@@ -223,14 +224,13 @@
 			var tableComments=$("#tableComments").val();
 			var classAuthor=$("#classAuthor").val();
 			var dbUser=$("#dbUser").val();
-			var isQuery = $("#isQuery").val();
-			var isAdd = $("#isAdd").val();
-			var isDetele = $("#isDetele").val();
-			var isUpdate = $("#isUpdate").val();
-			var isImport = $("#isImport").val();
-			var isExport = $("#isExport").val();
-			var isOperation = $("#isOperation").val();
-			//提交请求
+			var isQuery = $("input[name='isQuery'][checked]").val();
+			var isAdd = $("input[name='isAdd'][checked]").val();
+			var isDetele = $("input[name='isDetele'][checked]").val();
+			var isUpdate = $("input[name='isUpdate'][checked]").val();
+			var isImport = $("input[name='isImport'][checked]").val();
+			var isExport = $("input[name='isExport'][checked]").val();
+			var isOperation =$("input[name='isOperation'][checked]").val();
 			$.ajax({
 				url:"${pageContext.request.contextPath}/code/saveTable",
 				type:"POST",
