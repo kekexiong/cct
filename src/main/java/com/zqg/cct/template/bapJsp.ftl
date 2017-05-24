@@ -813,9 +813,9 @@
 				var hiddenType = $("#hiddenType").val();
 				var url = "";
 				if("1" == hiddenType){
-					url = baseURL + "/${dbUser}/${classNameX}/save";
+					url = baseURL + "/${urlPackage}/${classNameX}/save";
 				}else if ("2" == hiddenType){
-					url = baseURL + "/${dbUser}/${classNameX}/update";
+					url = baseURL + "/${urlPackage}/${classNameX}/update";
 					param.uuid = $("#hiddenUUid").val();
 				}else{
 					url = "";
@@ -865,7 +865,7 @@
 						if(truthBeTold){
 		    				 $.ajax({
 		     	                type: "POST",
-		     	                url: baseURL + "/${dbUser}/${classNameX}/deleteByUuid",
+		     	                url: baseURL + "/${urlPackage}/${classNameX}/deleteByUuid",
 		     	                data:{
 		     	                	uuids:uuids
 		     	                },
@@ -908,7 +908,7 @@
 				</#list>
 				$.ajax({
 					type : "POST",
-					url : baseURL + "/${dbUser}/${classNameX}/getDetail",
+					url : baseURL + "/${urlPackage}/${classNameX}/getDetail",
 					data :param,
 					contentType: "application/x-www-form-urlencoded;charset=utf-8",
 					dataType : "json",
@@ -972,7 +972,7 @@
 			<!--请在此处实现自定义下拉框选项-->
 			$.ajax({
 	            type: "GET",
-	            url: baseURL+"/${dbUser}/${classNameD}/get${tableCarray.columnNameD}",
+	            url: baseURL+"/${urlPackage}/${classNameX}/get${tableCarray.columnNameD}",
 	            contentType: "application/json;charset=utf-8",
 	            dataType: "json",
 	            success: function(data) {
@@ -1028,7 +1028,7 @@
 	    }
 		
 		
-		var queryInner_Path = baseURL + "/${dbUser}/${classNameX}/query";
+		var queryInner_Path = baseURL + "/${urlPackage}/${classNameX}/query";
 		//实现查询按钮方法
 		function reloadGrid(){
 			$('table > tbody').empty();
@@ -1151,7 +1151,7 @@
 			param.uuid = uuid;
 			$.ajax({
 				type : "POST",
-				url : baseURL + "/${dbUser}/${classNameX}/getDetail",
+				url : baseURL + "/${urlPackage}/${classNameX}/getDetail",
 				data :param,
 				contentType: "application/x-www-form-urlencoded;charset=utf-8",
 				dataType : "json",
@@ -1205,7 +1205,7 @@
 						App.blockUI({target:"body",boxed:!0,message:"导入中，请稍后...",zIndex:12000});
 						$("#importOpenWinform").ajaxSubmit({
 			                type: 'post',
-						    url : baseURL +'/${dbUser}/${classNameX}/${classNameX}ImportExcel',
+						    url : baseURL +'/${urlPackage}/${classNameX}/importExcel',
 						    dataType: "json",
 			                success: function(data){
 			                	if (data.msgCd == 'MEC00000') {
@@ -1264,14 +1264,14 @@
 	    		bootbox.alert("没数据要导出！");
 	    		return;
 	    	}
-			window.open(baseURL + "/${dbUser}/${classNameX}/${classNameX}GetFailExport");
+			window.open(baseURL + "/${urlPackage}/${classNameX}/getFailExport");
 			$("#errorImExcel").modal('hide');
 		});
 		</#if>
 		<#if isExport == "01">
 		//下载模板按钮
 		$("#download_template_btn").on('click', function() {
-			window.open(baseURL +'/${dbUser}/${classNameD}/downloadTemplate');
+			window.open(baseURL +'/${urlPackage}/${classNameX}/downloadTemplate');
 		});
 		
 		//导出按钮
@@ -1285,7 +1285,7 @@
 			$("#innerExcelType").val("总共"+totalCount+"条数据， 确定导出? ")
 			$("#innerExcelType").attr("disabled", "disabled");
 			$("#exportform_save_btn").off('click').on('click', function() {
-				window.open(baseURL +"/${dbUser}/${classNameX}/${classNameX}Export");
+				window.open(baseURL +"/${urlPackage}/${classNameX}/export");
 				$("#exportExcelWin").modal('hide');
 			});
 			$("#exportform_cancel_btn").off('click').on('click', function() {

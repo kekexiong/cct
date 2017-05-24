@@ -42,9 +42,9 @@
 		<th style="width: 100px">数据库名:</th>
 		<td>
 			<select id = "dbUser" name="dbUser" >
-				<option value="SES">SES</option>
-				<option value="BAP">BAP</option>
-				<option value="MSP">MSP</option>
+				<option value="SES">ses</option>
+				<option value="BAP">bap</option>
+				<option value="MSP">msp</option>
 			</select>
 		</td>
 	</tr>

@@ -7,6 +7,7 @@ public class TableDomain {
 	private String tableNote;// 表注释
 	private String businessName;// 业务名称
 	private String classPackage; // java类Base包
+	private String urlPackage; // url访问包（classPackage 最后的包名）
 	private String controllerPackage;// 生成包
 	private String domainPackage;// 生成包
 	private String mapperPackage;// 生成包
@@ -362,5 +363,13 @@ public class TableDomain {
 
 	public void setExcelXmlPackage(String excelXmlPackage) {
 		this.excelXmlPackage = excelXmlPackage;
+	}
+
+	public String getUrlPackage() {
+		return urlPackage;
+	}
+
+	public void setUrlPackage(String urlPackage) {
+		this.urlPackage = urlPackage;
 	}
 }

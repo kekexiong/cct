@@ -156,6 +156,7 @@ public class CodeController {
 		}
 		TableDomain table = new TableDomain();
 		table.setTableName(tableName);
+		table.setUrlPackage(classPackage.substring(classPackage.lastIndexOf(".")+1, classPackage.length()));
 		table.setDomainPackage(classPackage+".domain");
 		table.setMapperPackage(classPackage+".mapper");
 		table.setServicePackage(classPackage+".service");

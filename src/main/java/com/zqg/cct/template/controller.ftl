@@ -35,7 +35,7 @@ import java.io.File;
  * @review ${reviewAuthor}/${reviewDate}
  */
 @Controller
-@RequestMapping("/${dbUser}/${classNameX}")
+@RequestMapping("/${urlPackage}/${classNameX}")
 public class ${classNameD}Controller extends BaseController {
 
 	@Autowired
@@ -293,7 +293,7 @@ public class ${classNameD}Controller extends BaseController {
 	 * @author ${classAuthor}
 	 * @data ${classTime}
      */
-	@RequestMapping(value = "${classNameD}importExcel", method = RequestMethod.POST)
+	@RequestMapping(value = "importExcel", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> ${classNameD}importExcel (HttpSession session, HttpServletRequest request){
 		String tcd = "${classNameD}Controller-${classNameD}importExcel";
@@ -324,7 +324,7 @@ public class ${classNameD}Controller extends BaseController {
 	 * @author ${classAuthor}
 	 * @data ${classTime}
      */
-	@RequestMapping(value = "${classNameD}getFailExport", method = RequestMethod.GET)
+	@RequestMapping(value = "getFailExport", method = RequestMethod.GET)
     @ResponseBody
 	public void getBnkBinFailExport(HttpSession session, HttpServletResponse response) {
 		try{
@@ -359,7 +359,7 @@ public class ${classNameD}Controller extends BaseController {
 	 * @author ${classAuthor}
 	 * @data ${classTime}
      */
-	@RequestMapping(value = "/${classNameD}Export", method = RequestMethod.GET)
+	@RequestMapping(value = "/export", method = RequestMethod.GET)
     public void export(HttpSession session, HttpServletResponse response) {
         String tcd = "${classNameD}Controller-export";
         String opNm = "${businessName}信息管理-导出";
