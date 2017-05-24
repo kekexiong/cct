@@ -813,9 +813,9 @@
 				var hiddenType = $("#hiddenType").val();
 				var url = "";
 				if("1" == hiddenType){
-					url = baseURL + "/${dbUser}/${classNameD}/${classNameD}save";
+					url = baseURL + "/${dbUser}/${classNameX}/save";
 				}else if ("2" == hiddenType){
-					url = baseURL + "/${dbUser}/${classNameD}/${classNameD}update";
+					url = baseURL + "/${dbUser}/${classNameX}/update";
 					param.uuid = $("#hiddenUUid").val();
 				}else{
 					url = "";
@@ -865,7 +865,7 @@
 						if(truthBeTold){
 		    				 $.ajax({
 		     	                type: "POST",
-		     	                url: baseURL + "/${dbUser}/${classNameD}/${classNameD}deleteByUuid",
+		     	                url: baseURL + "/${dbUser}/${classNameX}/deleteByUuid",
 		     	                data:{
 		     	                	uuids:uuids
 		     	                },
@@ -908,7 +908,7 @@
 				</#list>
 				$.ajax({
 					type : "POST",
-					url : baseURL + "/${dbUser}/${classNameD}/${classNameD}getDetail",
+					url : baseURL + "/${dbUser}/${classNameX}/getDetail",
 					data :param,
 					contentType: "application/x-www-form-urlencoded;charset=utf-8",
 					dataType : "json",
@@ -1028,7 +1028,7 @@
 	    }
 		
 		
-		var queryInner_Path = baseURL + "/${dbUser}/${classNameD}/${classNameD}query";
+		var queryInner_Path = baseURL + "/${dbUser}/${classNameX}/query";
 		//实现查询按钮方法
 		function reloadGrid(){
 			$('table > tbody').empty();
@@ -1151,7 +1151,7 @@
 			param.uuid = uuid;
 			$.ajax({
 				type : "POST",
-				url : baseURL + "/${dbUser}/${classNameD}/${classNameD}getDetail",
+				url : baseURL + "/${dbUser}/${classNameX}/getDetail",
 				data :param,
 				contentType: "application/x-www-form-urlencoded;charset=utf-8",
 				dataType : "json",
@@ -1205,7 +1205,7 @@
 						App.blockUI({target:"body",boxed:!0,message:"导入中，请稍后...",zIndex:12000});
 						$("#importOpenWinform").ajaxSubmit({
 			                type: 'post',
-						    url : baseURL +'/${dbUser}/${classNameD}/${classNameD}importExcel',
+						    url : baseURL +'/${dbUser}/${classNameX}/${classNameX}ImportExcel',
 						    dataType: "json",
 			                success: function(data){
 			                	if (data.msgCd == 'MEC00000') {
@@ -1264,7 +1264,7 @@
 	    		bootbox.alert("没数据要导出！");
 	    		return;
 	    	}
-			window.open(baseURL + "/${dbUser}/${classNameD}/${classNameD}getFailExport");
+			window.open(baseURL + "/${dbUser}/${classNameX}/${classNameX}GetFailExport");
 			$("#errorImExcel").modal('hide');
 		});
 		</#if>
@@ -1285,7 +1285,7 @@
 			$("#innerExcelType").val("总共"+totalCount+"条数据， 确定导出? ")
 			$("#innerExcelType").attr("disabled", "disabled");
 			$("#exportform_save_btn").off('click').on('click', function() {
-				window.open(baseURL +"/${dbUser}/${classNameD}/${classNameD}Export");
+				window.open(baseURL +"/${dbUser}/${classNameX}/${classNameX}Export");
 				$("#exportExcelWin").modal('hide');
 			});
 			$("#exportform_cancel_btn").off('click').on('click', function() {

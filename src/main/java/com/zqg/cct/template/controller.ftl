@@ -35,7 +35,7 @@ import java.io.File;
  * @review ${reviewAuthor}/${reviewDate}
  */
 @Controller
-@RequestMapping("/${dbUser}/${classNameD}")
+@RequestMapping("/${dbUser}/${classNameX}")
 public class ${classNameD}Controller extends BaseController {
 
 	@Autowired
@@ -80,7 +80,7 @@ public class ${classNameD}Controller extends BaseController {
 	 * @author ${classAuthor}
 	 * @data ${classTime}
 	 */
-	@RequestMapping(value ="/${classNameD}query", method = RequestMethod.POST)
+	@RequestMapping(value ="/query", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> queryCondition(HttpSession session,
 			@RequestParam(value = "start", defaultValue = ConstantsBase.START) int start,
@@ -112,7 +112,7 @@ public class ${classNameD}Controller extends BaseController {
 	 * @author ${classAuthor}
 	 * @data ${classTime}
 	 */
-	@RequestMapping(value = "/${classNameD}getDetail", method = RequestMethod.POST)
+	@RequestMapping(value = "/getDetail", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> getByKey(HttpSession session, @ModelAttribute ${classNameD} paramVo) {
 		String tcd = "${classNameD}Controller.queryCondition";
@@ -139,7 +139,7 @@ public class ${classNameD}Controller extends BaseController {
 	 * @author ${classAuthor}
 	 * @data ${classTime}
 	 */
-	@RequestMapping(value = "/${classNameD}save", method = RequestMethod.POST)
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> save( @ModelAttribute ${classNameD} ${classNameX}) {
 		String tcd = "${classNameD}Controller.save";
@@ -191,7 +191,7 @@ public class ${classNameD}Controller extends BaseController {
 	 * @author ${classAuthor}
 	 * @data ${classTime}
 	 */
-	@RequestMapping(value = "/${classNameD}update", method = RequestMethod.POST)
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> udpate( @ModelAttribute ${classNameD} paramVo) {
 		String tcd = "${classNameD}Controller.save";
@@ -232,7 +232,7 @@ public class ${classNameD}Controller extends BaseController {
 	 * @author ${classAuthor}
 	 * @data ${classTime}
 	 */
-	@RequestMapping(value = "/${classNameD}deleteByUuid", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteByUuid", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> deleteByUuid(HttpSession session, @RequestParam(value = "uuids") String uuids) {
 		String tcd = "${classNameD}Controller.deleteByUuid";
