@@ -130,7 +130,7 @@
 				<th data-options="field:'dataLength',width:60,editor:'numberbox'">长度</th>
 				<th data-options="field:'dataPrecision',width:70,editor:'numberbox'">数字长度</th>
 				<th data-options="field:'dataScale',width:50,editor:'numberbox'">小数点</th>
-				<th data-options="field:'queryType',width:100,align:'center',editor:{type:'checkbox',options:{on:'√',off:''}}">设为检索条件</th>
+				<th data-options="field:'queryType',width:100,align:'center',editor:{type:'checkbox',options:{on:'√',off:''}}">检索条件</th>
 				<th data-options="field:'queryRule',width:100,
 					formatter:function(value,row){
 					var propertyData=selectRuleData
@@ -148,11 +148,11 @@
 							method:'get',
 							data:selectRuleData
 						}
-					}">检索(输入框)条件类型</th>
-			<th data-options="field:'queryShow',width:100,align:'center',editor:{type:'checkbox',options:{on:'√',off:''}}">设为列表字段</th>
-			<th data-options="field:'queryAdd',width:100,align:'center',editor:{type:'checkbox',options:{on:'√',off:''}}">设为添加(修改)字段</th>
-			<th data-options="field:'queryView',width:100,align:'center',editor:{type:'checkbox',options:{on:'√',off:''}}">设为详情字段</th>
-			<th data-options="field:'queryExport',width:100,align:'center',editor:{type:'checkbox',options:{on:'√',off:''}}">设为导出字段</th>
+					}">检索类型</th>
+			<th data-options="field:'queryShow',width:100,align:'center',editor:{type:'checkbox',options:{on:'√',off:''}}">列表字段</th>
+			<th data-options="field:'queryAdd',width:100,align:'center',editor:{type:'checkbox',options:{on:'√',off:''}}">添加(修改)字段</th>
+			<th data-options="field:'queryView',width:100,align:'center',editor:{type:'checkbox',options:{on:'√',off:''}}">详情字段</th>
+			<th data-options="field:'queryExport',width:100,align:'center',editor:{type:'checkbox',options:{on:'√',off:''}}">导出字段</th>
 			</tr>
 			
 		</thead>

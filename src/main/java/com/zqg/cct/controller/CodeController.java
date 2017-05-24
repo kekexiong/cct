@@ -66,7 +66,7 @@ public class CodeController {
 		param.setTableName("T_SES_BANK_BK_MSG");
 		param.setClassAuthor("zhao_qg");
 		param.setBusinessName("代码自动生成");
-		param.setClassPackage("com.zqg.cct");
+		param.setClassPackage("com.lemon.ses");
 		param.setClassNameD(StrUtil.upperFirst(param.getTableName()));
 		return JSON.toJSONString(param);
 	}

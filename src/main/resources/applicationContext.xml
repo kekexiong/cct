@@ -20,7 +20,7 @@
 	<util:properties id="propertiesReader" location="classpath:config.properties" />
 
 	<context:property-placeholder location="classpath*:config.properties" />
-	<context:component-scan base-package="com.zqg.cct" />
+	<context:component-scan base-package="com.*.*" />
 	<context:annotation-config />
 	<!-- 写库 -->
 	<bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource"
@@ -51,10 +51,15 @@
 		<property name="mapperLocations" value="classpath*:mapper/*Mapper.xml" />
 	</bean>
 
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	<!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.zqg.cct.mapper" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean> -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.*.*.mapper" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 	</bean>
+	
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
@@ -74,7 +79,7 @@
 
 	<aop:config>
 		<aop:pointcut id="advisePointcut"
-			expression="execution(* com.zqg.cct.service..*.*(..))" />
+			expression="execution(* com.*.*.service..*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="advisePointcut" />
 	</aop:config>
 
