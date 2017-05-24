@@ -41,7 +41,6 @@ public class ${classNameD}Controller extends BaseController {
 	@Autowired
 	private ${classNameD}Service ${classNameX}Service;
 	static final Logger LOGGER = LoggerFactory.getLogger(${classNameD}Controller.class);
-	
 	<#list tableCarrays as tableCarray>
 	<#if (tableCarray.queryRule??) && tableCarray.queryRule == "05">
 	/**
@@ -68,8 +67,8 @@ public class ${classNameD}Controller extends BaseController {
 	}
 	</#if>
 	</#list>
-	
 	<#if isQuery == "01">
+	
 	/**
 	 * @description: 信息查询
 	 * @param session
@@ -104,6 +103,7 @@ public class ${classNameD}Controller extends BaseController {
 	}
 	</#if>
 	<#if isQuery == "01">
+	
 	/**
 	 * 根据主键取得详细
 	 * @param session
@@ -130,8 +130,8 @@ public class ${classNameD}Controller extends BaseController {
 			}
 	}
 	</#if>
-	
 	<#if isAdd == "01">
+	
 	/**
 	 * 保存
 	 * @param paramVo
@@ -182,8 +182,8 @@ public class ${classNameD}Controller extends BaseController {
 		}
 	}
 	</#if>
-	
 	<#if isUpdate=="01">
+	
 	/**
 	 * 更新
 	 * @param paramVo
@@ -197,17 +197,17 @@ public class ${classNameD}Controller extends BaseController {
 		String tcd = "${classNameD}Controller.save";
 		String opNm = "${businessName}-更新";
 		try{
-	       <#list updateCarrays as tableCarray>
-				<#if tableCarray.columnNameD == "OpId">
-					paramVo.set${tableCarray.columnNameD}(SysUtils.getLoginName());
-				</#if>
-				<#if tableCarray.columnNameD == "OpDt">
-					paramVo.set${tableCarray.columnNameD}(DateUtils.getCurDT());
-				</#if>
-				<#if tableCarray.columnNameD == "OpTm">
-					paramVo.set${tableCarray.columnNameD}(DateUtils.getCurTM());
-				</#if>
-			</#list>
+	   <#list updateCarrays as tableCarray>
+			<#if tableCarray.columnNameD == "OpId">
+				paramVo.set${tableCarray.columnNameD}(SysUtils.getLoginName());
+			</#if>
+			<#if tableCarray.columnNameD == "OpDt">
+				paramVo.set${tableCarray.columnNameD}(DateUtils.getCurDT());
+			</#if>
+			<#if tableCarray.columnNameD == "OpTm">
+				paramVo.set${tableCarray.columnNameD}(DateUtils.getCurTM());
+			</#if>
+		</#list>
 			LOGGER.info(tcd, "", opNm + "--begin");
 			int num = ${classNameX}Service.update(paramVo);
 			if(num>0){
@@ -215,16 +215,15 @@ public class ${classNameD}Controller extends BaseController {
 			}
 			LOGGER.info(tcd, "", opNm + "--end");
 			return super.setFailure("更新成功0条!");
-			
 		}catch(Exception e){
 			LOGGER.error(tcd, "", opNm + "--End,异常:", e);
 			return super.setFailure("更新失败!");
 		}
 	}
 </#if>
-	
 <#if isDetele=="01">
-/**
+
+	/**
 	 * 根据主键删除
 	 * @param session
 	 * @param paramVo
@@ -259,6 +258,7 @@ public class ${classNameD}Controller extends BaseController {
 	}
 	</#if>
 	<#if isImport == "01" >
+	
 	/**
      * @description:下载导入模板
      * @param paramVo
@@ -268,7 +268,6 @@ public class ${classNameD}Controller extends BaseController {
 	 * @data ${classTime}
      */
 	@RequestMapping(value = "/downloadTemplate")
-	// @RequiresPermissions("bap:ses:setord_downloadBatchDelayedPayTemplate")
 	public void downloadBatchTemplate(HttpServletRequest request, HttpServletResponse response) {
 		String tcd = "${classNameD}Controller-downloadTemplate";
 		String opNm = "${businessName}-下载导入模板";
@@ -303,6 +302,7 @@ public class ${classNameD}Controller extends BaseController {
         try {
             rsMap = ${classNameX}Service.batchOperate(request);
             if (rsMap.get("errors") != null) {
+                @SuppressWarnings("unchecked")
                 List<BnkRetPo> errlist = (List<BnkRetPo>) rsMap.get("errors");
                 session.setAttribute("errlist", errlist);
             }
@@ -329,6 +329,7 @@ public class ${classNameD}Controller extends BaseController {
 	public void getBnkBinFailExport(HttpSession session, HttpServletResponse response) {
 		try{
 			//从session中获取错误信息list
+			@SuppressWarnings("unchecked")
 			List<BnkRetPo> erroList = (List<BnkRetPo>) session.getAttribute("errlist");
 	        List<Map<String, Object>> inList = null;
 	        if(erroList.size()>0){
@@ -351,6 +352,7 @@ public class ${classNameD}Controller extends BaseController {
 	}
 	</#if>
 	<#if isExport == "01" >
+	
 	/**
      * @description:主页面导出功能
      * @param session
@@ -363,6 +365,7 @@ public class ${classNameD}Controller extends BaseController {
     public void export(HttpSession session, HttpServletResponse response) {
         String tcd = "${classNameD}Controller-export";
         String opNm = "${businessName}信息管理-导出";
+        @SuppressWarnings("unchecked")
         Map<String, Object> paraMap = (Map<String, Object>) session.getAttribute("queryMecTOneAcRateParam");
         HSSFWorkbook hSSFWorkbook;
         String fileName = null;
@@ -376,5 +379,4 @@ public class ${classNameD}Controller extends BaseController {
         LOGGER.info(BapLogUtil.genLogs(tcd, opNm + "end,fileName=" + fileName));
     }
 	</#if>
-	
 }
