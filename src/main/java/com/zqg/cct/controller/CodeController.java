@@ -25,8 +25,18 @@ import com.zqg.cct.util.StrUtil;
 @RequestMapping("/code")
 public class CodeController {
 
+	/**
+	 * 使用说明  使用前请修改 表名：TABLE_NAME  和  工程路劲：PROJECT_PATH
+	 */
+	
 	@Resource
 	private TableService tableService;
+	// 表名
+	private final String TABLE_NAME="T_SES_BANK_BK_MSG";
+	// 工程路径 ios 电脑
+	//private final String PROJECT_PATH="/Users/zhaoqiugen/git/cct"; 
+	// 工程路径 windows 电脑
+	private final String PROJECT_PATH="D:/workspaceCCT/cct";
 
 	/**
 	 * 首页
@@ -49,7 +59,7 @@ public class CodeController {
 	@ResponseBody
 	public String couponRule() {
 		TableDomain param = new TableDomain();
-		param.setTableName("T_SES_BANK_BK_MSG");
+		param.setTableName(TABLE_NAME);
 		return JSON.toJSONString(tableService.getTableItem(param));
 	}
 
@@ -63,7 +73,7 @@ public class CodeController {
 	@ResponseBody
 	public String innt() {
 		TableDomain param = new TableDomain();
-		param.setTableName("T_SES_BANK_BK_MSG");
+		param.setTableName(TABLE_NAME);
 		param.setClassAuthor("zhao_qg");
 		param.setBusinessName("代码自动生成");
 		param.setClassPackage("com.lemon.ses");
@@ -165,7 +175,7 @@ public class CodeController {
 		table.setMapperXmlPackage("resources.mapper");
 		table.setExcelXmlPackage("resources.excel_config.excel_model");
 		table.setDbUser(dbUser);
-		table.setBasePath("D:/workspaceCCT/cct");
+		table.setBasePath(PROJECT_PATH); // 工程路径
 		table.setClassAuthor(classAuthor);
 		table.setBusinessName(serviceName);
 		table.setClassTime(StrUtil.stringDateTime(new Date()));
@@ -181,5 +191,4 @@ public class CodeController {
 		tableService.process(newList, table);
 		return JSON.toJSONString(tableService.getTableItem(null));
 	}
-
 }
