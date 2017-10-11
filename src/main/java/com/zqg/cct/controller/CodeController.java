@@ -27,16 +27,18 @@ public class CodeController {
 
 	/**
 	 * 使用说明  使用前请修改 表名：TABLE_NAME  和  工程路劲：PROJECT_PATH
+	 * 
+	 * 注意：  SES  BAP 的表 需要用不同的数据源  需要手动修改（bap_sit ses_sit）
 	 */
 	
 	@Resource
 	private TableService tableService;
 	// 表名
-	private final String TABLE_NAME="T_SES_BANK_BK_MSG";
+	private final String TABLE_NAME="T_BAP_STOCK_FUND_BASE_DATA";
 	// 工程路径 ios 电脑
-	//private final String PROJECT_PATH="/Users/zhaoqiugen/git/cct"; 
+	private final String PROJECT_PATH="/Users/zhaoqiugen/git/cct"; 
 	// 工程路径 windows 电脑
-	private final String PROJECT_PATH="D:/workspaceCCT/cct";
+	//private final String PROJECT_PATH="D:/workspaceCCT/cct";
 
 	/**
 	 * 首页

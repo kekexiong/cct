@@ -133,15 +133,21 @@
 														<button type="button" id="reset_btn" class="btn red">
 															<i class="fa fa-refresh"></i> 重置
 														</button>
+														<#if isAdd == "01">
 														<button type="button" id="add_btn" class="btn btn-info"> 
 															<i class="fa fa-plus"></i> 添加
 														</button>
+														</#if>
+														<#if isUpdate == "01">
 														<button type="button" id="edit_btn" class="btn tn btn btn-primary"> 
 															<i class="fa fa-edit"></i> 修改
 														</button>
+														</#if>
+														<#if isDetele == "01">
 														<button type="button" id="dele_btn" class="btn tn btn btn-primary"> 
 															<i class="fa fa-trash-o fa-lg"></i> 删除
 														</button>
+														</#if>
 														<#if isExport == "01">
 															<button type="button" id="isExport_btn" class="btn tn btn btn-primary"> 
 																<i class="fa fa-download"></i> 导出
