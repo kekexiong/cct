@@ -45,6 +45,8 @@ public class CodeController {
 	private final String BUSINESS_NAME="zhao_qg";
 	// 代码目录
 	private final String CLASS_PACKAGE="com.lemon.ses";
+	// 代码目录
+	private final String DB_USER="bap";
 
 	/**
 	 * 首页
@@ -85,6 +87,7 @@ public class CodeController {
 		param.setClassAuthor(CLASS_AUTHOR);
 		param.setBusinessName(BUSINESS_NAME);
 		param.setClassPackage(CLASS_PACKAGE);
+		param.setDbUser(DB_USER);
 		param.setClassNameD(StrUtil.upperFirst(param.getTableName()));
 		return JSON.toJSONString(param);
 	}

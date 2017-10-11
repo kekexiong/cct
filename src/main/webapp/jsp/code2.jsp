@@ -41,11 +41,8 @@
 	<tr>
 		<th style="width: 100px">数据库名:</th>
 		<td>
-			<select id = "dbUser" name="dbUser" >
-				<option value="SES">ses</option>
-				<option value="BAP">bap</option>
-				<option value="MSP">msp</option>
-			</select>
+			<input class="easyui-validatebox" type="text" name="dbUser" id='dbUser'
+			data-options="required:true" size="30" value='test'/></td>
 		</td>
 	</tr>
 	<tr>
@@ -295,6 +292,7 @@
 					$("#classAuthor").val(rtdata.classAuthor);
 					$("#tableName").val(rtdata.tableName);
 					$("#classPackage").val(rtdata.classPackage);
+					$("#dbUser").val(rtdata.dbUser);
 					document.getElementById("testUrl").href='http://localhost:8080/cct/jsp/'+rtdata.classNameD+'.jsp';
 				},
 				error : function() {

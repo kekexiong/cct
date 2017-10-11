@@ -33,6 +33,7 @@ public class TableService {
 			if(StringUtils.isEmpty(itemList.get(i).getComments())){
 				itemList.get(i).setComments(itemList.get(i).getColumnName());	
 			}
+			itemList.get(i).setQueryRule("03");//默认输入框
 			itemList.get(i).setQueryShow("√");
 			itemList.get(i).setQueryAdd("√");
 			itemList.get(i).setQueryExport("√");
