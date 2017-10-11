@@ -39,6 +39,12 @@ public class CodeController {
 	private final String PROJECT_PATH="/Users/zhaoqiugen/git/cct"; 
 	// 工程路径 windows 电脑
 	//private final String PROJECT_PATH="D:/workspaceCCT/cct";
+	// 作者
+	private final String CLASS_AUTHOR="T_BAP_STOCK_FUND_BASE_DATA";
+	// 业务名称
+	private final String BUSINESS_NAME="zhao_qg";
+	// 代码目录
+	private final String CLASS_PACKAGE="com.lemon.ses";
 
 	/**
 	 * 首页
@@ -76,9 +82,9 @@ public class CodeController {
 	public String innt() {
 		TableDomain param = new TableDomain();
 		param.setTableName(TABLE_NAME);
-		param.setClassAuthor("zhao_qg");
-		param.setBusinessName("代码自动生成");
-		param.setClassPackage("com.lemon.ses");
+		param.setClassAuthor(CLASS_AUTHOR);
+		param.setBusinessName(BUSINESS_NAME);
+		param.setClassPackage(CLASS_PACKAGE);
 		param.setClassNameD(StrUtil.upperFirst(param.getTableName()));
 		return JSON.toJSONString(param);
 	}

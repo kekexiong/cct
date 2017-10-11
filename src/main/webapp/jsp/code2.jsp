@@ -224,13 +224,13 @@
 			var tableComments=$("#tableComments").val();
 			var classAuthor=$("#classAuthor").val();
 			var dbUser=$("#dbUser").val();
-			var isQuery = $("input[name='isQuery'][checked]").val();
-			var isAdd = $("input[name='isAdd'][checked]").val();
-			var isDetele = $("input[name='isDetele'][checked]").val();
-			var isUpdate = $("input[name='isUpdate'][checked]").val();
-			var isImport = $("input[name='isImport'][checked]").val();
-			var isExport = $("input[name='isExport'][checked]").val();
-			var isOperation =$("input[name='isOperation'][checked]").val();
+			var isQuery = $("input[name='isQuery']:checked").val();
+			var isAdd = $("input[name='isAdd']:checked").val();
+			var isDetele = $("input[name='isDetele']:checked").val();
+			var isUpdate = $("input[name='isUpdate']:checked").val();
+			var isImport = $("input[name='isImport']:checked").val();
+			var isExport = $("input[name='isExport']:checked").val();
+			var isOperation =$("input[name='isOperation']:checked").val();
 			$.ajax({
 				url:"${pageContext.request.contextPath}/code/saveTable",
 				type:"POST",
