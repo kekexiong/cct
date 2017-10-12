@@ -1,4 +1,4 @@
-package com.zqg.cct.controller;
+	package com.zqg.cct.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -143,8 +143,8 @@ public class CodeController {
 				item1.setIsAddColumnName("1");
 				item1.setQueryShow("01");
 				newList.add(item1);
-			} else {
-				if("√".equals(item.getQueryType())){
+			} 
+			if("√".equals(item.getQueryType())){
 					item.setQueryType("01");
 				}else{
 					item.setQueryType("02");
@@ -173,7 +173,6 @@ public class CodeController {
 					item.setQueryAdd("02");
 				}
 				item.setIsAddColumnName("0");
-			}
 		}
 		TableDomain table = new TableDomain();
 		table.setTableName(tableName);
