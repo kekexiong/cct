@@ -44,20 +44,20 @@ public class ${classNameD}Controller extends BaseController {
 	<#list tableCarrays as tableCarray>
 	<#if (tableCarray.queryRule??) && tableCarray.queryRule == "05">
 	/**
-	 * @description: 获取付款类型字段
+	 * @description: 获取自定义下拉选数据
 	 * @return map
 	 * @author ${classAuthor}
-	 * @data ${classTime}
+	 * @date ${classTime}
 	 */
 	@RequestMapping(value ="/get${tableCarray.columnNameD}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Map<String, Object>> get${tableCarray.columnNameD}(){
 		String tcd = "${classNameD}Controller.getCustomStore";
-		String opNm = "${businessName}-获取付款类型字段";
+		String opNm = "${businessName}-获取字段";
 		LOGGER.info(tcd, "", opNm + "--begin");
 		List<Map<String, Object>> payTypeNames = null;
 		try {
-            payTypeNames = tSesAutoPayCheckService.get${tableCarray.columnNameD}();
+            //payTypeNames = tSesAutoPayCheckService.get${tableCarray.columnNameD}();
             LOGGER.info(tcd, "", opNm + "--获取参数成功！");
         } catch (Exception e) {
             LOGGER.error(tcd, "", opNm + "--End,异常:", e);
@@ -77,7 +77,7 @@ public class ${classNameD}Controller extends BaseController {
 	 * @param paramVo
 	 * @return map
 	 * @author ${classAuthor}
-	 * @data ${classTime}
+	 * @date ${classTime}
 	 */
 	@RequestMapping(value ="/query", method = RequestMethod.POST)
 	@ResponseBody
@@ -110,7 +110,7 @@ public class ${classNameD}Controller extends BaseController {
 	 * @param paramVo
 	 * @return map
 	 * @author ${classAuthor}
-	 * @data ${classTime}
+	 * @date ${classTime}
 	 */
 	@RequestMapping(value = "/getDetail", method = RequestMethod.POST)
 	@ResponseBody
@@ -137,7 +137,7 @@ public class ${classNameD}Controller extends BaseController {
 	 * @param paramVo
 	 * @return map
 	 * @author ${classAuthor}
-	 * @data ${classTime}
+	 * @date ${classTime}
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseBody
@@ -189,7 +189,7 @@ public class ${classNameD}Controller extends BaseController {
 	 * @param paramVo
 	 * @return map
 	 * @author ${classAuthor}
-	 * @data ${classTime}
+	 * @date ${classTime}
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
@@ -229,7 +229,7 @@ public class ${classNameD}Controller extends BaseController {
 	 * @param paramVo
 	 * @return map
 	 * @author ${classAuthor}
-	 * @data ${classTime}
+	 * @date ${classTime}
 	 */
 	@RequestMapping(value = "/deleteByUuid", method = RequestMethod.POST)
 	@ResponseBody
@@ -265,7 +265,7 @@ public class ${classNameD}Controller extends BaseController {
      * @param response
 	 * @return map
 	 * @author ${classAuthor}
-	 * @data ${classTime}
+	 * @date ${classTime}
      */
 	@RequestMapping(value = "/downloadTemplate")
 	public void downloadBatchTemplate(HttpServletRequest request, HttpServletResponse response) {
@@ -290,7 +290,7 @@ public class ${classNameD}Controller extends BaseController {
      * @param response
 	 * @return map
 	 * @author ${classAuthor}
-	 * @data ${classTime}
+	 * @date ${classTime}
      */
 	@RequestMapping(value = "importExcel", method = RequestMethod.POST)
 	@ResponseBody
@@ -322,7 +322,7 @@ public class ${classNameD}Controller extends BaseController {
      * @param response
 	 * @return void
 	 * @author ${classAuthor}
-	 * @data ${classTime}
+	 * @date ${classTime}
      */
 	@RequestMapping(value = "getFailExport", method = RequestMethod.GET)
     @ResponseBody
@@ -359,7 +359,7 @@ public class ${classNameD}Controller extends BaseController {
      * @param response
 	 * @return void
 	 * @author ${classAuthor}
-	 * @data ${classTime}
+	 * @date ${classTime}
      */
 	@RequestMapping(value = "/export", method = RequestMethod.GET)
     public void export(HttpSession session, HttpServletResponse response) {
