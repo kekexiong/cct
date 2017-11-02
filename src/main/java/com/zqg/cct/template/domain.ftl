@@ -17,11 +17,11 @@ public class ${classNameD} {
 	 * <#if tableCarray.comments??>${tableCarray.comments}</#if>
 	 */
 	<#if (tableCarray.queryType)?? && tableCarray.queryType == "01" && tableCarray.queryRule == "02">
-		public ${tableCarray.dataType} ${tableCarray.columnNameX}beginDt;
-		public ${tableCarray.dataType} ${tableCarray.columnNameX}endDt;
-		public ${tableCarray.dataType} ${tableCarray.columnNameX};
+		private ${tableCarray.dataType} ${tableCarray.columnNameX}beginDt;
+		private ${tableCarray.dataType} ${tableCarray.columnNameX}endDt;
+		private ${tableCarray.dataType} ${tableCarray.columnNameX};
 		<#else>
-		public ${tableCarray.dataType} ${tableCarray.columnNameX};
+		private ${tableCarray.dataType} ${tableCarray.columnNameX};
 	</#if>
 	
 	</#list>

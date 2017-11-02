@@ -32,7 +32,6 @@ import java.io.File;
  * @description  ${businessName}控制层
  * @author ${classAuthor}
  * @date   ${classTime}
- * @review ${reviewAuthor}/${reviewDate}
  */
 @Controller
 @RequestMapping("/${urlPackage}/${classNameX}")
@@ -54,15 +53,15 @@ public class ${classNameD}Controller extends BaseController {
 	public List<Map<String, Object>> get${tableCarray.columnNameD}(){
 		String tcd = "${classNameD}Controller.getCustomStore";
 		String opNm = "${businessName}-获取字段";
-		LOGGER.info(tcd, "", opNm + "--begin");
+		LOGGER.info(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--begin"));
 		List<Map<String, Object>> payTypeNames = null;
 		try {
             //payTypeNames = tSesAutoPayCheckService.get${tableCarray.columnNameD}();
-            LOGGER.info(tcd, "", opNm + "--获取参数成功！");
+            LOGGER.info(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--获取参数成功！"));
         } catch (Exception e) {
-            LOGGER.error(tcd, "", opNm + "--End,异常:", e);
+        	LOGGER.error(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--end,异常" + e.getMessage()));
         }
-        LOGGER.info(tcd, "", opNm + "--end");
+        LOGGER.info(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--end"));
         return payTypeNames;
 	}
 	</#if>
@@ -88,16 +87,16 @@ public class ${classNameD}Controller extends BaseController {
 		String tcd = "${classNameD}Controller.queryCondition";
 		String opNm = "${businessName}-查询";
 			try {
-				LOGGER.info(tcd, "", opNm + "--begin");
+				LOGGER.info(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--begin"));
 				Map<String, Object> map = setParams(start, limit);
 				map.put("${classNameX}", ${classNameX});
 				session.setAttribute("queryMecTOneAcRateParam", map);
 				List<Map<String, Object>> list = ${classNameX}Service.findByCondition(map);
 				int count = ${classNameX}Service.findByConditionCount(map);
-				LOGGER.info(tcd, "", opNm + "--end");
+				LOGGER.info(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--end"));
 				return setResult(list, count);
 			} catch (Exception e) {
-				LOGGER.error(tcd, "", opNm + "--End,异常:", e);
+				LOGGER.error(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--end,异常" + e.getMessage()));
 				return setFailure("查询失败");
 			}
 	}
@@ -118,14 +117,14 @@ public class ${classNameD}Controller extends BaseController {
 		String tcd = "${classNameD}Controller.queryCondition";
 		String opNm = "${businessName}-详细";
 			try {
-				LOGGER.info(tcd, "", opNm + "--begin");
+				LOGGER.info(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--begin"));
 				${classNameD} detail= ${classNameX}Service.getByKey(paramVo);
-				LOGGER.info(tcd, "", opNm + "--end");
+				LOGGER.info(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--end"));
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("data", detail);
 				return map;
 			} catch (Exception e) {
-				LOGGER.error(tcd, "", opNm + "--End,异常:", e);
+				LOGGER.error(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--end,异常" + e.getMessage()));
 				return super.setFailure("查询失败");
 			}
 	}
@@ -145,7 +144,7 @@ public class ${classNameD}Controller extends BaseController {
 		String tcd = "${classNameD}Controller.save";
 		String opNm = "${businessName}-保存";
 		try{
-			LOGGER.info(tcd, "", opNm + "--begin");
+			LOGGER.info(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--begin"));
 		<#list insertCarrays as tableCarray>
 				<#if tableCarray.columnNameD == "Uuid">
 				${classNameX}.set${tableCarray.columnNameD}(CreateUUID.GetRandomUUID());
@@ -173,11 +172,11 @@ public class ${classNameD}Controller extends BaseController {
 			if(num>0){
 				return super.setSuccess("保存成功!");
 			}
-			LOGGER.info(tcd, "", opNm + "--end");
+			LOGGER.info(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--end"));
 			return super.setFailure("保存成功0条!");
 			
 		}catch(Exception e){
-			LOGGER.error(tcd, "", opNm + "--End,异常:", e);
+			LOGGER.error(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--end,异常" + e.getMessage()));
 			return super.setFailure("保存失败!");
 		}
 	}
@@ -208,15 +207,15 @@ public class ${classNameD}Controller extends BaseController {
 				paramVo.set${tableCarray.columnNameD}(DateUtils.getCurTM());
 			</#if>
 		</#list>
-			LOGGER.info(tcd, "", opNm + "--begin");
+			LOGGER.info(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--begin"));
 			int num = ${classNameX}Service.update(paramVo);
 			if(num>0){
 				return super.setSuccess("更新成功!");
 			}
-			LOGGER.info(tcd, "", opNm + "--end");
+			LOGGER.info(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--end"));
 			return super.setFailure("更新成功0条!");
 		}catch(Exception e){
-			LOGGER.error(tcd, "", opNm + "--End,异常:", e);
+			LOGGER.error(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--end,异常" + e.getMessage()));
 			return super.setFailure("更新失败!");
 		}
 	}
@@ -243,16 +242,16 @@ public class ${classNameD}Controller extends BaseController {
 		Map<String, Object> paramsMap = new HashMap<String, Object>();
 		paramsMap.put("uuids", uuids.split(","));//付款单号数组
 		try{
-			LOGGER.info(tcd, "", opNm + "--begin");
+			LOGGER.info(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--begin"));
 			int num = ${classNameX}Service.delete(paramsMap);
 			if(num>0){
 				return super.setSuccess("删除成功!");
 			}
-			LOGGER.info(tcd, "", opNm + "--end");
+			LOGGER.info(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--end"));
 			return super.setFailure("删除成功0条!");
 			
 		}catch(Exception e){
-			LOGGER.error(tcd, "", opNm + "--End,异常:", e);
+			LOGGER.error(LogUtils.genLogs(LogType.BAP, tcd, "", opNm + "--end,异常" + e.getMessage()));
 			return super.setFailure("删除失败!");
 		}
 	}
