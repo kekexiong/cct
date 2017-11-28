@@ -672,10 +672,8 @@
 	
 		var importTotalPage;
 	
-		var tableData;
-	
 		function pageing(opp) {
-			$(window.top.document).scrollTop(0, 500);
+			$(window.document).scrollTop(0, 500);
 			limit = $("#limit  option:selected").text();
 	
 			if (opp == 'pro') {
@@ -724,7 +722,7 @@
 	
 				start = (page - 1) * limit;
 			}
-			$('table > tbody').empty();
+			$('#queryMecGrid > tbody').empty();
 			reloadGrid();
 		}
 		//全选列表数据
@@ -1037,7 +1035,7 @@
 		var queryInner_Path = baseURL + "/${urlPackage}/${classNameX}/query";
 		//实现查询按钮方法
 		function reloadGrid(){
-			$('table > tbody').empty();
+			$('#queryMecGrid > tbody').empty();
 	    	if(limit==0) {
 	    		//默认20条
 	    		limit=$("#limit").val();
