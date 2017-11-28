@@ -36,9 +36,9 @@ public class CodeController {
 	// 表名
 	private final String TABLE_NAME="T_BAP_STOCK_FUND_BASE_DATA";
 	// 工程路径 ios 电脑
-	private final String PROJECT_PATH="/Users/zhaoqiugen/git/cct"; 
+	private final String PROJECT_PATH="/Users/zhaoqiugen/git/cct";
 	// 工程路径 windows 电脑
-	//private final String PROJECT_PATH="D:/workspaceCCT/cct";
+	// private final String PROJECT_PATH="D:/workspaceCCT/cct";
 	// 作者
 	private final String CLASS_AUTHOR="T_BAP_STOCK_FUND_BASE_DATA";
 	// 业务名称
@@ -47,6 +47,8 @@ public class CodeController {
 	private final String CLASS_PACKAGE="com.lemon.ses";
 	// 代码目录
 	private final String DB_USER="bap";
+	// 编辑器类型 0:eclipse 1:idea(idea编辑器需要配置com.zqg.cct.template为资源文件)
+	private final String EDIT_TYPE="1";
 
 	/**
 	 * 首页
@@ -190,6 +192,7 @@ public class CodeController {
 		table.setBusinessName(serviceName);
 		table.setClassTime(StrUtil.stringDateTime(new Date()));
 		table.setReviewAuthor(classAuthor);
+		table.setEditType(EDIT_TYPE);
 		table.setReviewDate(StrUtil.stringDate(new Date()));
 		table.setIsUpdate(isUpdate);
 		table.setIsAdd(isAdd);
@@ -199,6 +202,6 @@ public class CodeController {
 		table.setIsImport(isImport);
 		table.setIsOperation(isOperation);
 		tableService.process(newList, table);
-		return JSON.toJSONString(tableService.getTableItem(null));
+		return JSON.toJSONString("代码生成成功！");
 	}
 }

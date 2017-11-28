@@ -25,8 +25,9 @@ public class FileWriterFactory {
 	public static final int MAPPER = 4;
 	public static final int MAPPER_XML = 5;
 	public static final int EXCELTEMPLATE_XML = 7;
-	private static String templateUrl = "com/zqg/cct/template/";
-	Configuration configuration = FileWriterFactory.getConfiguration(templateUrl);
+	private static String templateUrlEclipse = "com/zqg/cct/template/"; // eclipse使用路径
+	private static String templateUrlIdea = ""; // idea使用路径
+	//Configuration configuration = FileWriterFactory.getConfiguration(templateUrl);
 
 	@SuppressWarnings("deprecation")
 	public static Configuration getConfiguration(String url) {
@@ -64,7 +65,12 @@ public class FileWriterFactory {
 
 		Template temp = null;
 		try {
-			getConfiguration(templateUrl);
+		    if ("0".equals(table.getEditType())) {
+                getConfiguration(templateUrlEclipse);
+            }
+            if ("1".equals(table.getEditType())) {
+                getConfiguration(templateUrlIdea);
+            }
 			temp = cfg.getTemplate(templateName);
 		} catch (IOException e) {
 			e.printStackTrace();

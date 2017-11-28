@@ -26,6 +26,7 @@ public class TableDomain {
 	private String classTime;// 日期
 	private String reviewAuthor;// 作者
 	private String reviewDate;// 日期
+	private String editType;// 编辑器类型
 	private List<String> domainImportPackageList;
 	private String stringCarrayNames1;
 	private String stringCarrayNames2;
@@ -267,6 +268,14 @@ public class TableDomain {
 
 	public void setReviewDate(String reviewDate) {
 		this.reviewDate = reviewDate;
+	}
+
+	public String getEditType() {
+		return editType;
+	}
+
+	public void setEditType(String editType) {
+		this.editType = editType;
 	}
 
 	public String getIsAdd() {
